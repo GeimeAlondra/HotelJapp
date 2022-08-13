@@ -1,5 +1,5 @@
 package com.empresa.hoteljapp.app.models.dao;
 
-public interface ITipoDAO {
+public interface ITipoHabitacionDAO {
 
 }

@@ -1,5 +1,5 @@
 package com.empresa.hoteljapp.app.service.implement;
 
-public class ITipoServiceImpl {
+public class ITipoHabitacionServiceImpl {
 
 }
