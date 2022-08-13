@@ -1,5 +1,5 @@
 package com.empresa.hoteljapp.app.models.entities;
 
-public class Tipo {
+public class TipoHabitacion {
 
 }
