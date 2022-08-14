@@ -10,9 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="servicios", schema = "public", catalog = "db_hoteljapp")
+@Table(name="roles", schema = "public", catalog = "db_hoteljapp")
 
-public class Servicio implements Serializable{
+public class Rol implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	
@@ -21,11 +21,8 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="nombre", nullable=false, length=75)
+	@Column(name="nombre", nullable=false, length=25)
 	private String nombre;
-	
-	@Column(name="precio", nullable=false, precision = 2)
-	private Double precio;
 
 	//Getters and setters
 	public Long getId() {
@@ -40,12 +37,5 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Double getPrecio() {
-		return precio;
-	}
-	public void setPrecio(Double precio) {
-		this.precio = precio;
 	}
 }
