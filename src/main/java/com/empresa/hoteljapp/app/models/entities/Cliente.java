@@ -20,8 +20,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
-//Prueba de rama
 @Entity
 @Table(name="clientes", schema = "public", catalog = "db_hoteljapp")
 
