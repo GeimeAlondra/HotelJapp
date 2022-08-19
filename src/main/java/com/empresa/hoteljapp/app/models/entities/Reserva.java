@@ -123,4 +123,21 @@ private static final long serialVersionUID = 1L;
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public List<DetalleReserva> getDetalleReserva() {
+		return detalleReserva;
+	}
+
+	public void setDetalleReserva(List<DetalleReserva> detalleReserva) {
+		this.detalleReserva = detalleReserva;
+	}
+
+	public List<DetalleServicio> getDetalleServicio() {
+		return detalleServicio;
+	}
+
+	public void setDetalleServicio(List<DetalleServicio> detalleServicio) {
+		this.detalleServicio = detalleServicio;
+	}
+	
 }
