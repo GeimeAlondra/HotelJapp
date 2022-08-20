@@ -88,6 +88,7 @@ public class PisoController {
 		}
 		try {
 			pisoActual.setNombre(piso.getNombre());
+			pisoActual.setEstado(piso.getEstado());
 			pisoUpdated = pisoService.save(pisoActual);
 		}catch(DataAccessException e) {
 			response.put("message", "Error al actualizar el piso");
