@@ -24,6 +24,9 @@ public class Piso implements Serializable{
 	@Column(name="nombre", nullable=false, length=20)
 	private String nombre;
 
+	@Column(name = "estado", nullable = false, length = 1)
+	private String estado;
+
 	//Getters and setters
 	public Long getId() {
 		return id;
@@ -34,6 +37,12 @@ public class Piso implements Serializable{
 
 	public String getNombre() {
 		return nombre;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
