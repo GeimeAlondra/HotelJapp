@@ -1,5 +1,10 @@
 package com.empresa.hoteljapp.app.models.dao;
 
-public interface IDetalleServicioDAO {
+import org.springframework.data.repository.CrudRepository;
+
+import com.empresa.hoteljapp.app.models.entities.DetalleServicio;
+import com.empresa.hoteljapp.app.models.entities.Servicio;
+
+public interface IDetalleServicioDAO extends CrudRepository<DetalleServicio, Servicio>{
 
 }

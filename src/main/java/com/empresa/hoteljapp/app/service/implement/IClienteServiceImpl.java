@@ -5,11 +5,13 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.empresa.hoteljapp.app.models.dao.IClienteDAO;
 import com.empresa.hoteljapp.app.models.entities.Cliente;
 import com.empresa.hoteljapp.app.service.interfaces.IClienteService;
 
+@Service
 public class IClienteServiceImpl implements IClienteService{
 	
 	@Autowired
