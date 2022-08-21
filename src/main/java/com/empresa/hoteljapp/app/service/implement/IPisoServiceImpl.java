@@ -40,7 +40,7 @@ public class IPisoServiceImpl implements IPisoService{
 	}
 
 	@Override
-	public Piso changeEstate(Piso piso) {
+	public Piso changeEstado(Piso piso) {
 		return pisoDAO.save(piso);
 	}
 

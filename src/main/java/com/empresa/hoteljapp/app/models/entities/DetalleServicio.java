@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1L;
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
 	}
-
+	
 	public Servicio getServicio() {
 		return servicio;
 	}
