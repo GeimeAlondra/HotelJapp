@@ -9,7 +9,6 @@ import com.empresa.hoteljapp.app.models.dao.IPisoDAO;
 import com.empresa.hoteljapp.app.models.entities.Piso;
 import com.empresa.hoteljapp.app.service.interfaces.IPisoService;
 
-
 @Service
 public class IPisoServiceImpl implements IPisoService{
 	

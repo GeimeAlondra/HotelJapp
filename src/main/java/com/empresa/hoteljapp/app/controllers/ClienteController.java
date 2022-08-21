@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.empresa.hoteljapp.app.models.entities.Cliente;
 import com.empresa.hoteljapp.app.service.interfaces.IClienteService;
 
+
 @CrossOrigin(origins = "*.*")
 @RestController
 @RequestMapping("/api")
