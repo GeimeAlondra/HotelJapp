@@ -33,12 +33,15 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "precio", nullable = false, precision = 2)
 	private Double precio;
 	
+	@Column(name = "imagen", nullable = true)
+	private String imagen;
+	
 	@Column(name = "estado", nullable = false, length = 1)
 	private String estado;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-	@JoinColumn(name = "tipo_habitacion_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "tipoHabitacion_id", referencedColumnName = "id", nullable = false)
 	private TipoHabitacion tipoHabitacion;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -92,5 +95,12 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setPiso(Piso piso) {
 		this.piso = piso;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 }
