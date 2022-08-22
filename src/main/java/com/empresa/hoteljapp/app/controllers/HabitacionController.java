@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -97,7 +98,7 @@ public class HabitacionController {
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/productos/{id}")
+	@PutMapping("/habitaciones/{id}")
 	public ResponseEntity<?> update(@RequestPart Habitacion habitacion, @PathVariable Long id, @RequestPart(name = "imagen", required = false) MultipartFile imagen)throws IOException{
 		
 		String imageNewName = "";
@@ -137,7 +138,7 @@ public class HabitacionController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/productos/change-state")
+	@PutMapping("/habitaciones/change-state")
 	public ResponseEntity<?> changeState(@RequestBody Habitacion habitacion, @RequestParam(name = "estado") String estado){
 			
 		Map<String, Object> response = new HashMap<>();

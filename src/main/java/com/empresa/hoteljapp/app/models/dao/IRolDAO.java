@@ -8,6 +8,7 @@ import com.empresa.hoteljapp.app.models.entities.Rol;
 
 
 public interface IRolDAO extends CrudRepository<Rol,Long>{
+	
 	List<Rol> findByNombreIgnoreCase(String cadena);
 
 }
