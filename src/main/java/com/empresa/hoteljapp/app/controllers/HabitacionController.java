@@ -150,7 +150,7 @@ public class HabitacionController {
 				response.put("message", "Error al cambiar estado del producto");
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			response.put("message", "El estado del producto ha sido cambiado a"+estado.charAt(1));
+			response.put("message", "El estado del producto ha sido cambiado a"+estado.toString());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 }

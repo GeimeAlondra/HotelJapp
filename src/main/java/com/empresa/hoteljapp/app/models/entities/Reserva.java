@@ -64,7 +64,7 @@ private static final long serialVersionUID = 1L;
 	
 	@PrePersist
 	private void setEstado() {
-		this.estado = "D";
+		this.estado = "R";
 	}
 
 	//Getters and setters
