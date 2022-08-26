@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +56,7 @@ public class ClienteController {
 	}
 
 	@PostMapping("/clientes")
-	public ResponseEntity<?> save(@RequestBody Cliente cliente, BindingResult result){
+	public ResponseEntity<?> save(@Validated @RequestBody Cliente cliente, BindingResult result){
 		//Cliente clienteNew = null;
 		Map<String, Object> response = new HashMap<>();
 		if(result.hasErrors()) {
