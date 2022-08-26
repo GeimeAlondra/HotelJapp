@@ -31,7 +31,6 @@ private static final long serialVersionUID = 1L;
 	private Reserva reserva;
 	
 	@ManyToOne
-	@JsonBackReference
 	@JoinColumn(name = "habitacion_id", referencedColumnName = "id", nullable = false)
 	private Habitacion habitacion;
 
