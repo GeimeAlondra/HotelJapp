@@ -9,13 +9,13 @@ import com.empresa.hoteljapp.app.models.entities.Reserva;
 
 public interface IReservaDAO extends CrudRepository<Reserva, Long>{
 	
-	@Query("FROM Reserva r WHERE r.estado = 'R' ORDER BY r.fecha_ingreso DESC")
+	@Query("FROM Reserva r WHERE r.estado = 'R' ORDER BY r.fecha_registro DESC")
 	List<Reserva> findAllRecibidas();
 	
-	@Query("FROM Reserva r WHERE r.estado = 'A' ORDER BY r.fecha_ingreso DESC")
+	@Query("FROM Reserva r WHERE r.estado = 'A' ORDER BY r.fecha_registro DESC")
 	List<Reserva> findAllAceptadas();
 	
-	@Query("FROM Reserva r WHERE r.estado = 'C' ORDER BY r.fecha_ingreso DESC")
+	@Query("FROM Reserva r WHERE r.estado = 'C' ORDER BY r.fecha_registro DESC")
 	List<Reserva> findAllCanceladas();
 	
 	/*

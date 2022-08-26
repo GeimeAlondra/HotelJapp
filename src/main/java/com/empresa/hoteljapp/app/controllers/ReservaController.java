@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,8 +32,8 @@ public class ReservaController {
 	private IReservaService reservaService;
 	
 	@GetMapping("/reservas")
-	public List<Reserva> getAllRecibidas(@RequestParam(name = "fecha_ingreso", required = false) Date fecha_ingreso){
-		return reservaService.findAll(fecha_ingreso);
+	public List<Reserva> getAllRecibidas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){
+		return reservaService.findAll(fecha_registro);
 	}
 	
 	@GetMapping("/reservas/{id}")
@@ -64,6 +65,25 @@ public class ReservaController {
 		response.put("message", "Reserva registrada con exito...");
 		response.put("reserva",reserva);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/reservas/change-state")
+	public ResponseEntity<?> changeState(@RequestBody Reserva reserva, @RequestParam(name = "estado") String estado){
+			
+		Map<String, Object> response = new HashMap<>();
+			try {
+				reserva.setEstado(estado);
+				if(estado.equals("R")) {
+					Date fechaRegistro = new Date();
+					reserva.setFecha_registro(fechaRegistro);
+				}
+				reservaService.saveOrUpdate(reserva);
+			}catch(DataAccessException e) {
+				response.put("message", "Error al cambiar estado de la reserva");
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			response.put("message", "El estado de la reserva ha sido cambiado a" +estado.toString());
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
 }

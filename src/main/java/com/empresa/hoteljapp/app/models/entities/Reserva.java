@@ -31,8 +31,8 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="nombre", nullable=false, length=20)
-	private String nombre;
+	@Column(name = "fecha_registro", nullable = false)
+	private Date fecha_registro;
 	
 	@Column(name = "fecha_ingreso", nullable = false)
 	private Date fecha_ingreso;
@@ -74,12 +74,13 @@ private static final long serialVersionUID = 1L;
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 
-	public String getNombre() {
-		return nombre;
+	public Date getFecha_registro() {
+		return fecha_registro;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setFecha_registro(Date fecha_registro) {
+		this.fecha_registro = fecha_registro;
 	}
 
 	public Date getFecha_ingreso() {

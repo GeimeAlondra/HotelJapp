@@ -26,6 +26,7 @@ private static final long serialVersionUID = 1L;
 	private Long id;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "reserva_id", referencedColumnName = "id", nullable = false)
 	private Reserva reserva;
 	
