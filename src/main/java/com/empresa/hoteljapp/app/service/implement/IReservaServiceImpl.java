@@ -30,45 +30,57 @@ public class IReservaServiceImpl implements IReservaService{
 	private IDetalleServicioDAO detalleServicioDAO;
 
 	@Override
-	public List<Reserva> findAll(Date fecha) {
+	public List<Reserva> findAll(Date fecha_registro) {
 		return reservaDAO.findAllRecibidas();
 	}
 
 	@Override
-	public List<Reserva> findAllAceptadas(Date fecha) {
+	public List<Reserva> findAllAceptadas(Date fecha_registro) {
 		return null;
 	}
 
 	@Override
-	public List<Reserva> findAllCanceladas(Date fecha) {
+	public List<Reserva> findAllCanceladas(Date fecha_registro) {
 		return null;
 	}
 
 	@Transactional
 	@Override
 	public Reserva saveOrUpdate(Reserva reserva) {
+		
 		Reserva reservaPersisted = null;
+		
 		try {
 			if(reserva.getId() == null) {
+				
 				List<DetalleReserva> detalleReserva = reserva.getDetalleReserva();
 				reserva.setDetalleReserva(new ArrayList<DetalleReserva>());
+				
 				List<DetalleServicio> detalleServicio = reserva.getDetalleServicio();
 				reserva.setDetalleServicio(new ArrayList<DetalleServicio>());
-				
+			
 				reservaPersisted = reservaDAO.save(reserva);
 				
-				//Recorriendo la coleccion de detalle
+				//Recorriendo la coleccion de reserva
 				for(DetalleReserva detalle: detalleReserva) {
-					detalle.setReserva(reservaPersisted);
-				}for(DetalleServicio detalle: detalleServicio) {
 					detalle.setReserva(reservaPersisted);
 				}
 				//Guardando el detalle de reserva
 				detalleReservaDAO.saveAll(detalleReserva);
-				detalleServicioDAO.saveAll(detalleServicio);
 				
+				//Recorriendo la coleccion de servicio
+				for(DetalleServicio detalle: detalleServicio) {
+					detalle.setReserva(reservaPersisted);
+				}
+				//Guardando el detalle de servicio
+				detalleServicioDAO.saveAll(detalleServicio);
+			
 			}else {
+				
 				for(DetalleReserva detalle: reserva.getDetalleReserva()) {
+					detalle.setReserva(reserva);
+				}
+				for(DetalleServicio detalle: reserva.getDetalleServicio()) {
 					detalle.setReserva(reserva);
 				}
 				reservaDAO.save(reserva);

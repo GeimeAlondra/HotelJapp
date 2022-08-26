@@ -7,11 +7,11 @@ import com.empresa.hoteljapp.app.models.entities.Reserva;
 
 public interface IReservaService {
 	
-	public List<Reserva> findAll(Date fecha);
+	public List<Reserva> findAll(Date fecha_registro);
 	
-	public List<Reserva> findAllAceptadas(Date fecha);
+	public List<Reserva> findAllAceptadas(Date fecha_registro);
 	
-	public List<Reserva> findAllCanceladas(Date fecha);
+	public List<Reserva> findAllCanceladas(Date fecha_registro);
 	
 	public Reserva saveOrUpdate(Reserva reserva);
 	
