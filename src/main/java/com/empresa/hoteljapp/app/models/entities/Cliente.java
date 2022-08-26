@@ -36,7 +36,7 @@ private static final long serialVersionUID = 1L;
 	private String nombre;
 	
 	@Column(name = "fecha_nacimiento", nullable = false)
-	private Date fecha_nacimiento;
+	private Date fechaNacimiento;
 	
 	@Column(name="direccion", nullable=false, length=200)
 	private String direccion;
@@ -69,13 +69,12 @@ private static final long serialVersionUID = 1L;
 		this.nombre = nombre;
 	}
 
-	public Date getFecha_nacimiento() {
-		return fecha_nacimiento;
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
 	}
-	public void setFecha_nacimiento(Date fecha_nacimiento) {
-		this.fecha_nacimiento = fecha_nacimiento;
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
-
 	public String getDireccion() {
 		return direccion;
 	}

@@ -93,7 +93,7 @@ public class ClienteController {
 		}
 		try {
 			clienteActual.setNombre(cliente.getNombre());
-			clienteActual.setFecha_nacimiento(cliente.getFecha_nacimiento());
+			clienteActual.setFechaNacimiento(cliente.getFechaNacimiento());
 			clienteActual.setTelefono(cliente.getTelefono());
 			clienteActual.setDireccion(cliente.getDireccion());
 			clienteUpdated = clienteService.save(clienteActual);
