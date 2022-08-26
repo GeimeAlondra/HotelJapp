@@ -17,9 +17,6 @@ import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-
 @Entity
 @Table(name="clientes", schema = "public", catalog = "db_hoteljapp")
 
@@ -46,7 +43,7 @@ private static final long serialVersionUID = 1L;
 	
 	//Relacion de 1:N con Reserva
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.REFRESH, orphanRemoval = true)
-	@JsonBackReference
+	//@JsonBackReference
 	private List<Reserva> reservas = new ArrayList<>();
 	
 	/*@OneToOne(fetch = FetchType.LAZY)
