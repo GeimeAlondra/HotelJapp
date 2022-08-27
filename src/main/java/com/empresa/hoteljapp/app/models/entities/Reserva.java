@@ -75,7 +75,6 @@ private static final long serialVersionUID = 1L;
 		this.id = id;
 	}
 	
-
 	public Date getFecha_registro() {
 		return fecha_registro;
 	}
