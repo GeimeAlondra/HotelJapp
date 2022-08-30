@@ -24,40 +24,37 @@ export class RolesComponent implements OnInit {
     );
   }
 
-delete(rol: Rol){
-
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger'
-    },
-    buttonsStyling: false
-  })
-  
-  swalWithBootstrapButtons.fire({
-    title: '¿Esta seguro/a?',
-    text: `¿Seguro que desea eliminar el rol ${rol.nombre}`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Si, eliminar',
-    cancelButtonText: 'No, cancelar',
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.rolService.delete(rol.id).subscribe(
-        response => {
+  delete(rol: Rol){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Eliminar rol',
+      text: `El registro ${rol.nombre} se eliminará de forma permanente, ¿Está seguro/a de realizar la acción?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.rolService.delete(rol.id).subscribe(
+          response => {
           this.roles = this.roles.filter(rol => rol !== rol);
-
           swalWithBootstrapButtons.fire(
-            'Categoria eliminada!',
-            //response.message,
+            '¡Rol eliminado con exito!',
+             response.message,
             'success'
           )
-        }
-      )
-    } 
-  })
- 
-}
+          }
+        )
+      }
+      })
+    }
 
 }

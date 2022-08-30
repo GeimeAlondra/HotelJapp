@@ -20,9 +20,9 @@ export class RolService {
   }
 
   //Crear rol
-  create(rol: Rol): Observable<Rol>{
+  create(rol: Rol): Observable<any>{
     return this.http.post(this.urlEndPoint, rol, {headers: this.httpHeaders}).pipe(
-      map((response: any) => response.rol as Rol),
+      //map((response: any) => response.rol as Rol),
       catchError(e => {
         if(e.status == 400){
           return throwError(() => e)
@@ -63,10 +63,13 @@ export class RolService {
   //Eliminar rol
   delete(id:number): Observable<Rol>{
     return this.http.delete<Rol>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
-      catchError(e => {
+      catchError(e =>{
         console.log(e.message);
         return throwError(() => e)
       })
     );
   }
+
+
+  
 }

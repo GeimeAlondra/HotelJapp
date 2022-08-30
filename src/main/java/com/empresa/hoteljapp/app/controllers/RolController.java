@@ -22,7 +22,7 @@ import com.empresa.hoteljapp.app.models.entities.Rol;
 import com.empresa.hoteljapp.app.service.interfaces.IRolService;
 
 
-@CrossOrigin(origins = "*.*")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 public class RolController {
@@ -70,6 +70,7 @@ public class RolController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		response.put("message", "Rol registrado con exito ");
+		response.put("rol", rol);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
 	@PutMapping("/roles/{id}")
@@ -102,7 +103,8 @@ public class RolController {
 		}catch(DataAccessException e) {
 			response.put("message","Error al eliminar rol");
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
-		}response.put("message","El rol ha sido eliminado..");
+		}response.put("message","El rol ha sido eliminado...");
+		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
 	}
 }
