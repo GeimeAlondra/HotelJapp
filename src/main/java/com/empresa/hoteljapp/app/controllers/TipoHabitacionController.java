@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.empresa.hoteljapp.app.models.entities.TipoHabitacion;
 import com.empresa.hoteljapp.app.service.interfaces.ITipoHabitacionService;
 
-@CrossOrigin(origins = "*.*")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 public class TipoHabitacionController {
