@@ -11,22 +11,26 @@ import { FormsModule } from '@angular/forms';
 import { Routes } from '@angular/router';
 
 import { RolesComponent } from './roles/roles.component';
-/*
-import { ServiciosComponent } from './servicios/servicios.component';
 import { PisosComponent } from './pisos/pisos.component';
+import { ServiciosComponent } from './servicios/servicios.component';
+import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
+
+/*
 import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ReservasComponent } from './reservas/reservas.component';
-import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
 */
 
 @NgModule({
   declarations: [
     AppComponent,
-    RolesComponent,
     HeaderComponent,
     HomeComponent,
-    FormComponent
+    FormComponent,
+    RolesComponent,
+    PisosComponent,
+    ServiciosComponent,
+    TipoHabitacionesComponent
   ],
   imports: [
     BrowserModule,
