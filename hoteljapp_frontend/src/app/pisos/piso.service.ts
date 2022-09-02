@@ -70,7 +70,7 @@ export class PisoService {
   }
 
   
-changeState(estado:string, piso:Piso): Observable<any>{
+changeState(estado: string, piso:Piso): Observable<any>{
   return this.http.put<any>(`${this.urlEndPoint}/change-state?estado=${estado}`,piso,{headers: this.headers2}).pipe(
     catchError(e => {
       console.log(e.message);
