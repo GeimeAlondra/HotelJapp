@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Rol } from './rol';
 import { RolService } from './rol.service';
@@ -13,7 +14,7 @@ export class RolesComponent implements OnInit {
 
   roles: Rol[];
 
-  constructor(private rolService: RolService) { }
+  constructor(private rolService: RolService, private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
 

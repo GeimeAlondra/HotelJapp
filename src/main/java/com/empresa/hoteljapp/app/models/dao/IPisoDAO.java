@@ -13,7 +13,7 @@ public interface IPisoDAO extends CrudRepository<Piso,Long>{
 	@Query("FROM Piso p WHERE p.nombre=:#{#piso.nombre}")
 	List<Piso> findByNombreDescripcion(Piso piso);
 	
-	@Query("FROM Piso p WHERE p.estado= 'D' ORDER BY p.id DESC")
+	@Query("FROM Piso p WHERE p.estado= 'A' ORDER BY p.id DESC")
 	List<Piso> findAll();
 	
 	@Query("FROM Piso p WHERE p.estado= 'I' ORDER BY p.id DESC")

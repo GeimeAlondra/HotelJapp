@@ -5,11 +5,11 @@ import { Piso } from './piso';
 import { PisoService } from './piso.service';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  selector: 'app-form-piso',
+  templateUrl: './form-piso.component.html',
+  styleUrls: ['./form-piso.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormPisoComponent implements OnInit {
 
   public piso: Piso = new Piso();
   public title: string = "Registrar piso";
