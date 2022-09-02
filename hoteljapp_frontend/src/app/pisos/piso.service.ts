@@ -12,11 +12,20 @@ export class PisoService {
 
   private urlEndPoint: string = 'http://localhost:8080/api/pisos';
   private httpHeaders: HttpHeaders = new HttpHeaders({'content-type':'application/json'});
+  private headers2: HttpHeaders = new HttpHeaders({'Content-type':'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getAll(): Observable<Piso[]>{
-      return this.http.get<Piso[]>(this.urlEndPoint);
+  getAllActivos():Observable<Piso[]>{
+    return this.http.get<Piso[]>(this.urlEndPoint+'/activos');
+  }
+
+  getAllInactivos():Observable<Piso[]>{
+    return this.http.get<Piso[]>(this.urlEndPoint+'/inactivos');
+  }
+
+  getAll():Observable<Piso[]>{
+    return this.http.get<Piso[]>(this.urlEndPoint+'/activos');
   }
 
   //Crear piso
@@ -60,13 +69,13 @@ export class PisoService {
     )
   }
 
-  //Eliminar piso
-  delete(id:number): Observable<Piso>{
-    return this.http.delete<Piso>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
-      catchError(e =>{
-        console.log(e.message);
-        return throwError(() => e)
-      })
-    );
-  }
+  
+changeState(estado:string, piso:Piso): Observable<any>{
+  return this.http.put<any>(`${this.urlEndPoint}/change-state?estado=${estado}`,piso,{headers: this.headers2}).pipe(
+    catchError(e => {
+      console.log(e.message);
+      return throwError(() => e)
+    })
+  );
+}
 }

@@ -30,7 +30,7 @@ public class Piso implements Serializable{
 	
 	@PrePersist
 	private void setEstado() {
-		this.estado = "D";
+		this.estado = "A";
 	}
 
 	//Getters and setters

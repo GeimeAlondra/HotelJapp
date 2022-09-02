@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Piso } from './piso';
 import { PisoService } from './piso.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-pisos',
@@ -10,50 +13,77 @@ import { PisoService } from './piso.service';
 })
 export class PisosComponent implements OnInit {
 
+  public piso: Piso = new Piso();
   pisos: Piso[];
+  checked: boolean= false;
+  estado: string;
 
-  constructor(private pisoService: PisoService) { }
+  constructor(private pisoService: PisoService, private router: Router, private activeRoute: ActivatedRoute,
+    private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
+    this.getActivos();
+    this.getPisos();
+   
+  }
 
-    this.pisoService.getAll().subscribe(
-      response => {
+  getActivos(): void{
+    this.pisoService.getAllActivos().subscribe(
+      response =>{
+        console.log(response);
         this.pisos = response as Piso[];
       }
     );
   }
 
-  delete(piso: Piso){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Eliminar rol',
-      text: `El registro ${piso.nombre} se eliminará de forma permanente, ¿Está seguro/a de realizar la acción?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar!',
-      cancelButtonText: 'No, cancelar!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.pisoService.delete(piso.id).subscribe(
-          response => {
-          this.pisos = this.pisos.filter(piso => piso !== piso);
-          swalWithBootstrapButtons.fire(
-            '¡Piso eliminado con exito!',
-             response.message,
-            'success'
-          )
-          }
-        )
+  getInactivos(): void{
+    this.pisoService.getAllInactivos().subscribe(
+      response =>{
+        console.log(response);
+        this.pisos = response as Piso[];
       }
-      })
-    }
+    );
+  }
+
+  getPisos(): void{
+    this.pisoService.getAll().subscribe(
+      response =>{
+        console.log(response);
+        this.pisos = response as Piso[];
+      }
+    );
+  }
+
+  deleteProduct(estado: string, piso: Piso) {
+    this.confirmationService.confirm({
+        message: 'Esta seguro/a de desactivar ' + piso.nombre + '?',
+        header: 'Confirm',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.pisoService.changeState(estado,piso).subscribe({
+            next: (response) =>{
+              this.pisos = this.pisos.filter(val => val.id !== piso.id);
+              this.piso = null;
+              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Producto cambiado a estado I', life: 3000});
+            },
+            error: (err) =>{
+              this.messageService.add({severity:'error', summary: 'Resultado', detail: `${err.message}}`});
+              console.log('code status: ' + err.status);
+              console.log(err.message);
+            }
+          })
+           
+        }
+    });
+
+    checkChanged(event){
+      if(event)
+      this.getInactivos();
+      else
+      this.getActivos();
+     }
 
 }
+}
+
+

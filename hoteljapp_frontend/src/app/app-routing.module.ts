@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { FormComponent } from './roles/form.component';
 import { RolesComponent } from './roles/roles.component';
-//import { FormComponent } from './pisos/form.component';
+import { FormPisoComponent } from './pisos/form-piso.component';
 import { PisosComponent } from './pisos/pisos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
@@ -17,8 +17,8 @@ const routes: Routes = [
   {path: 'roles/form/:id',component: FormComponent},
   
   {path: 'pisos',component: PisosComponent},
-  {path: 'pisos/form',component: FormComponent}, 
-  {path: 'pisos/form/:id',component: FormComponent},
+  {path: 'pisos/form-piso',component: FormPisoComponent}, 
+  {path: 'pisos/form-piso/:id',component: FormPisoComponent},
 
   {path: 'servicios',component: ServiciosComponent},
   {path: 'servicios/form',component: FormComponent}, 
