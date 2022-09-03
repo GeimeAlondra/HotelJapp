@@ -73,6 +73,7 @@ public class PisoController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		response.put("message", "Piso registrado con exito ");
+		response.put("piso", piso);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
 	

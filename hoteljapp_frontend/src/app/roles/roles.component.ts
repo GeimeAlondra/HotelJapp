@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+//import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Rol } from './rol';
 import { RolService } from './rol.service';
@@ -14,7 +14,7 @@ export class RolesComponent implements OnInit {
 
   roles: Rol[];
 
-  constructor(private rolService: RolService, private router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(private rolService: RolService) { }
 
   ngOnInit(): void {
 
@@ -46,7 +46,7 @@ export class RolesComponent implements OnInit {
       if (result.isConfirmed) {
         this.rolService.delete(rol.id).subscribe(
           response => {
-          this.roles = this.roles.filter(rol => rol !== rol);
+          this.roles = this.roles.filter(role => role !== rol);
           swalWithBootstrapButtons.fire(
             '¡Rol eliminado con exito!',
              response.message,

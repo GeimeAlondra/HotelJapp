@@ -1,10 +1,13 @@
+
 <div class="card text-dark bg-light mb-3">
     <div class="card-header">Pisos</div>
     <div class="card-body">
       <div class="card-title"> Listado de pisos</div>
       <div class="p-field-checkbox">
+        <!----
         <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" (ngModelChange)="checkChanged($event)"></p-checkbox>
         <label for="binary">&nbsp;&nbsp;Mostrar Pisos Inactivos</label>
+        !-->
       </div>
   
       <div class="my-2 text-left">
@@ -30,7 +33,7 @@
                 <th class="text-center">
                   <button type="button" name="editar" [routerLink]="['/pisos/form-piso', piso.id]" class="btn btn-warning">Editar</button>
                   &nbsp;&nbsp;
-                    <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-warning" (click)="deleteProduct(estado= 'I', piso)" *ngIf="piso.estado=='A'"></button>
+                  <button pButton pRipple class="p-button p-button-danger" (click)="deletePiso(estado='I', piso)" *ngIf="piso.estado=='A'">Desactivar</button>
                 </th>
             </tr>
         </tbody>
