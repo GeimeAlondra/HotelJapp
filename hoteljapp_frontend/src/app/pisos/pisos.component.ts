@@ -27,6 +27,7 @@ export class PisosComponent implements OnInit {
 
   errors: string[];
 
+
   constructor(private pisoService: PisoService, private router: Router, private activeRoute: ActivatedRoute,
     private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
@@ -50,7 +51,7 @@ export class PisosComponent implements OnInit {
     })
     
     swalWithBootstrapButtons.fire({
-      title: 'Eliminar rol',
+      title: 'Eliminar piso',
       text: `El registro ${piso.nombre} se eliminará de forma permanente, ¿Está seguro/a de realizar la acción?`,
       icon: 'warning',
       showCancelButton: true,
@@ -61,9 +62,9 @@ export class PisosComponent implements OnInit {
       if (result.isConfirmed) {
         this.pisoService.delete(piso.id).subscribe(
           response => {
-          this.pisos = this.pisos.filter(piso => piso !== piso);
+          this.pisos = this.pisos.filter(p => p !== piso);
           swalWithBootstrapButtons.fire(
-            '¡Rol eliminado con exito!',
+            '¡Piso eliminado con exito!',
              response.message,
             'success'
           )

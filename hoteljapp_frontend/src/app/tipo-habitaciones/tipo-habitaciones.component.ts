@@ -44,9 +44,9 @@ export class TipoHabitacionesComponent implements OnInit {
       if (result.isConfirmed) {
         this.tipoHabitacionService.delete(tipoHabitacion.id).subscribe(
           response => {
-          this.tipoHabitaciones = this.tipoHabitaciones.filter(servicio => servicio !== servicio);
+          this.tipoHabitaciones = this.tipoHabitaciones.filter(tph => tph !== tipoHabitacion);
           swalWithBootstrapButtons.fire(
-            '¡Servicio eliminado con exito!',
+            '¡Tipo de habitacion eliminado con exito!',
              response.message,
             'success'
           )

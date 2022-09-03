@@ -34,7 +34,7 @@ export class ServiciosComponent implements OnInit {
     })
     
     swalWithBootstrapButtons.fire({
-      title: 'Eliminar rol',
+      title: 'Eliminar servicio',
       text: `El registro ${servicio.nombre} se eliminará de forma permanente, ¿Está seguro/a de realizar la acción?`,
       icon: 'warning',
       showCancelButton: true,
@@ -45,7 +45,7 @@ export class ServiciosComponent implements OnInit {
       if (result.isConfirmed) {
         this.servicioService.delete(servicio.id).subscribe(
           response => {
-          this.servicios = this.servicios.filter(servicio => servicio !== servicio);
+          this.servicios = this.servicios.filter(serv => serv !== servicio);
           swalWithBootstrapButtons.fire(
             '¡Servicio eliminado con exito!',
              response.message,
