@@ -47,7 +47,7 @@ export class ServiciosComponent implements OnInit {
           response => {
           this.servicios = this.servicios.filter(servicio => servicio !== servicio);
           swalWithBootstrapButtons.fire(
-            '¡Rol eliminado con exito!',
+            '¡Servicio eliminado con exito!',
              response.message,
             'success'
           )

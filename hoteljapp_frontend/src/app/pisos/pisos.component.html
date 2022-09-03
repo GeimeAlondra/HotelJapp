@@ -3,17 +3,11 @@
     <div class="card-header">Pisos</div>
     <div class="card-body">
       <div class="card-title"> Listado de pisos</div>
-      <div class="p-field-checkbox">
-        <!----
-        <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" (ngModelChange)="checkChanged($event)"></p-checkbox>
-        <label for="binary">&nbsp;&nbsp;Mostrar Pisos Inactivos</label>
-        !-->
-      </div>
   
       <div class="my-2 text-left">
         <button type="button" class="btn btn-primary" [routerLink]="['/pisos/form-piso']">Agregar</button>
       </div>
-      <div *ngIf="pisos?.length ==0" class="alert alert-info">
+      <div *ngIf="pisos?.length == 0" class="alert alert-info">
         No hay pisos registrados
       </div>
   
@@ -31,9 +25,9 @@
                 <td>{{piso.id}}</td>
                 <td>{{piso.nombre}}</td>
                 <th class="text-center">
-                  <button type="button" name="editar" [routerLink]="['/pisos/form-piso', piso.id]" class="btn btn-warning">Editar</button>
+                  <button type="button" name="editar" [routerLink]="['/pisos/form-piso', piso.id]" class="btn btn-success">Editar</button>
                   &nbsp;&nbsp;
-                  <button pButton pRipple class="p-button p-button-danger" (click)="deletePiso(estado='I', piso)" *ngIf="piso.estado=='A'">Desactivar</button>
+                  <button type="button" name="eliminar" (click)="delete(piso)" class="btn btn-warning">Eliminar</button>
                 </th>
             </tr>
         </tbody>

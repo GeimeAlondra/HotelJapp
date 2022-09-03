@@ -19,13 +19,13 @@ public class IServicioServiceImpl implements IServicioService{
 
 
 	@Override
-	public List<Servicio> findAll() {
-		return (List<Servicio>)servicioDAO.findAll();
-	}
-
-	@Override
 	public Servicio findById(Long id) {
 		return servicioDAO.findById(id).orElse(null);
+	}
+	
+	@Override
+	public List<Servicio> findAll() {
+		return (List<Servicio>)servicioDAO.findAll();
 	}
 
 	@Override
@@ -39,8 +39,6 @@ public class IServicioServiceImpl implements IServicioService{
 	@Transactional
 	public void delete(Long id) {
 		servicioDAO.deleteById(id);
-
-		
 	}
 
 	@Override
