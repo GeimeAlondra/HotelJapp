@@ -4,7 +4,7 @@
       <div class="card-title"> Listado de servicios</div>
   
       <div class="my-2 text-left">
-        <button type="button" class="btn btn-primary" [routerLink]="['/servicios/form']">Agregar</button>
+        <button type="button" class="btn btn-primary" [routerLink]="['/servicios/form-servicio']">Agregar</button>
       </div>
       <div *ngIf="servicios?.length ==0" class="alert alert-info">
         No hay servicios registrados
@@ -26,7 +26,7 @@
                 <td>{{servicio.nombre}}</td>
                 <td>{{servicio.precio | currency: 'USD'}}</td>
                 <th class="text-center">
-                  <button type="button" name="editar" [routerLink]="['/servicios/form', servicio.id]" class="btn btn-warning">Editar</button>
+                  <button type="button" name="editar" [routerLink]="['/servicios/form-servicio', servicio.id]" class="btn btn-warning">Editar</button>
                   &nbsp;&nbsp;
                   <button type="button" name="eliminar" (click)="delete(servicio)" class="btn btn-primary">Eliminar</button>
                 </th>

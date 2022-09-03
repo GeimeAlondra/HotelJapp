@@ -25,8 +25,10 @@ import com.empresa.hoteljapp.app.service.interfaces.IServicioService;
 @RestController
 @RequestMapping("/api")
 public class ServicioController {
+	
 	@Autowired
 	private IServicioService servicioService;
+	
 	@GetMapping("/servicios")
 	public List<Servicio> getAll(){
 		return servicioService.findAll();
@@ -71,6 +73,7 @@ public class ServicioController {
 		response.put("message", "Servicio registrado con exito ");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
+	
 	@PutMapping("/servicios/{id}")
 	public ResponseEntity<?> update(@RequestBody Servicio servicio, @PathVariable Long id){
 		

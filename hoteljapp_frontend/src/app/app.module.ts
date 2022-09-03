@@ -15,6 +15,8 @@ import { PisosComponent } from './pisos/pisos.component';
 import { FormPisoComponent } from './pisos/form-piso.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
+import { FormServicioComponent } from './servicios/form-servicio.component';
+import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones
     PisosComponent,
     FormPisoComponent,
     ServiciosComponent,
-    TipoHabitacionesComponent
+    TipoHabitacionesComponent,
+    FormServicioComponent,
+    FormTipoHabitacionComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,8 @@ package com.empresa.hoteljapp.app.service.implement;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,30 +24,26 @@ public class IPisoServiceImpl implements IPisoService{
 	}
 
 	@Override
+	@Transactional
 	public Piso save(Piso piso) {
 		return pisoDAO.save(piso);
 	}
 
 	@Override
-	public List<Piso> findAllActivos() {
-		return pisoDAO.findAll();
-
+	public List<Piso> findAll() {
+		return (List<Piso>)pisoDAO.findAll();
 	}
 
 	@Override
-	public List<Piso> findAllInactivos() {
-		return pisoDAO.findAllInactivos();
-
+	@Transactional
+	public void delete(Long id) {
+		pisoDAO.deleteById(id);
+		
 	}
 
 	@Override
-	public Piso changeEstado(Piso piso) {
-		return pisoDAO.save(piso);
-	}
-
-	@Override
-	public List<Piso> isExist(Piso piso) {
-		return pisoDAO.findByNombreDescripcion(piso);
+	public List<Piso> fyndByNombre(String nombre) {
+		return pisoDAO.findByNombreIgnoreCase(nombre);
 	}
 
 }

@@ -9,13 +9,13 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.hoteljapp.app.models.entities.Piso;
@@ -29,13 +29,9 @@ public class PisoController {
 	@Autowired
 	private IPisoService pisoService;
 	
-	@GetMapping("/pisos/activos")
+	@GetMapping("/pisos")
 	public List<Piso> getAllActivos(){
-		return pisoService.findAllActivos();
-	}
-	@GetMapping("/pisos/inactivos")
-	public List<Piso> getAllInactivos(){
-		return pisoService.findAllInactivos();
+		return pisoService.findAll();
 	}
 	
 	@GetMapping("/pisos/{id}")
@@ -60,7 +56,7 @@ public class PisoController {
 	public ResponseEntity<?> save(@RequestBody Piso piso){
 		Map<String, Object> response = new HashMap<>();
 		try {
-			if(pisoService.isExist(piso).size() > 0) {
+			if(pisoService.fyndByNombre(piso.getNombre()).size() > 0) {
 				response.put("message", "Ya existe un registro con este nombre en la base de datos");
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CONFLICT);
 			}else {
@@ -99,19 +95,15 @@ public class PisoController {
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/pisos/change-state")
-	public ResponseEntity<?> changeState(@RequestBody Piso piso, @RequestParam(name = "estado") String estado){
-
-	Map<String, Object> response = new HashMap<>();
-	try {
-	piso.setEstado(estado);
-	
-	pisoService.save(piso);
-	}catch(DataAccessException e) {
-	response.put("message", "Error al cambiar el estado del piso");
-	return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	@DeleteMapping("/pisos/{id}")
+	public ResponseEntity<?>delete(@PathVariable Long id){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			pisoService.delete(id);
+		}catch(DataAccessException e) {
+			response.put("message","Error al eliminar piso");
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);	
+		}response.put("message","El piso ha sido eliminado...");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);	
 	}
-		response.put("message", "El estado del piso ha sido cambiado a: "+estado.toString());
-		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.OK);
-}
 }

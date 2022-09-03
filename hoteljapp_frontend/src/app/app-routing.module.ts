@@ -6,7 +6,9 @@ import { RolesComponent } from './roles/roles.component';
 import { FormPisoComponent } from './pisos/form-piso.component';
 import { PisosComponent } from './pisos/pisos.component';
 import { ServiciosComponent } from './servicios/servicios.component';
+import { FormServicioComponent } from './servicios/form-servicio.component';
 import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
+import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
 
 const routes: Routes = [
   {path: '',redirectTo: '/home', pathMatch: 'full'},
@@ -21,12 +23,12 @@ const routes: Routes = [
   {path: 'pisos/form-piso/:id',component: FormPisoComponent},
 
   {path: 'servicios',component: ServiciosComponent},
-  {path: 'servicios/form',component: FormComponent}, 
-  {path: 'servicios/form/:id',component: FormComponent},
+  {path: 'servicios/form-servicio',component: FormServicioComponent}, 
+  {path: 'servicios/form-servicio/:id',component: FormServicioComponent},
 
-  {path: 'tipoHabitaciones',component: TipoHabitacionesComponent},
-  {path: 'tipoHabitaciones/form',component: FormComponent}, 
-  {path: 'tipoHabitaciones/form/:id',component: FormComponent},
+  {path: 'tipo-habitaciones',component: TipoHabitacionesComponent},
+  {path: 'tipo-habitaciones/form-tipo-habitacion',component: FormTipoHabitacionComponent}, 
+  {path: 'tipo-habitaciones/form-tipo-habitacion/:id',component: FormTipoHabitacionComponent},
 ];
 
 @NgModule({
