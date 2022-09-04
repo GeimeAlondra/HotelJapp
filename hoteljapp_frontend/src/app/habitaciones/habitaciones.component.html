@@ -1,1 +1,110 @@
-<p>habitaciones works!</p>
+<p></p>
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple icon="pi pi-plus-circle" class="p-button-success mr-2 rounded-circle" (click)="openNew()"></button>
+            <div class="field-checkbox">
+                &nbsp;&nbsp;
+                <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" (ngModelChange)="checkChanged($event)"></p-checkbox>
+                <label for="binary">&nbsp;&nbsp; Mostrar habitaciones inactivas</label>
+            </div>
+        </ng-template>
+<!--
+        <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template>
+        !-->
+    </p-toolbar>
+    <p-table #dt [value]="habitaciones" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre','tipoHabitacion','piso','status']" responsiveLayout="scroll"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0"><strong>Gestión de habitaciones</strong></h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal(getEventValue($event), 'contains')" placeholder="Buscar habitacion..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Imagen</th>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="precio">Precio <p-sortIcon field="precio"></p-sortIcon></th>
+                <th pSortableColumn="tipoHabitacion">Tipo de habitacion <p-sortIcon field="tipoHabitacion"></p-sortIcon></th>
+                <th pSortableColumn="piso">Piso <p-sortIcon field="piso"></p-sortIcon></th>
+                <th>Opciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-habitacion>
+            <tr>
+                <td>{{habitacion.nombre}}</td>
+                <td *ngIf="habitacion.imagen != null && habitacion.imagen !=''"><img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre" width="100" class="shadow-4" /></td>
+              <td *ngIf="habitacion.imagen == null || habitacion.imagen== ''"><img src="assets/images/habitaciones/no_image.png" alt="no image" width="100" class="shadow-4" /></td>
+                <td>{{habitacion.precio | currency:'USD'}}</td>
+                <td>{{habitacion.tipoHabitacion.nombre}}</td>
+                <td>{{habitacion.piso.nombre}}</td>
+                <td>
+                    
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editProduct(habitacion)" *ngIf="habitacion.estado=='D'"></button>
+                    &nbsp;&nbsp;
+                    <button pButton pRipple icon="pi pi-times-circle" class="p-button-rounded p-button-secondary" (click)="deleteProduct(estado='I', habitacion)" *ngIf="habitacion.estado=='D'"></button>
+                    <button pButton pRipple icon="pi pi-replay" class="p-button-rounded p-button-primary" (click)="deleteProduct2(estado='D', habitacion)" *ngIf="habitacion.estado=='I'"></button>
+                
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                El total de habitaciones es : {{habitaciones ? habitaciones.length : 0 }}
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="habitacionDialog" [style]="{width: '450px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+       <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.imagen" class="product-image" *ngIf="habitacion.imagen">
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="habitacion.nombre" required autofocus />
+            <small class="p-error" *ngIf="submitted && !habitacion.nombre">Nombre es requerido.</small>
+        </div>
+
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="precio">Precio</label>
+                <p-inputNumber id="precio" [(ngModel)]="habitacion.precio" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+        </div>
+        <div class="field">
+            <label for="tipoHabitacion">Tipo de habitacion</label>
+            <p-dropdown [(ngModel)]="habitacion.tipoHabitacion" optionLabel="nombre" [options]="tipoHabitaciones" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="field">
+            <label for="piso">Piso</label>
+            <p-dropdown [(ngModel)]="habitacion.piso" optionLabel="nombre" [options]="pisos" placeholder="Select">
+            </p-dropdown>
+        </div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Seleccionar una imagen</label>
+            <input class="form-control" type="file" id="formFile" (change)="seleccionarImagen($event)" accept="image/*">
+          </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text text-danger" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" *ngIf="!habitacion.id else elseBlock" class="p-button-text" (click)="create()"></button>
+    <ng-template #elseBlock>
+        <button pButton pRipple label="Actualizar" icon="pi pi-check" class="p-button-text" (click)="update()"></button>
+    </ng-template>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

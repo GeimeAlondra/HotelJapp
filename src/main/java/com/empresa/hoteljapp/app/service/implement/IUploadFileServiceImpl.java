@@ -19,7 +19,7 @@ public class IUploadFileServiceImpl implements IUploadFileService{
 
 private final Logger log = LoggerFactory.getLogger(getClass());
 	
-	private static final String UPLOADS_FOLDER = "images//habitaciones";
+	private static final String UPLOADS_FOLDER = "hoteljapp_frontend//src//assets//images//habitaciones";
 
 	@Override
 	public String copyFile(MultipartFile file) throws IOException {
