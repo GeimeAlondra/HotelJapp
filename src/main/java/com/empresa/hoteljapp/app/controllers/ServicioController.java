@@ -71,6 +71,7 @@ public class ServicioController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		response.put("message", "Servicio registrado con exito ");
+		response.put("servicio",servicio);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
 	

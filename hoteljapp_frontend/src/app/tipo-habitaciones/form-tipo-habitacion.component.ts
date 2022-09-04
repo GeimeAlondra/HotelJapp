@@ -37,7 +37,7 @@ export class FormTipoHabitacionComponent implements OnInit {
     .subscribe({
       next: (json) => {
         this.router.navigate(['tipoHabitaciones'])
-        Swal.fire('Nuevo tipo de habitación',`${json.message}: ${json.piso.nombre}`,'success')
+        Swal.fire('Nuevo tipo de habitación',`${json.message}: ${json.tipoHabitacion.nombre}`,'success')
       },
       error: (err) => {
         this.errors = err.message as string[];

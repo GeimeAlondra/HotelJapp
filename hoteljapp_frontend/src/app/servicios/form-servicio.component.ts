@@ -37,7 +37,7 @@ export class FormServicioComponent implements OnInit {
     .subscribe({
       next: (json) => {
         this.router.navigate(['servicios'])
-        Swal.fire('Nuevo servicio',`${json.message}: ${json.piso.nombre}`,'success')
+        Swal.fire('Nuevo servicio',`${json.message}: ${json.servicio.nombre}`,'success')
       },
       error: (err) => {
         this.errors = err.message as string[];

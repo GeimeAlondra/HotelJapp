@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'servicios/form-servicio',component: FormServicioComponent}, 
   {path: 'servicios/form-servicio/:id',component: FormServicioComponent},
 
-  {path: 'tipo-habitaciones',component: TipoHabitacionesComponent},
+  {path: 'tipoHabitaciones',component: TipoHabitacionesComponent},
   {path: 'tipo-habitaciones/form-tipo-habitacion',component: FormTipoHabitacionComponent}, 
   {path: 'tipo-habitaciones/form-tipo-habitacion/:id',component: FormTipoHabitacionComponent},
 ];

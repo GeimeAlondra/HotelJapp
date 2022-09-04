@@ -69,6 +69,7 @@ public class TipoHabitacionController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		response.put("message", "Tipo de habitación registrado con exito ");
+		response.put("tipoHabitacion",tipoHabitacion);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
 	@PutMapping("/tipoHabitaciones/{id}")
