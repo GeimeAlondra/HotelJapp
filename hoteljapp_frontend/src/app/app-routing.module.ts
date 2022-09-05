@@ -9,6 +9,7 @@ import { ServiciosComponent } from './servicios/servicios.component';
 import { FormServicioComponent } from './servicios/form-servicio.component';
 import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
 import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
+import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 
 const routes: Routes = [
   {path: '',redirectTo: '/home', pathMatch: 'full'},
@@ -29,6 +30,8 @@ const routes: Routes = [
   {path: 'tipoHabitaciones',component: TipoHabitacionesComponent},
   {path: 'tipo-habitaciones/form-tipo-habitacion',component: FormTipoHabitacionComponent}, 
   {path: 'tipo-habitaciones/form-tipo-habitacion/:id',component: FormTipoHabitacionComponent},
+
+  {path: 'habitaciones',component: HabitacionesComponent},
 ];
 
 @NgModule({

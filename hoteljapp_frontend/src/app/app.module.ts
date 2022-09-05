@@ -18,6 +18,35 @@ import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones
 import { FormServicioComponent } from './servicios/form-servicio.component';
 import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
 
+import { HabitacionesComponent } from './habitaciones/habitaciones.component';
+
+//Import for table CRUD
+import {TableModule} from 'primeng/table';
+import {ToastModule} from 'primeng/toast';
+import {CalendarModule} from 'primeng/calendar';
+import {SliderModule} from 'primeng/slider';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {DialogModule} from 'primeng/dialog';
+import {ButtonModule} from 'primeng/button';
+import {DropdownModule} from 'primeng/dropdown';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {InputTextModule} from 'primeng/inputtext';
+import {FileUploadModule} from 'primeng/fileupload';
+import {ToolbarModule} from 'primeng/toolbar';
+import {RatingModule} from 'primeng/rating';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {InputNumberModule} from 'primeng/inputnumber';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CheckboxModule } from 'primeng/checkbox';
+//import { ClientesComponent } from './clientes/clientes.component';
+import {DataViewModule} from 'primeng/dataview';
+import { RippleModule } from 'primeng/ripple';
+import { HabitacionService } from './habitaciones/habitacion.service';
+
 
 @NgModule({
   declarations: [
@@ -31,16 +60,40 @@ import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habit
     ServiciosComponent,
     TipoHabitacionesComponent,
     FormServicioComponent,
-    FormTipoHabitacionComponent
+    FormTipoHabitacionComponent,
+    HabitacionesComponent
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
-    FormsModule
+    BrowserAnimationsModule,
+    TableModule,
+    CalendarModule,
+		SliderModule,
+		DialogModule,
+		MultiSelectModule,
+		ContextMenuModule,
+		DropdownModule,
+		ButtonModule,
+		ToastModule,
+    InputTextModule,
+    ProgressBarModule,
+    HttpClientModule,
+    FileUploadModule,
+    ToolbarModule,
+    RatingModule,
+    FormsModule,
+    RadioButtonModule,
+    InputNumberModule,
+    ConfirmDialogModule,
+    InputTextareaModule,
+    CheckboxModule,
+    DataViewModule,
+    RippleModule,
   ],
-  providers: [],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

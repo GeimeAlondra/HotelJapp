@@ -30,7 +30,7 @@ import com.empresa.hoteljapp.app.models.entities.Habitacion;
 import com.empresa.hoteljapp.app.service.interfaces.IHabitacionService;
 import com.empresa.hoteljapp.app.service.interfaces.IUploadFileService;
 
-@CrossOrigin(origins = "*.*")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 
@@ -101,7 +101,7 @@ public class HabitacionController {
 	@PutMapping("/habitaciones/{id}")
 	public ResponseEntity<?> update(@RequestPart Habitacion habitacion, @PathVariable Long id, @RequestPart(name = "imagen", required = false) MultipartFile imagen)throws IOException{
 		
-		String imageNewName = "";
+		String imageNewName = habitacion.getImagen();
 		Habitacion habitacionActual = habitacionService.findById(id);
 		Habitacion habitacionUpdated = null;
 		Map<String, Object> response = new HashMap<>();
@@ -114,21 +114,22 @@ public class HabitacionController {
 				habitacionActual.setPrecio(habitacion.getPrecio());
 				habitacionActual.setTipoHabitacion(habitacion.getTipoHabitacion());
 				habitacionActual.setPiso(habitacion.getPiso());
-				
-				if(habitacionActual.getImagen() != null && habitacionActual.getImagen().length() > 0) {
-					String imgAnterior = habitacionActual.getImagen();
-					Path rutaImgAnterior = uploadService.getPath(imgAnterior);
-					File archivoImgAnterior = rutaImgAnterior.toFile();
-					if(archivoImgAnterior.exists() && archivoImgAnterior.canRead()) {
-						archivoImgAnterior.delete();
-					}
+				if(imagen != null) {
+					if(habitacionActual.getImagen() != null && habitacionActual.getImagen().length()>0) {
+						String imgAnterior = habitacionActual.getImagen();
+						Path rutaImgAnterior = uploadService.getPath(imgAnterior);
+						File archivoImgAnterior = rutaImgAnterior.toFile();
+						if(archivoImgAnterior.exists() && archivoImgAnterior.canRead()) {
+							archivoImgAnterior.delete();
+							}
+						}
+					imageNewName = uploadService.copyFile(imagen);
+					habitacionActual.setImagen(imageNewName);
 				}
-				if(imagen != null) imageNewName = uploadService.copyFile(imagen);
-				habitacionActual.setImagen(imageNewName);
-				
 				habitacionUpdated = habitacionService.save(habitacionActual);
-			}catch(DataAccessException e) {
-				response.put("message", "Error al actualizar la habitacion");
+				}
+			catch(DataAccessException e) {
+				response.put("message", "Error al actualizar la habitación");
 				logger.error("ERROR: ".concat(e.getMessage()));
 				uploadService.deleteFile(imageNewName);
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
