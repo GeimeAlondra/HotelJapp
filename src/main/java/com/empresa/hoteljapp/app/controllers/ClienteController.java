@@ -25,7 +25,7 @@ import com.empresa.hoteljapp.app.models.entities.Cliente;
 import com.empresa.hoteljapp.app.service.interfaces.IClienteService;
 
 
-@CrossOrigin(origins = "*.*")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 public class ClienteController {
