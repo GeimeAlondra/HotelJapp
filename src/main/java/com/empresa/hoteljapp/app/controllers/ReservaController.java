@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.empresa.hoteljapp.app.models.entities.Reserva;
 import com.empresa.hoteljapp.app.service.interfaces.IReservaService;
 
-@CrossOrigin(origins = ".")
+@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 

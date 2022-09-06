@@ -17,8 +17,8 @@ import { ServiciosComponent } from './servicios/servicios.component';
 import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
 import { FormServicioComponent } from './servicios/form-servicio.component';
 import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
-
 import { HabitacionesComponent } from './habitaciones/habitaciones.component';
+import { ReservasComponent } from './reservas/reservas.component';
 
 //Import for table CRUD
 import {TableModule} from 'primeng/table';
@@ -61,7 +61,8 @@ import { HabitacionService } from './habitaciones/habitacion.service';
     TipoHabitacionesComponent,
     FormServicioComponent,
     FormTipoHabitacionComponent,
-    HabitacionesComponent
+    HabitacionesComponent,
+    ReservasComponent
   ],
   imports: [
     BrowserModule,
