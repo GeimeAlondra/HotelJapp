@@ -15,7 +15,7 @@ export class ReservasComponent implements OnInit {
   reservas: Reserva[];
   clientes: Cliente[];
   reserva: Reserva;
-  detalleOrdenDialog: boolean = false;
+  detalleReservaDialog: boolean = false;
   estado: string;
   errors: string[];
   checked: boolean= false;
@@ -94,6 +94,18 @@ export class ReservasComponent implements OnInit {
            
         }
     });
+ }
+
+ verDetalleReserva(reserva: Reserva){
+
+  this.reserva = {...reserva};
+  this.detalleReservaDialog = true;
+  this.title = "Detalle de la reserva";
+
+ }
+
+ getEventValue($event:any): string{
+  return $event.target.value;
  }
 
 }
