@@ -36,6 +36,16 @@ public class ReservaController {
 		return reservaService.findAll(fecha_registro);
 	}
 	
+	@GetMapping("/reservas/aceptadas")
+	public List<Reserva> getAllAceptadas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){
+		return reservaService.findAllAceptadas(fecha_registro);
+	}
+	
+	@GetMapping("/reservas/canceladas")
+	public List<Reserva> getAllCanceladas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){
+		return reservaService.findAllCanceladas(fecha_registro);
+	}
+	
 	@GetMapping("/reservas/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Reserva reserva = null;
