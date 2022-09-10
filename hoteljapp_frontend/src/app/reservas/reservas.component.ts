@@ -82,8 +82,8 @@ export class ReservasComponent implements OnInit {
           this.reservaService.changeState(estado,reserva).subscribe({
             next: (response) =>{
               this.reservas = this.reservas.filter(val => val.id !== reserva.id);
-              this.reserva = null;
-              this.messageService.add({severity:'success', summary: 'Successful', detail: 'Reserva cambiada a estado A', life: 3000});
+              this.reserva = {...reserva};
+              this.messageService.add({severity:'success', summary: 'Successful', detail:`${response.message}`, life: 3000});
             },
             error: (err) =>{
               this.messageService.add({severity:'error', summary: 'Resultado', detail: `${err.message}}`});

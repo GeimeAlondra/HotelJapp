@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "detalle_reservas", schema = "public", catalog = "db_hoteljapp")
 
@@ -24,6 +26,7 @@ private static final long serialVersionUID = 1L;
 	private Long id;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "reserva_id", referencedColumnName = "id", nullable = false)
 	private Reserva reserva;
 	

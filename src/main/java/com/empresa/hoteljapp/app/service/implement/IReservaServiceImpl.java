@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.empresa.hoteljapp.app.models.dao.IDetalleReservaDAO;
 import com.empresa.hoteljapp.app.models.dao.IDetalleServicioDAO;
@@ -30,18 +31,21 @@ public class IReservaServiceImpl implements IReservaService{
 	private IDetalleServicioDAO detalleServicioDAO;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Reserva> findAll(Date fecha_registro) {
 		return reservaDAO.findAllRecibidas();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Reserva> findAllAceptadas(Date fecha_registro) {
-		return null;
+		return reservaDAO.findAllAceptadas();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Reserva> findAllCanceladas(Date fecha_registro) {
-		return null;
+		return reservaDAO.findAllCanceladas();
 	}
 
 	@Transactional
