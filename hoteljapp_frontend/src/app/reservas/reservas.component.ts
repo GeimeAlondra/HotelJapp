@@ -101,8 +101,9 @@ export class ReservasComponent implements OnInit {
     });
   }
 
- verDetalleReserva(reserva: Reserva){
+ verDetalleReserva(reserva: Reserva, servicio: Servicio){
   this.reserva = {...reserva};
+  this.servicio= {...servicio};
   this.detalleReservaDialog = true;
   this.title = "Detalle de la reserva";
  }
