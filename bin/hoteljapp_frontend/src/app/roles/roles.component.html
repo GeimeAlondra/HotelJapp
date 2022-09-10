@@ -1,0 +1,35 @@
+<div class="card text-dark bg-light mb-3">
+  <div class="card-header">Roles</div>
+  <div class="card-body">
+    <div class="card-title"> Listado de roles</div>
+
+    <div class="my-2 text-left">
+      <button type="button" class="btn btn-primary" [routerLink]="['/roles/form']">Agregar</button>
+    </div>
+    <div *ngIf="roles?.length ==0" class="alert alert-info">
+      No hay roles registrados
+    </div>
+
+    <table class="table table-striped table-bordered table-sm" *ngIf="roles?.length > 0">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th colspan="2" class="text-center">Opciones</th>
+          </tr>
+      </thead>
+      
+      <tbody>
+          <tr *ngFor="let rol of roles">
+              <td>{{rol.id}}</td>
+              <td>{{rol.nombre}}</td>
+              <th class="text-center">
+                <button type="button" name="editar" [routerLink]="['/roles/form', rol.id]" class="btn btn-success">Editar</button>
+                &nbsp;&nbsp;
+                <button type="button" name="eliminar" (click)="delete(rol)" class="btn btn-warning">Eliminar</button>
+              </th>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
