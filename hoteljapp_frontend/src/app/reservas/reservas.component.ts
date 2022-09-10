@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Cliente } from '../clientes/cliente';
 import { Reserva } from './reserva';
@@ -17,13 +18,13 @@ export class ReservasComponent implements OnInit {
   reserva: Reserva;
   detalleReservaDialog: boolean = false;
   estado: string;
-  errors: string[];
+  errors: string;
   checked: boolean= false;
   indexEdited: number = -1;
   selectedValue: string = 'val1';
   submitted: boolean;
 
-  constructor(private reservaService: ReservaService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private reservaService: ReservaService, private messageService: MessageService, private confirmationService: ConfirmationService, private router: Router,) { }
 
 
   ngOnInit(): void {

@@ -2,8 +2,6 @@
 <p-toast></p-toast>
 
 <div class="card">
-    
-    <p-table #dt [value]="reservas" [rows]="10" [paginator]="true" [globalFilterFields]="['fecha_registro','cliente.nombre']" responsiveLayout="scroll"
         
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -30,9 +28,9 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="id">Número Reserva<p-sortIcon field="id"></p-sortIcon></th>
-                <th pSortableColumn="fechaRegistro">Fecha Registro<p-sortIcon field="fechaRegistro"></p-sortIcon></th>
-                <th pSortableColumn="fechaIngreso">Fecha Ingreso<p-sortIcon field="fechaIngreso"></p-sortIcon></th>
-                <th pSortableColumn="fechaSalida">Fecha Salida<p-sortIcon field="fechaSalida"></p-sortIcon></th>
+                <th pSortableColumn="fecha_registro">Fecha Registro<p-sortIcon field="fecha_registro"></p-sortIcon></th>
+                <th pSortableColumn="fecha_ingreso">Fecha Ingreso<p-sortIcon field="fecha_ingreso"></p-sortIcon></th>
+                <th pSortableColumn="fecha_salida">Fecha Salida<p-sortIcon field="fecha_salida"></p-sortIcon></th>
                 <th pSortableColumn="dia">Días<p-sortIcon field="dia"></p-sortIcon></th>
                 <th pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon></th>
                 <th pSortableColumn="cliente">Cliente<p-sortIcon field="cliente"></p-sortIcon></th>
@@ -42,9 +40,9 @@
         <ng-template pTemplate="body" let-reserva>
             <tr>
                 <td>{{reserva.id}}</td>
-                <td>{{reserva.fechaRegistro | date:"dd/MM/yyyy"}}</td>
-                <td>{{reserva.fechaIngreso | date:"dd/MM/yyyy"}}</td>
-                <td>{{reserva.fechaSalida | date:"dd/MM/yyyy"}}</td>
+                <td>{{reserva.fecha_registro | date:"dd/MM/yyyy"}}</td>
+                <td>{{reserva.fecha_ingreso | date:"dd/MM/yyyy"}}</td>
+                <td>{{reserva.fecha_salida | date:"dd/MM/yyyy"}}</td>
                 <td>{{reserva.dia}}</td>
                 <td>{{reserva.total | currency:'USD'}}</td>
                 <td>{{reserva.cliente.nombre}}</td>
