@@ -36,12 +36,12 @@ public class IReservaServiceImpl implements IReservaService{
 
 	@Override
 	public List<Reserva> findAllAceptadas(Date fecha_registro) {
-		return null;
+		return reservaDAO.findAllAceptadas();
 	}
 
 	@Override
 	public List<Reserva> findAllCanceladas(Date fecha_registro) {
-		return null;
+		return reservaDAO.findAllCanceladas();
 	}
 
 	@Transactional

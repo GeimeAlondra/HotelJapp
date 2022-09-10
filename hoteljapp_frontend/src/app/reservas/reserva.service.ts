@@ -15,7 +15,7 @@ export class ReservaService {
   constructor(private http: HttpClient, private router: Router) { }
 
   getAllRecibidas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint + '/recibidas');
+    return this.http.get<Reserva[]>(this.urlEndPoint);
   }
 
   getAllAceptadas(): Observable<Reserva[]>{
