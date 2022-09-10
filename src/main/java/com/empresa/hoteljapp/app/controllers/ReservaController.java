@@ -92,7 +92,12 @@ public class ReservaController {
 				response.put("message", "Error al cambiar estado de la reserva");
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			response.put("message", "El estado de la reserva ha sido cambiado a" +estado.toString());
+			if(estado.equals("R"))
+				estado = "Recibida";
+			else
+				estado = "Cancelada";
+			
+			response.put("message", "El estado de la reserva ha sido cambiado a: " +estado.toString());
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 

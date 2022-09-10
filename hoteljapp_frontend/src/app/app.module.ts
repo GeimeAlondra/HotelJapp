@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +47,10 @@ import {DataViewModule} from 'primeng/dataview';
 import { RippleModule } from 'primeng/ripple';
 import { HabitacionService } from './habitaciones/habitacion.service';
 
+import { registerLocaleData } from '@angular/common';
+import localES from '@angular/common/locales/es-SV';
+registerLocaleData (localES, 'es-SV')
+
 
 @NgModule({
   declarations: [
@@ -94,7 +98,7 @@ import { HabitacionService } from './habitaciones/habitacion.service';
     DataViewModule,
     RippleModule,
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService, ConfirmationService, {provide: LOCALE_ID, useValue: 'es-SV'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
