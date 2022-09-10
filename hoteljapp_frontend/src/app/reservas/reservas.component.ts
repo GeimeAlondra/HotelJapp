@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Cliente } from '../clientes/cliente';
+import { Servicio } from '../servicios/servicio';
 import { Reserva } from './reserva';
 import { ReservaService } from './reserva.service';
+import { ServicioService } from '../servicios/servicio.service';
 
 @Component({
   selector: 'app-reservas',
@@ -16,7 +18,9 @@ export class ReservasComponent implements OnInit {
   reservas: Reserva[];
   clientes: Cliente[];
   reserva: Reserva;
+  servicio: Servicio;
   detalleReservaDialog: boolean = false;
+  detalleServicioDialog: boolean = false;
   estado: string;
   errors: string;
   checked: boolean= false;
@@ -24,7 +28,7 @@ export class ReservasComponent implements OnInit {
   selectedValue: string = 'val1';
   submitted: boolean;
 
-  constructor(private reservaService: ReservaService, private messageService: MessageService, private confirmationService: ConfirmationService, private router: Router,) { }
+  constructor(private reservaService: ReservaService, private servicioService: ServicioService, private messageService: MessageService, private confirmationService: ConfirmationService, private router: Router,) { }
 
 
   ngOnInit(): void {
@@ -95,18 +99,26 @@ export class ReservasComponent implements OnInit {
            
         }
     });
- }
+  }
 
  verDetalleReserva(reserva: Reserva){
-
   this.reserva = {...reserva};
   this.detalleReservaDialog = true;
   this.title = "Detalle de la reserva";
+ }
 
+ verDetalleServicio(servicio: Servicio){
+  this.servicio = {...servicio};
+  this.detalleServicioDialog = true;
  }
 
  getEventValue($event:any): string{
   return $event.target.value;
+ }
+
+ hideDialog(): void{
+  this.detalleReservaDialog = false;
+  this.detalleServicioDialog = false;
  }
 
 }
