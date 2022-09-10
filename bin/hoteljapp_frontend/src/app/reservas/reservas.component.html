@@ -1,0 +1,138 @@
+<p></p>
+<p-toast></p-toast>
+
+<div class="card">
+
+    <!--
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Nuevo Producto" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            &nbsp;&nbsp;
+            <div class="p-field-checkbox">
+                <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" (ngModelChange)="checkChanged($event)"></p-checkbox>
+                <label for="binary">&nbsp;&nbsp;Mostrar Productos Inactivos</label>
+            </div>
+        </ng-template>
+    </p-toolbar>
+-->
+    <p-table #dt [value]="reservas" [rows]="10" [paginator]="true" [globalFilterFields]="['fecha_registro','cliente.nombre']" responsiveLayout="scroll"
+        
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Gestion de ordenes</h5>
+                <div class="table-responsive">
+                    <div class="table">
+                        <tr>
+                            <td><p-radioButton name="groupname" label="Reservas recibidas" value="val1" [(ngModel)]="selectedValue" (onClick)="getRecibidas()"></p-radioButton></td>
+                            <td><p-radioButton name="groupname" label="Reservas Aceptadas" value="val2" [(ngModel)]="selectedValue" (onClick)="getAceptadas()"></p-radioButton></td>
+                            <td><p-radioButton name="groupname" label="Reservas canceladas" value="val3" [(ngModel)]="selectedValue" (onClick)="getCanceladas()"></p-radioButton></td>
+                        </tr> 
+                    </div>
+                </div>
+
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal(getEventValue($event), 
+                    'contains')" placeholder="Search..." /> 
+                </span>
+
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">Número Reserva<p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="fechaRegistro">Fecha Registro<p-sortIcon field="fechaRegistro"></p-sortIcon></th>
+                <th pSortableColumn="fechaIngreso">Fecha Ingreso<p-sortIcon field="fechaIngreso"></p-sortIcon></th>
+                <th pSortableColumn="fechaSalida">Fecha Salida<p-sortIcon field="fechaSalida"></p-sortIcon></th>
+                <th pSortableColumn="dia">Días<p-sortIcon field="dia"></p-sortIcon></th>
+                <th pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon></th>
+                <th pSortableColumn="cliente">Cliente<p-sortIcon field="cliente"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-reserva>
+            <tr>
+                <td>{{reserva.id}}</td>
+                <td>{{reserva.fechaRegistro | date:"dd/MM/yyyy"}}</td>
+                <td>{{reserva.fechaIngreso | date:"dd/MM/yyyy"}}</td>
+                <td>{{reserva.fechaSalida | date:"dd/MM/yyyy"}}</td>
+                <td>{{reserva.dia}}</td>
+                <td>{{reserva.total | currency:'USD'}}</td>
+                <td>{{reserva.cliente.nombre}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-search" label="Ver detalle" class="p-button-info p-button-sm" (click)="verDetalleReserva(reserva)"></button> &nbsp;
+                    <button pButton pRipple icon="pi pi-arrow-up-right" label="Aceptar" class="p-button-success p-button-sm" (click)="changeState(estado='A', reserva)" *ngIf="reserva.estado=='R'"></button> &nbsp;
+                    <button pButton pRipple icon="pi pi-times" label="Cancelar" class="p-button-secondary p-button-sm" (click)="changeState(estado='C', reserva)" *ngIf="reserva.estado=='R'"></button> 
+                   
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                Total de reservas: &nbsp; {{reservas ? reservas.length : 0 }} 
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<!--
+<p-dialog [(visible)]="detalleOrdenDialog" [style]="{width: '550px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="nombre"><b>Cliente: </b>{{orden.cliente.nombre}}</label>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Fecha: </b>{{orden.fecha | date: "EEEE dd, MMM yyyy"}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Fecha Despacho: </b>{{orden.fechaDespacho | date: "EEEE dd, MMM yyyy"}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Estado: </b>{{orden.estado=='R' ? 'Recibida' :(orden.estado=='D' ? 'Despachada' :(orden.estado=='A' ? 'Anulada' : 'En proceso'))}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Número Orden: </b>{{orden.id}}</label>
+            </div>
+        </div>
+
+        <div class="formgrid grid row">
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orden.detalleOrden">
+                    <td>{{item.producto.nombre}}, {{item.producto.descripcion}}</td>
+                    <td>{{item.producto.precio | currency: 'USD'}}</td>
+                    <td class="text-center">{{item.cantidad}}</td>
+                    <td>{{item.cantidad * item.producto.precio | currency: 'USD'}}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-center">Total de la orden</td>
+                    <td><b>{{orden.monto | currency: 'USD'}}</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    </ng-template>
+
+</p-dialog>
+-->
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+

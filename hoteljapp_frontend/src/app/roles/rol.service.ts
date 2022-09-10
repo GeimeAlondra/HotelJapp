@@ -8,6 +8,7 @@ import { Rol } from './rol';
 @Injectable({
   providedIn: 'root'
 })
+
 export class RolService {
 
   private urlEndPoint: string = 'http://localhost:8080/api/roles';

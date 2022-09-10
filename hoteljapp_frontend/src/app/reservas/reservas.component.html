@@ -2,20 +2,6 @@
 <p-toast></p-toast>
 
 <div class="card">
-
-    <!--
-    <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="Nuevo Producto" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            &nbsp;&nbsp;
-            <div class="p-field-checkbox">
-                <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" (ngModelChange)="checkChanged($event)"></p-checkbox>
-                <label for="binary">&nbsp;&nbsp;Mostrar Productos Inactivos</label>
-            </div>
-        </ng-template>
-    </p-toolbar>
--->
-    <p-table #dt [value]="reservas" [rows]="10" [paginator]="true" [globalFilterFields]="['fechaRegistro','cliente.nombre']" responsiveLayout="scroll"
         
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
