@@ -4,9 +4,9 @@ import { DetalleReserva } from "./detalleReserva";
 
 export class Reserva {
     id?: number;
-    fechaRegistro?: Date;
-    fechaIngreso?: Date;
-    fechaSalida?: Date;
+    fecha_registro?: Date;
+    fecha_ingreso?: Date;
+    fecha_salida?: Date;
     dia?: number;
     total?: number;
     estado?: string;
