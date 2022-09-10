@@ -1,1 +1,52 @@
-<p>registros works!</p>
+   <div class="card text-dark bg-light mb-3">
+    <div class="card-header">Agregar reserva</div>
+    <div class="card-body">
+
+      <div class="form-row">
+
+        <div class="form-group col-md-4">
+          <label>Fecha de registro</label>
+          <input type="date" class="form-control" name="fregistro">
+        </div>  
+
+        <div class="form-group col-md-4">
+          <label >Nombre de cliente</label>
+          <select type="button" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" name="idHuesped" required>
+              <option class="dropdown-item" value="" disabled selected>Seleccione Cliente</option>
+              <a href="registrarHuesped.jsp" class="form-control btn btn-outline-primary">Nuevo cliente</a>
+          </select>
+        </div>
+      </div> 
+
+      <div class="form-row">
+
+        <div class="form-group col-md-4">
+          <label>Fecha de ingreso</label>
+          <input type="date" min="<%= hoy %>" value="<%= hoy %>" class="form-control" id="fcheckin" name="fcheckin" required>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Fecha de salida</label>
+           <input type="date" min="<%= hoy %>" class="form-control" id="fcheckout" name="fcheckout" required>
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Número de días</label>
+          <input type="number" class="form-control" id="ndias" name="ndias" readonly required>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+        
+         
+          
+
+          
+           
+          
+          
+    
+
+

@@ -105,7 +105,6 @@
                 <thead class="border border-primary">
                     <th>Prestaciones</th>
                     <th>Precio</th>
-                    <th>Subtotal</th>
                 </thead>
                 <tbody>
 
@@ -115,10 +114,10 @@
 
                    <!-- <td>{{item.habitacion.precio + servicio.precio | currency: 'USD'}}</td> !-->
                <tr *ngFor="let item of reserva.detalleServicio">
-                    <td>{{item.servicio.nombre}}, {{item.servicio.precio | currency: 'USD'}}</td>
+                    <td>{{item.servicio.nombre}}</td>
                     <td>{{item.servicio.precio | currency: 'USD'}}</td>
                 <tr>
-                    <td colspan="3" class="text-center">Total de la reserva</td>
+                    <td colspan="1"><strong>Total de la reserva</strong></td>
                     <td><b>{{reserva.total | currency: 'USD'}}</b></td>
                 </tr>
             
