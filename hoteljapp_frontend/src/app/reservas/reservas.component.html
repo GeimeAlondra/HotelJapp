@@ -48,7 +48,7 @@
                 <td>{{reserva.total | currency:'USD'}}</td>
                 <td>{{reserva.cliente.nombre}}</td>
                 <td>
-                    <button pButton pRipple icon="pi pi-search" label="Ver detalle" class="p-button-info p-button-sm" (click)="verDetalleReserva(reserva)"></button> &nbsp;
+                    <button pButton pRipple icon="pi pi-search" label="Ver detalle" class="p-button-info p-button-sm" (click)="verDetalleReserva(reserva, servicio)"></button> &nbsp;
                     <button pButton pRipple icon="pi pi-arrow-up-right" label="Aceptar" class="p-button-success p-button-sm" (click)="changeState(estado='A', reserva)" *ngIf="reserva.estado=='R'"></button>
                     <button pButton pRipple icon="pi pi-times" label="Cancelar" class="p-button-secondary p-button-sm" (click)="changeState(estado='C', reserva)" *ngIf="reserva.estado=='R'"></button> 
                    
@@ -64,7 +64,7 @@
 </div>
 
 
-<p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '550px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '1000px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="formgrid grid row">
             <div class="field col-6">
@@ -100,10 +100,10 @@
             </div>
         </div>
 
-        <div class="formgrid grid row">
+        <div class="formgrid grid">
             <table class="table table-bordered border-primary">
-                <thead>
-                    <th>Habitación</th>
+                <thead class="border border-primary">
+                    <th>Prestaciones</th>
                     <th>Precio</th>
                     <th>Subtotal</th>
                 </thead>
@@ -112,15 +112,10 @@
                 <tr *ngFor="let item of reserva.detalleReserva">
                     <td>{{item.habitacion.nombre}}</td>
                     <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                    <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                <tr>
-                    <td colspan="2" class="text-center">Total de la reserva</td>
-                    <td><b>{{reserva.total | currency: 'USD'}}</b></td>
-                </tr>
 
-               <tr *ngFor="let item of servicio.detalleServicio">
-                    <td>{{item.reserva.id}}</td>
-                    <td>{{item.servicio}}, {{item.servicio.precio | currency: 'USD'}}</td>
+                   <!-- <td>{{item.habitacion.precio + servicio.precio | currency: 'USD'}}</td> !-->
+               <tr *ngFor="let item of reserva.detalleServicio">
+                    <td>{{item.servicio.nombre}}, {{item.servicio.precio | currency: 'USD'}}</td>
                     <td>{{item.servicio.precio | currency: 'USD'}}</td>
                 <tr>
                     <td colspan="3" class="text-center">Total de la reserva</td>
