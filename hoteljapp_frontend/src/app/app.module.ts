@@ -42,13 +42,13 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
-//import { ClientesComponent } from './clientes/clientes.component';
 import {DataViewModule} from 'primeng/dataview';
 import { RippleModule } from 'primeng/ripple';
-import { HabitacionService } from './habitaciones/habitacion.service';
 
 import { registerLocaleData } from '@angular/common';
 import localES from '@angular/common/locales/es-SV';
+import { RegistrosComponent } from './registros/registros.component';
+
 registerLocaleData (localES, 'es-SV')
 
 
@@ -66,7 +66,9 @@ registerLocaleData (localES, 'es-SV')
     FormServicioComponent,
     FormTipoHabitacionComponent,
     HabitacionesComponent,
-    ReservasComponent
+    ReservasComponent,
+    RegistrosComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -3,10 +3,11 @@
 
 <div class="card">
         
+    <p-table #dt [value]="reservas" [rows]="10" [paginator]="true" [globalFilterFields]="['fechaRegistro','cliente.nombre']" responsiveLayout="scroll"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
-                <h5 class="m-0">Gestion de ordenes</h5>
+                <h5 class="m-0">Gestion de reservas</h5>
                 <div class="table-responsive">
                     <div class="table">
                         <tr>
@@ -48,7 +49,7 @@
                 <td>{{reserva.cliente.nombre}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-search" label="Ver detalle" class="p-button-info p-button-sm" (click)="verDetalleReserva(reserva)"></button> &nbsp;
-                    <button pButton pRipple icon="pi pi-arrow-up-right" label="Aceptar" class="p-button-success p-button-sm" (click)="changeState(estado='A', reserva)" *ngIf="reserva.estado=='R'"></button> &nbsp;
+                    <button pButton pRipple icon="pi pi-arrow-up-right" label="Aceptar" class="p-button-success p-button-sm" (click)="changeState(estado='A', reserva)" *ngIf="reserva.estado=='R'"></button>
                     <button pButton pRipple icon="pi pi-times" label="Cancelar" class="p-button-secondary p-button-sm" (click)="changeState(estado='C', reserva)" *ngIf="reserva.estado=='R'"></button> 
                    
                 </td>
@@ -56,58 +57,77 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                Total de reservas: &nbsp; {{reservas ? reservas.length : 0 }} 
+                Total de reservas: &nbsp; {{ reservas ? reservas.length : 0 }} 
             </div>
         </ng-template>
     </p-table>
 </div>
 
-<!--
-<p-dialog [(visible)]="detalleOrdenDialog" [style]="{width: '550px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
+
+<p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '550px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Número Reserva: </b>{{reserva.id}}</label>
+            </div>
+        </div>
         <div class="field">
-            <label for="nombre"><b>Cliente: </b>{{orden.cliente.nombre}}</label>
+            <label for="nombre"><b>Cliente: </b>{{reserva.cliente.nombre}}</label>
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Fecha: </b>{{orden.fecha | date: "EEEE dd, MMM yyyy"}}</label>
+                <label for="fecha"><b>Fecha de registro: </b>{{reserva.fecha_registro | date: "EEEE dd, MMM yyyy"}}</label>
             </div>
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Fecha Despacho: </b>{{orden.fechaDespacho | date: "EEEE dd, MMM yyyy"}}</label>
+                <label for="fecha"><b>Fecha de ingreso: </b>{{reserva.fecha_ingreso | date: "EEEE dd, MMM yyyy"}}</label>
             </div>
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Estado: </b>{{orden.estado=='R' ? 'Recibida' :(orden.estado=='D' ? 'Despachada' :(orden.estado=='A' ? 'Anulada' : 'En proceso'))}}</label>
+                <label for="fecha"><b>Fecha de salida: </b>{{reserva.fecha_salida | date: "EEEE dd, MMM yyyy"}}</label>
             </div>
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Número Orden: </b>{{orden.id}}</label>
+                <label for="fecha"><b>Días: </b>{{reserva.dia}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Estado: </b>{{reserva.estado=='R' ? 'Recibida' :(reserva.estado=='A' ? 'Aceptada' :(reserva.estado=='C' ? 'Cancelada' : 'En proceso'))}}</label>
             </div>
         </div>
 
         <div class="formgrid grid row">
             <table class="table table-bordered border-primary">
                 <thead>
-                    <th>Producto</th>
+                    <th>Habitación</th>
                     <th>Precio</th>
-                    <th>Cantidad</th>
                     <th>Subtotal</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of orden.detalleOrden">
-                    <td>{{item.producto.nombre}}, {{item.producto.descripcion}}</td>
-                    <td>{{item.producto.precio | currency: 'USD'}}</td>
-                    <td class="text-center">{{item.cantidad}}</td>
-                    <td>{{item.cantidad * item.producto.precio | currency: 'USD'}}</td>
-                </tr>
+
+                <tr *ngFor="let item of reserva.detalleReserva">
+                    <td>{{item.habitacion.nombre}}</td>
+                    <td>{{item.habitacion.precio | currency: 'USD'}}</td>
+                    <td>{{item.habitacion.precio | currency: 'USD'}}</td>
                 <tr>
-                    <td colspan="3" class="text-center">Total de la orden</td>
-                    <td><b>{{orden.monto | currency: 'USD'}}</b></td>
+                    <td colspan="2" class="text-center">Total de la reserva</td>
+                    <td><b>{{reserva.total | currency: 'USD'}}</b></td>
                 </tr>
+
+               <tr *ngFor="let item of servicio.detalleServicio">
+                    <td>{{item.reserva.id}}</td>
+                    <td>{{item.servicio}}, {{item.servicio.precio | currency: 'USD'}}</td>
+                    <td>{{item.servicio.precio | currency: 'USD'}}</td>
+                <tr>
+                    <td colspan="3" class="text-center">Total de la reserva</td>
+                    <td><b>{{reserva.total | currency: 'USD'}}</b></td>
+                </tr>
+            
+
                 </tbody>
             </table>
         </div>
@@ -119,6 +139,5 @@
     </ng-template>
 
 </p-dialog>
--->
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
