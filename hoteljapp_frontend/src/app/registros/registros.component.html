@@ -6,14 +6,13 @@
 
         <div class="form-group col-md-4">
           <label>Fecha de registro</label>
-          <input type="date" class="form-control" name="fregistro">
+          <input type="date" class="form-control" name="fecha_registro">
         </div>  
 
         <div class="form-group col-md-4">
           <label >Nombre de cliente</label>
           <select type="button" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" name="idHuesped" required>
               <option class="dropdown-item" value="" disabled selected>Seleccione Cliente</option>
-              <a href="registrarHuesped.jsp" class="form-control btn btn-outline-primary">Nuevo cliente</a>
           </select>
         </div>
       </div> 
@@ -22,22 +21,94 @@
 
         <div class="form-group col-md-4">
           <label>Fecha de ingreso</label>
-          <input type="date" min="<%= hoy %>" value="<%= hoy %>" class="form-control" id="fcheckin" name="fcheckin" required>
+          <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" required>
         </div>
 
         <div class="form-group col-md-4">
           <label>Fecha de salida</label>
-           <input type="date" min="<%= hoy %>" class="form-control" id="fcheckout" name="fcheckout" required>
+           <input type="date" class="form-control" id="fecha_salida" name="fecha_salida" required>
         </div>
 
         <div class="form-group col-md-4">
           <label>Número de días</label>
-          <input type="number" class="form-control" id="ndias" name="ndias" readonly required>
+          <input type="number" class="form-control" id="dia" name="dia" required>
         </div>
 
       </div>
     </div>
   </div>
+
+  <p></p>
+<p-toast></p-toast>
+
+<div class="card">
+    <p-dataView #dv [value]="habitaciones" [paginator]="true" [rows]="9" filterBy="nombre"
+        [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+        <ng-template pTemplate="header">
+            <div class="flex flex-column md:flex-row md:justify-content-between">
+                <!--<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>-->
+                <span class="p-input-icon-left mb-2 md:mb-0">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter(getEventValue($event))">
+                </span>
+                <button pButton type="button" label="Ver Orden" class="p-button-text" (click)="verDetalleReserva()" *ngIf="detalle.length > 0"></button>
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+            </div>
+        </ng-template>
+        <ng-template let-producto pTemplate="listItem" let-index="rowIndex">
+            <div class="col-12">
+                <div class="product-list-item">
+                    <img [src]="'assets/images/productos/' + producto.imagen" [alt]="producto.nombre"/>
+                    <div class="product-list-detail">
+                        <div class="product-name">{{producto.nombre}}</div>
+                        <div class="product-description">{{producto.descripcion}}</div>
+                        <!--<p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
+                        <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{producto.categoria.nombre}}</span>
+                    </div>
+                    <div class="product-list-action">
+                        <span class="product-price">{{producto.precio | currency: 'USD'}}</span>
+                        
+                    <p-inputNumber #cantidad mode="decimal" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical"
+    decrementButtonClass="p-button-secondary" incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"></p-inputNumber>
+
+                        <!--<p-button icon="pi pi-shopping-cart" label="Agregar a orden" (onClick)="addToOrder(producto, cantidad.value, $event)" [disabled]="producto.existencia === 0"></p-button> -->
+                        <span [class]="'product-badge status-' + producto.existencia">{{producto.existencia}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-producto pTemplate="gridItem">
+            <div class="col-12 md:col-4">
+                <div class="product-grid-item card">
+                    <div class="product-grid-item-top">
+                        <div>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{producto.categoria.nombre}}</span>
+                        </div>
+                        <span [class]="'product-badge status-' + producto.existencia">{{producto.existencia}}</span>
+                    </div>
+                    <div class="product-grid-item-content">
+                        <img [src]="'assets/images/productos/' + producto.imagen" [alt]="producto.nombre"/>
+                        <div class="product-name">{{producto.nombre}}</div>
+                        <div class="product-description">{{producto.descripcion}}</div>
+                        <!--<p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
+                    </div>
+                    <!--
+                    <div class="product-grid-item-bottom">
+                        <span class="product-price">{{producto.precio | currency: 'USD'}}</span>
+                        <p-button icon="pi pi-shopping-cart" (onClick)="addToOrder(producto, cantidad.value, $event)" [disabled]="producto.existencia === 0"></p-button>
+                    </div> -->
+                    <div class="field col-12 md:col-3">
+                        <label for="minmax-buttons">Cantidad:</label>
+                        <p-inputNumber #cantidad mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100">
+                        </p-inputNumber>
+                    </div>
+                    
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>
 
         
          
