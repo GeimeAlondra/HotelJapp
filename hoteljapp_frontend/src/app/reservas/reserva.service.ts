@@ -34,4 +34,20 @@ export class ReservaService {
       })
     );
   }
+
+  createReservationCustomers(reserva: Reserva): Observable<any>{
+    return this.http.post(`${this.urlEndPoint}`, reserva).pipe(
+      catchError(e => {
+        if(e.status == 400){
+          return throwError(()=> e)
+        }
+        if(e.status == 409){
+          console.log(e.message);
+        }
+        return throwError(() => e)
+      })
+
+    )
+
+  }
 }
