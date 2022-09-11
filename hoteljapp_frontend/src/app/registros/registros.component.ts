@@ -13,7 +13,7 @@ import { HabitacionService } from '../habitaciones/habitacion.service';
 @Component({
   selector: 'app-registros',
   templateUrl: './registros.component.html',
-  styleUrls: ['./registros.component.css'],
+  styleUrls: ['./registros.component.scss'],
   providers: [MessageService,ConfirmationService]
 })
 export class RegistrosComponent implements OnInit {

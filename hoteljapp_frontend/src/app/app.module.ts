@@ -19,6 +19,7 @@ import { FormServicioComponent } from './servicios/form-servicio.component';
 import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
 import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 import { ReservasComponent } from './reservas/reservas.component';
+import { ClientesComponent } from './clientes/clientes.component';
 
 //Import for table CRUD
 import {TableModule} from 'primeng/table';
@@ -69,6 +70,7 @@ registerLocaleData (localES, 'es-SV')
     HabitacionesComponent,
     ReservasComponent,
     RegistrosComponent,
+    ClientesComponent
     
   ],
   imports: [

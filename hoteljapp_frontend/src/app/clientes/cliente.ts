@@ -1,7 +1,9 @@
 export class Cliente{
     id?:number;
     nombre?:string;
-    fechaNacimiento?:Date;
+    fecha_nacimiento?:Date;
     direccion?:string;
     telefono?:string;
+
+
 }
