@@ -44,6 +44,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import {DataViewModule} from 'primeng/dataview';
 import { RippleModule } from 'primeng/ripple';
+import {OrderListModule} from 'primeng/orderlist';
 
 import { registerLocaleData } from '@angular/common';
 import localES from '@angular/common/locales/es-SV';
@@ -99,6 +100,7 @@ registerLocaleData (localES, 'es-SV')
     CheckboxModule,
     DataViewModule,
     RippleModule,
+    OrderListModule
   ],
   providers: [MessageService, ConfirmationService, {provide: LOCALE_ID, useValue: 'es-SV'}],
   bootstrap: [AppComponent]

@@ -44,8 +44,6 @@ export class RegistrosComponent implements OnInit {
 
   cliente: Cliente = {id:1,nombre:"Lupita Jimenez",telefono:"78564324", direccion:"La Palma"}
 
-
-
   constructor(private habitacionService: HabitacionService, private servicioService: ServicioService,private primeNGConfig: PrimeNGConfig, private messageService: MessageService,private confirmationService: ConfirmationService, private reservaService: ReservaService) { }
 
   ngOnInit(): void {
