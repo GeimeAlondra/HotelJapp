@@ -4,14 +4,11 @@ import { PrimeNGConfig } from 'primeng/api';
 import { DetalleReserva } from '../reservas/detalleReserva';
 import { Reserva } from '../reservas/reserva';
 import { Habitacion } from '../habitaciones/habitacion';
-import { Servicio } from '../servicios/servicio';
-import { DetalleServicio } from '../reservas/detalleServicio';
 import { Cliente } from '../clientes/cliente';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { ReservaService } from '../reservas/reserva.service';
 import { HabitacionService } from '../habitaciones/habitacion.service';
-import { ServicioService } from '../servicios/servicio.service';
 
 @Component({
   selector: 'app-registros',
@@ -20,11 +17,14 @@ import { ServicioService } from '../servicios/servicio.service';
   providers: [MessageService,ConfirmationService]
 })
 export class RegistrosComponent implements OnInit {
+sortKey: any;
+onSortChange($event: any) {
+throw new Error('Method not implemented.');
+}
 
   habitaciones: Habitacion[];
-  servicios: Servicio[];
+ 
   sortOptions: SelectItem[];
-
   
   submitted: boolean;
 
@@ -44,7 +44,7 @@ export class RegistrosComponent implements OnInit {
 
   cliente: Cliente = {id:1,nombre:"Lupita Jimenez",telefono:"78564324", direccion:"La Palma"}
 
-  constructor(private habitacionService: HabitacionService, private servicioService: ServicioService,private primeNGConfig: PrimeNGConfig, private messageService: MessageService,private confirmationService: ConfirmationService, private reservaService: ReservaService) { }
+  constructor(private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig, private messageService: MessageService,private confirmationService: ConfirmationService, private reservaService: ReservaService) { }
 
   ngOnInit(): void {
 
@@ -57,34 +57,21 @@ export class RegistrosComponent implements OnInit {
     this.reserva.fecha_registro = new Date();
     console.log(this.reserva);
   }
-
-  ngOnInit2(): void{
-
-    this.servicioService.getAll().subscribe(
-      response=>{
-        this.servicios= response as Servicio[];
-      }
-    );
-    this.reserva.cliente = this.cliente;
-    this.reserva.fecha_registro = new Date();
-    console.log(this.reserva);
-  }
   
   getEventValue($event:any): string{
     return $event.target.value;
   }
 
-  addToReservation(habitacion: Habitacion, servicio: Servicio, $event: MouseEvent): void {
+  addToReservation(habitacion: Habitacion, $event: MouseEvent): void {
     this.detalle.push({
       habitacion: Habitacion,
-      servicio: Servicio,
       reserva: {},
     } as DetalleReserva);
     this.reserva.detalleReserva = this.detalle;
     let precio = 0;
     this.reserva.detalleReserva.forEach((or) => {
       if (habitacion > 0) {
-        precio += habitacion.precio + servicio.precio;
+        precio += habitacion.precio;
       }
     });
     this.reserva.total = precio;
@@ -113,7 +100,7 @@ export class RegistrosComponent implements OnInit {
     return totalReserva;
   }
 
-  quitarItem(item):void{
+ quitarItem(item):void{
  let index = this.reserva.detalleReserva.indexOf(item);
  this.reserva.detalleReserva.splice(index,1);
  this.reserva.total = this.calcTotal();
@@ -121,7 +108,7 @@ export class RegistrosComponent implements OnInit {
 
   saveReservation(){
     this.confirmationService.confirm({
-      message: '¿Está seguro de confirmar la reservacion?',
+      message: '¿Está seguro de confirmar la reservación?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
@@ -140,7 +127,6 @@ export class RegistrosComponent implements OnInit {
    this.detalleReservaDialog = false;
    this.detalle = [];
    this.reserva.detalleReserva = [];
-   this.reserva.detalleServicio = [];
   }
 });
 
