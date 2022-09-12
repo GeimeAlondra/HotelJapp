@@ -57,10 +57,6 @@ private static final long serialVersionUID = 1L;
 	//Relacion 1:N con detalleReserva
 	@OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DetalleReserva> detalleReserva;
-		
-	//Relacion 1:N con detalleServicio
-	@OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<DetalleServicio> detalleServicio;
 	
 	@PrePersist
 	private void setEstado() {
@@ -132,12 +128,4 @@ private static final long serialVersionUID = 1L;
 		this.detalleReserva = detalleReserva;
 	}
 
-	public List<DetalleServicio> getDetalleServicio() {
-		return detalleServicio;
-	}
-
-	public void setDetalleServicio(List<DetalleServicio> detalleServicio) {
-		this.detalleServicio = detalleServicio;
-	}
-	
 }

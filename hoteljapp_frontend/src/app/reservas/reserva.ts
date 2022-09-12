@@ -1,5 +1,4 @@
 import { Cliente } from "../clientes/cliente";
-import { DetalleServicio } from "./detalleServicio";
 import { DetalleReserva } from "./detalleReserva";
 
 export class Reserva {
@@ -12,5 +11,4 @@ export class Reserva {
     estado?: string;
     cliente?: Cliente;
     detalleReserva?: DetalleReserva[];
-    detalleServicio?: DetalleServicio[];
 }

@@ -23,6 +23,8 @@ throw new Error('Method not implemented.');
 }
 
   habitaciones: Habitacion[];
+
+  clientes: Cliente[];
  
   sortOptions: SelectItem[];
   
@@ -90,9 +92,10 @@ throw new Error('Method not implemented.');
     this.detalleReservaDialog = true;
     this.title = "Detalle de la reserva";
   }
+
   calcTotal():number{
     let totalReserva:number = 0;
-    if(this.reserva.detalleReserva.length>0){
+    if(this.reserva.detalleReserva.length > 0){
       this.detalle.forEach(element => {
         totalReserva += (element.habitacion.precio);
       });

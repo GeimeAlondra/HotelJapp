@@ -13,9 +13,9 @@ import { FormComponent } from './roles/form.component';
 import { RolesComponent } from './roles/roles.component';
 import { PisosComponent } from './pisos/pisos.component';
 import { FormPisoComponent } from './pisos/form-piso.component';
-import { ServiciosComponent } from './servicios/servicios.component';
+//import { ServiciosComponent } from './servicios/servicios.component';
 import { TipoHabitacionesComponent } from './tipo-habitaciones/tipo-habitaciones.component';
-import { FormServicioComponent } from './servicios/form-servicio.component';
+//import { FormServicioComponent } from './servicios/form-servicio.component';
 import { FormTipoHabitacionComponent } from './tipo-habitaciones/form-tipo-habitacion.component';
 import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 import { ReservasComponent } from './reservas/reservas.component';
@@ -63,9 +63,9 @@ registerLocaleData (localES, 'es-SV')
     RolesComponent,
     PisosComponent,
     FormPisoComponent,
-    ServiciosComponent,
+    //ServiciosComponent,
     TipoHabitacionesComponent,
-    FormServicioComponent,
+    //FormServicioComponent,
     FormTipoHabitacionComponent,
     HabitacionesComponent,
     ReservasComponent,

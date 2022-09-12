@@ -35,6 +35,7 @@
                 <th>Imagen</th>
                 <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
                 <th pSortableColumn="precio">Precio <p-sortIcon field="precio"></p-sortIcon></th>
+                <th pSortableColumn="servicio">Servicio adicional<p-sortIcon field="servicio"></p-sortIcon></th>
                 <th pSortableColumn="tipoHabitacion">Tipo de habitacion <p-sortIcon field="tipoHabitacion"></p-sortIcon></th>
                 <th pSortableColumn="piso">Piso <p-sortIcon field="piso"></p-sortIcon></th>
                 <th>Opciones</th>
@@ -46,6 +47,7 @@
                 <td *ngIf="habitacion.imagen != null && habitacion.imagen !=''"><img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre" width="100" class="shadow-4" /></td>
               <td *ngIf="habitacion.imagen == null || habitacion.imagen== ''"><img src="assets/images/habitaciones/no_image.png" alt="no image" width="100" class="shadow-4" /></td>
                 <td>{{habitacion.precio | currency:'USD'}}</td>
+                <td>{{habitacion.servicio}}</td>
                 <td>{{habitacion.tipoHabitacion.nombre}}</td>
                 <td>{{habitacion.piso.nombre}}</td>
                 <td>
@@ -80,6 +82,10 @@
                 <label for="precio">Precio</label>
                 <p-inputNumber id="precio" [(ngModel)]="habitacion.precio" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
             </div>
+        </div>
+        <div class="field">
+            <label for="servicio">Servicio adicional</label>
+            <input type="text" pInputText id="servicio" [(ngModel)]="habitacion.servicio" required autofocus />
         </div>
         <div class="field">
             <label for="tipoHabitacion">Tipo de habitacion</label>
