@@ -36,7 +36,7 @@
                 <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
                 <th pSortableColumn="precio">Precio <p-sortIcon field="precio"></p-sortIcon></th>
                 <th pSortableColumn="servicio">Servicio adicional<p-sortIcon field="servicio"></p-sortIcon></th>
-                <th pSortableColumn="tipoHabitacion">Tipo de habitacion <p-sortIcon field="tipoHabitacion"></p-sortIcon></th>
+                <th pSortableColumn="tipoHabitacion">Tipo de habitación <p-sortIcon field="tipoHabitacion"></p-sortIcon></th>
                 <th pSortableColumn="piso">Piso <p-sortIcon field="piso"></p-sortIcon></th>
                 <th>Opciones</th>
             </tr>
@@ -88,7 +88,7 @@
             <input type="text" pInputText id="servicio" [(ngModel)]="habitacion.servicio" required autofocus />
         </div>
         <div class="field">
-            <label for="tipoHabitacion">Tipo de habitacion</label>
+            <label for="tipoHabitacion">Tipo de habitación</label>
             <p-dropdown [(ngModel)]="habitacion.tipoHabitacion" optionLabel="nombre" [options]="tipoHabitaciones" placeholder="Select">
             </p-dropdown>
         </div>

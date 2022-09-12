@@ -17,14 +17,12 @@ import { HabitacionService } from '../habitaciones/habitacion.service';
   providers: [MessageService,ConfirmationService]
 })
 export class RegistrosComponent implements OnInit {
-sortKey: any;
-onSortChange($event: any) {
-throw new Error('Method not implemented.');
-}
+
+  //clienteSelected: Cliente;
 
   habitaciones: Habitacion[];
 
-  clientes: Cliente[];
+  //clientes: Cliente[];
  
   sortOptions: SelectItem[];
   
@@ -44,7 +42,7 @@ throw new Error('Method not implemented.');
 
   detalle: DetalleReserva[] = [];
 
-  cliente: Cliente = {id:1,nombre:"Lupita Jimenez",telefono:"78564324", direccion:"La Palma"}
+  cliente: Cliente = {id:1,nombre:"María Gutiérrez",telefono:"75154210", direccion:"Tejutla"}
 
   constructor(private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig, private messageService: MessageService,private confirmationService: ConfirmationService, private reservaService: ReservaService) { }
 
@@ -56,7 +54,7 @@ throw new Error('Method not implemented.');
       }
     );
     this.reserva.cliente = this.cliente;
-    this.reserva.fecha_registro = new Date();
+   // this.reserva.fecha_registro = new Date();
     console.log(this.reserva);
   }
   
@@ -66,14 +64,14 @@ throw new Error('Method not implemented.');
 
   addToReservation(habitacion: Habitacion, $event: MouseEvent): void {
     this.detalle.push({
-      habitacion: Habitacion,
+      habitacion: habitacion,
       reserva: {},
     } as DetalleReserva);
     this.reserva.detalleReserva = this.detalle;
     let precio = 0;
-    this.reserva.detalleReserva.forEach((or) => {
-      if (habitacion > 0) {
-        precio += habitacion.precio;
+    this.reserva.detalleReserva.forEach((r) => {
+      if (r.habitacion > 0) {
+        precio += r.habitacion.precio + r.habitacion.precio;
       }
     });
     this.reserva.total = precio;
@@ -97,7 +95,7 @@ throw new Error('Method not implemented.');
     let totalReserva:number = 0;
     if(this.reserva.detalleReserva.length > 0){
       this.detalle.forEach(element => {
-        totalReserva += (element.habitacion.precio);
+        totalReserva += (element.habitacion.precio + element.habitacion.precio);
       });
     }
     return totalReserva;
