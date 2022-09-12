@@ -1,57 +1,52 @@
-   <div class="card text-dark bg-light mb-3">
+<div class="card bg-ligth">
     <div class="card-header">Agregar reserva</div>
     <div class="card-body">
+        <form #reservaForm = "ngForm">
+            <div class="form-group row">
 
-      <div class="form-row">
+                <div class="field col-sm-6">
+                    <label for="cliente" class="col-form-labelvcol-sm-6">Cliente</label>
+                    <p-dropdown [(ngModel)]="reserva.cliente" optionLabel="nombre" [options]="clientes" placeholder="Select">
+                    </p-dropdown>
+                </div>
 
-        <div class="form-group col-md-4">
-          <label>Fecha de registro</label>
-          <input type="date" class="form-control" name="fecha_registro">
-        </div>  
+                <label for="nombre" class="col-form-label" col-sm-2>Fecha de registro</label>
+                <div class="col-sm-3">
+                    <input type="date" class="form-control" name="fecha_registro" [(ngModel)]="reserva.fecha_registro" #fecha_registro="ngModel">
+                </div>
 
-        <div class="form-group col-md-4">
-          <label >Nombre de cliente</label>
-          <select type="button" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" name="idHuesped" required>
-              <option class="dropdown-item" value="" disabled selected>Seleccione Cliente</option>
-          </select>
-        </div>
-      </div> 
+                <label for="nombre" class="col-form-label" col-sm-2>Fecha de ingreso</label>
+                <div class="col-sm-3">
+                    <input type="date" class="form-control" name="fecha_ingreso" [(ngModel)]="reserva.fecha_ingreso" #fecha_ingreso="ngModel">
+                </div>
 
-      <div class="form-row">
+                <label for="nombre" class="col-form-label" col-sm-2>Fecha de salida</label>
+                <div class="col-sm-3">
+                    <input type="date" class="form-control" name="fecha_salida" [(ngModel)]="reserva.fecha_salida" #fecha_salida="ngModel">
+                </div>
 
-        <div class="form-group col-md-4">
-          <label>Fecha de ingreso</label>
-          <input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" required>
-        </div>
+                <label for="nombre" class="col-form-label" col-sm-2>Días</label>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel">
+                </div>
 
-        <div class="form-group col-md-4">
-          <label>Fecha de salida</label>
-           <input type="date" class="form-control" id="fecha_salida" name="fecha_salida" required>
-        </div>
-
-        <div class="form-group col-md-4">
-          <label>Número de días</label>
-          <input type="number" class="form-control" id="dia" name="dia" required>
-        </div>
-
-      </div>
+            </div>
+            <div class="form-group-row">
+            </div>
+        </form>
     </div>
-  </div>
+</div>
 
-  
-  <p></p>
-<p-toast></p-toast>
 <div class="card">
     <p-dataView #dv [value]="habitaciones" [paginator]="true" [rows]="9" filterBy="nombre"
         [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
         <ng-template pTemplate="header">
             <div class="flex flex-column md:flex-row md:justify-content-between">
-                <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
                 <span class="p-input-icon-left mb-2 md:mb-0">
                     <i class="pi pi-search"></i>
                     <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter(getEventValue($event))">
                 </span>
-                <button pButton type="button" label="Ver Orden" class="p-button-text" (click)="verDetalleReserva()" *ngIf="detalle.length > 0"></button>
+                <button pButton type="button" label="Ver Reserva" class="p-button-text" (click)="verDetalleReserva()" *ngIf="detalle.length > 0"></button>
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
             </div>
         </ng-template>
@@ -60,9 +55,7 @@
                 <div class="product-list-item">
                     <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre"/>
                     <div class="product-list-detail">
-                        <div class="product-name">{{habitacion.nombre}}</div>
-                        <!--<p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
-                        <i class="pi pi-tag product-category-icon"></i><span class="product-category">{{habitacion.tipoHabitacion.nombre}}</span>
+                        <div class="product-name">{{habitacion.nombre}}, {{habitacion.servicio}}</div>
                     </div>
                     <div class="product-list-action">
                         <span class="product-price">{{habitacion.precio | currency: 'USD'}}</span>
@@ -77,14 +70,10 @@
         <ng-template let-habitacion pTemplate="gridItem">
             <div class="col-12 md:col-4">
                 <div class="product-grid-item card">
-                    <div class="product-grid-item-top">
-                        <div>
-                            <i class="pi pi-tag product-category-icon">{{habitacion.tipoHabitacion.nombre}}</i>
-                        </div>
-                    </div>
+
                     <div class="product-grid-item-content">
                         <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre"/>
-                        <div class="product-name">{{habitacion.nombre}}</div>
+                        <div class="product-name">{{habitacion.nombre}}, {{habitacion.servicio}}</div>
                     </div>
                     
                     <div class="product-grid-item-bottom">
@@ -97,6 +86,72 @@
         </ng-template>
     </p-dataView>
 </div>
+
+<p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '1000px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="nombre"><b>Cliente: </b>{{reserva.cliente.nombre}}</label>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Fecha de registro: </b>{{reserva.fecha_registro | date: "EEEE dd, MMM yyyy"}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Fecha de ingreso: </b>{{reserva.fecha_ingreso | date: "EEEE dd, MMM yyyy"}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Fecha de salida: </b>{{reserva.fecha_salida | date: "EEEE dd, MMM yyyy"}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Días: </b>{{reserva.dia}}</label>
+            </div>
+        </div>
+        <div class="formgrid grid row">
+            <div class="field col-6">
+                <label for="fecha"><b>Estado: </b>{{reserva.estado=='R' ? 'Recibida' :(reserva.estado=='A' ? 'Aceptada' :(reserva.estado=='C' ? 'Cancelada' : 'En proceso'))}}</label>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+            <table class="table table-bordered border-primary">
+
+                <thead class="border border-primary">
+                    <th>Habitaciones</th>
+                    <th>Precio</th>
+                </thead>
+
+                <tbody>
+                <tr *ngFor="let item of reserva.detalleReserva">
+                    <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
+                    <td>{{item.habitacion.precio | currency: 'USD'}}</td>
+                    <td>{{item.habitacion.precio + item.habitacion.precio | currency: 'USD'}}</td>
+                    <td><button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="quitarItem(item)"></button></td>
+                <tr>
+                    <td colspan="1"><strong>Total de la reserva</strong></td>
+                    <td><b>{{reserva.total | currency: 'USD'}}</b></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Confirmar orden" icon="pi pi-check" class="p-button-text" (click)="saveReservation()"></button>
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    </ng-template>
+
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
 
         
          

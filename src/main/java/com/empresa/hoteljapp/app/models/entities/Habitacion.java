@@ -33,6 +33,9 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "precio", nullable = false, precision = 2)
 	private Double precio;
 	
+	@Column(name = "servicio", nullable = true, length = 50)
+	private String servicio;
+	
 	@Column(name = "imagen", nullable = true)
 	private String imagen;
 	
@@ -103,4 +106,12 @@ private static final long serialVersionUID = 1L;
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+
+	public String getServicio() {
+		return servicio;
+	}
+	public void setServicio(String servicio) {
+		this.servicio = servicio;
+	}
+	
 }

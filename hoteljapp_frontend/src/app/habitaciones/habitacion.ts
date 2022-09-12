@@ -6,6 +6,7 @@ export class Habitacion{
     nombre?:string;
     precio?:number;
     imagen?:string;
+    servicio?:string;
     estado?:string;
     tipoHabitacion?:TipoHabitacion;
     piso?:Piso;

@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.empresa.hoteljapp.app.models.dao.IDetalleReservaDAO;
-import com.empresa.hoteljapp.app.models.dao.IDetalleServicioDAO;
 import com.empresa.hoteljapp.app.models.dao.IReservaDAO;
 import com.empresa.hoteljapp.app.models.entities.DetalleReserva;
-import com.empresa.hoteljapp.app.models.entities.DetalleServicio;
 import com.empresa.hoteljapp.app.models.entities.Reserva;
 import com.empresa.hoteljapp.app.service.interfaces.IReservaService;
 
@@ -26,9 +24,6 @@ public class IReservaServiceImpl implements IReservaService{
 	
 	@Autowired
 	private IDetalleReservaDAO detalleReservaDAO;
-	
-	@Autowired
-	private IDetalleServicioDAO detalleServicioDAO;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -59,9 +54,6 @@ public class IReservaServiceImpl implements IReservaService{
 				
 				List<DetalleReserva> detalleReserva = reserva.getDetalleReserva();
 				reserva.setDetalleReserva(new ArrayList<DetalleReserva>());
-				
-				List<DetalleServicio> detalleServicio = reserva.getDetalleServicio();
-				reserva.setDetalleServicio(new ArrayList<DetalleServicio>());
 			
 				reservaPersisted = reservaDAO.save(reserva);
 				
@@ -71,20 +63,10 @@ public class IReservaServiceImpl implements IReservaService{
 				}
 				//Guardando el detalle de reserva
 				detalleReservaDAO.saveAll(detalleReserva);
-				
-				//Recorriendo la coleccion de servicio
-				for(DetalleServicio detalle: detalleServicio) {
-					detalle.setReserva(reservaPersisted);
-				}
-				//Guardando el detalle de servicio
-				detalleServicioDAO.saveAll(detalleServicio);
 			
 			}else {
 				
 				for(DetalleReserva detalle: reserva.getDetalleReserva()) {
-					detalle.setReserva(reserva);
-				}
-				for(DetalleServicio detalle: reserva.getDetalleServicio()) {
 					detalle.setReserva(reserva);
 				}
 				reservaDAO.save(reserva);
