@@ -32,7 +32,7 @@ export class RegistrosComponent implements OnInit {
 
   sortField: string;
 
-  detalleReservaDialog: boolean;
+  detalleReservaDialog: boolean = false;
 
   title: string;
 
@@ -44,7 +44,8 @@ export class RegistrosComponent implements OnInit {
 
   cliente: Cliente = {id:1,nombre:"María Gutiérrez",telefono:"75154210", direccion:"Tejutla"}
 
-  constructor(private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig, private messageService: MessageService,private confirmationService: ConfirmationService, private reservaService: ReservaService) { }
+  constructor(private reservaService: ReservaService, private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig,
+     private messageService: MessageService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 
@@ -68,14 +69,16 @@ export class RegistrosComponent implements OnInit {
       reserva: {},
     } as DetalleReserva);
     this.reserva.detalleReserva = this.detalle;
+    /*
     let precio = 0;
     this.reserva.detalleReserva.forEach((r) => {
       if (r.habitacion > 0) {
-        precio += r.habitacion.precio + r.habitacion.precio;
+        precio += r.habitacion.precio;
       }
-    });
-    this.reserva.total = precio;
-    precio = 0;
+    }); */
+    //this.reserva.total = habitacion.precio;
+    this.reserva.total = this.calcTotal();
+    //precio = 0;
     console.log(this.reserva);
     ($event.target as HTMLButtonElement).disabled = true;
     console.log(this.cliente);
@@ -95,7 +98,7 @@ export class RegistrosComponent implements OnInit {
     let totalReserva:number = 0;
     if(this.reserva.detalleReserva.length > 0){
       this.detalle.forEach(element => {
-        totalReserva += (element.habitacion.precio + element.habitacion.precio);
+        totalReserva += element.habitacion.precio;
       });
     }
     return totalReserva;
@@ -107,15 +110,15 @@ export class RegistrosComponent implements OnInit {
  this.reserva.total = this.calcTotal();
   }
 
-  saveReservation(){
+  saveReservation(): void{
     this.confirmationService.confirm({
-      message: '¿Está seguro de confirmar la reservación?',
-      header: 'Confirmación',
+      message: '¿Está seguro/a de confirmar la reservación?',
+      header: 'Confirmar reserva',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
     this.submitted = true;
     this.reservaService.createReservationCustomers(this.reserva).subscribe({
-     next:(json) =>{
+     next: (json)=>{
        this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
        console.log(this.reserva);
      },
@@ -130,6 +133,15 @@ export class RegistrosComponent implements OnInit {
    this.reserva.detalleReserva = [];
   }
 });
+
+/*
+diasEntreFechas(fecha_ingreso, fecha_salida): void {
+ fecha_ingreso = new Date(fecha_ingreso);
+ fecha_salida = new Date(fecha_salida);
+ let diferencia = Math.abs(fecha_salida.getTime() - fecha_ingreso.getTime());
+ return diferencia;
+}
+*/
 
 }
 

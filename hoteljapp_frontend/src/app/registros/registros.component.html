@@ -29,9 +29,8 @@
                 <div class="col-sm-3">
                     <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel">
                 </div>
+                
 
-            </div>
-            <div class="form-group-row">
             </div>
         </form>
     </div>
@@ -110,7 +109,7 @@
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Días: </b>{{reserva.dia}}</label>
+                <label for="dia"><b>Días: </b>{{reserva.dia}}</label>
             </div>
         </div>
         <div class="formgrid grid row">
@@ -132,7 +131,6 @@
                     <tr *ngFor="let item of reserva.detalleReserva">
                         <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
                         <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                       <td>{{item.habitacion.precio + item.habitacion.precio | currency: 'USD'}}</td>
                     <tr>
                         <td colspan="1"><strong>Total de la reserva</strong></td>
                         <td><b>{{reserva.total | currency: 'USD'}}</b></td>
