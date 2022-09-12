@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Reserva } from './reserva';
+//import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'

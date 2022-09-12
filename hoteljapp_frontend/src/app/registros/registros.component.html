@@ -3,13 +3,13 @@
     <div class="card-body">
         <form #reservaForm = "ngForm">
             <div class="form-group row">
-
+<!--
                 <div class="field col-sm-6">
                     <label for="cliente" class="col-form-labelvcol-sm-6">Cliente</label>
                     <p-dropdown [(ngModel)]="reserva.cliente" optionLabel="nombre" [options]="clientes" placeholder="Select">
                     </p-dropdown>
                 </div>
-
+            -->
                 <label for="nombre" class="col-form-label" col-sm-2>Fecha de registro</label>
                 <div class="col-sm-3">
                     <input type="date" class="form-control" name="fecha_registro" [(ngModel)]="reserva.fecha_registro" #fecha_registro="ngModel">
@@ -60,7 +60,7 @@
                     <div class="product-list-action">
                         <span class="product-price">{{habitacion.precio | currency: 'USD'}}</span>
 
-                        <p-button icon="pi pi-shopping-cart" label="Agregar a orden" (onClick)="addToReservation(habitacion, $event)" [disabled]="habitacion.estado === 'A'"></p-button> 
+                        <p-button icon="pi pi-check" label="Agregar a orden" (onClick)="addToReservation(habitacion, $event)"></p-button> 
                      
                     </div>
                 </div>
@@ -74,13 +74,14 @@
                     <div class="product-grid-item-content">
                         <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre"/>
                         <div class="product-name">{{habitacion.nombre}}, {{habitacion.servicio}}</div>
-                    </div>
+
                     
                     <div class="product-grid-item-bottom">
                         <span class="product-price">{{habitacion.precio | currency: 'USD'}}</span>
-                        <p-button icon="pi pi-shopping-cart" (onClick)="addToReservation(habitacion, $event)" [disabled]="habitacion.estado === 'A'"></p-button>
+                    </div>
+                    <br>
+                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, $event)"></p-button>
                     </div> 
-                    
                 </div>
             </div>
         </ng-template>
@@ -114,7 +115,7 @@
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Estado: </b>{{reserva.estado=='R' ? 'Recibida' :(reserva.estado=='A' ? 'Aceptada' :(reserva.estado=='C' ? 'Cancelada' : 'En proceso'))}}</label>
+                <label for="estado"><b>Estado: </b>{{reserva.estado=='R' ? 'Recibida' :(reserva.estado=='A' ? 'Aceptada' :(reserva.estado=='C' ? 'Cancelada' : 'En proceso'))}}</label>
             </div>
         </div>
 
@@ -127,16 +128,16 @@
                 </thead>
 
                 <tbody>
-                <tr *ngFor="let item of reserva.detalleReserva">
-                    <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
-                    <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                    <td>{{item.habitacion.precio + item.habitacion.precio | currency: 'USD'}}</td>
-                    <td><button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="quitarItem(item)"></button></td>
-                <tr>
-                    <td colspan="1"><strong>Total de la reserva</strong></td>
-                    <td><b>{{reserva.total | currency: 'USD'}}</b></td>
-                </tr>
-                </tbody>
+
+                    <tr *ngFor="let item of reserva.detalleReserva">
+                        <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
+                        <td>{{item.habitacion.precio | currency: 'USD'}}</td>
+                       <td>{{item.habitacion.precio + item.habitacion.precio | currency: 'USD'}}</td>
+                    <tr>
+                        <td colspan="1"><strong>Total de la reserva</strong></td>
+                        <td><b>{{reserva.total | currency: 'USD'}}</b></td>
+                    </tr>
+                    </tbody>
 
             </table>
         </div>
@@ -144,7 +145,7 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Confirmar orden" icon="pi pi-check" class="p-button-text" (click)="saveReservation()"></button>
+        <button pButton pRipple label="Confirmar la reserva" icon="pi pi-check" class="p-button-text" (click)="saveReservation()"></button>
         <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     </ng-template>
 

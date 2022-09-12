@@ -64,7 +64,7 @@ export class ClientesComponent implements OnInit {
 editProduct(cliente: Cliente) {
   this.cliente = {...cliente};
   this.clienteDialog = true;
-  this.title = "cliente";
+  this.title = "Editar cliente";
   this.indexEdited = this.clientes.indexOf(cliente);
 }
 
@@ -72,30 +72,35 @@ editProduct(cliente: Cliente) {
     this.clienteService.create(this.cliente)
     .subscribe({
       next: (json) => {
-        this.router.navigate(['/clientes'])
-        Swal.fire('Nuevo cliente',`${json.message}: ${json.cliente.nombre}`,'success')
-      },
-      error: (err) => {
-        this.errors = err.message as string[];
-        console.error('Code Status: '+err.status);
-        console.log(err.message);
-      }
+        this.clientes.unshift(json.cliente);
+    this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
+  },
+  error: (err) => {
+    this.messageService.add({severity:'error', summary: 'resultado', detail: `${err.message}`, life: 3000});
+    console.log('code status: ' + err.status)
+    console.log(err.message)
+  }
     })
+    this.clienteDialog = false;
+    this.cliente = {};
   }
 
   update(): void{
     this.clienteService.update(this.cliente)
     .subscribe({
-      next: (cliente) => {
-        this.router.navigate(['/clientes']),
-        Swal.fire('Excelente','Cliente actualizado con exito','success')
-      },
-      error: (err) => {
-        this.errors = err.message as string[];
-        console.error('Code Status: '+err.status);
-        console.log(err.message);
-      }
-    })
+      next: (json) => {
+        Object.assign(this.clientes[this.indexEdited],json.cliente);
+    this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
+  },
+  error: (err) => {
+    //this.errors = err.message as string[];
+    this.messageService.add({severity:'error', summary: 'resultado', detail: `${err.message}`, life: 3000});
+    console.log('code status: ' + err.status)
+    console.log(err.message)
+  }
+})
+  this.clienteDialog = false;
+this.cliente = {};
   }
 
 
@@ -122,7 +127,7 @@ editProduct(cliente: Cliente) {
           response => {
           this.clientes = this.clientes.filter(clt => clt !== cliente);
           swalWithBootstrapButtons.fire(
-            'success',
+            'Confirmado',
             '¡Cliente eliminado con exito!',
             'success'
           )

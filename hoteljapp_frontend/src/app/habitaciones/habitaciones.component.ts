@@ -97,7 +97,7 @@ export class HabitacionesComponent implements OnInit {
     this.habitacion = {};
      this.submitted = false;
      this.habitacionDialog = true;
-     this.title = "Nueva habitacion"
+     this.title = "Nueva habitación"
  }
  hideDialog() {
    this.habitacionDialog = false;
@@ -109,7 +109,7 @@ editProduct(habitacion: Habitacion) {
   this.pisoSelected = habitacion.piso;
   this.habitacion = {...habitacion};
   this.habitacionDialog = true;
-  this.title = "Actualizar habitacion";
+  this.title = "Actualizar habitación";
   this.indexEdited = this.habitaciones.indexOf(habitacion);
 }
 
