@@ -112,7 +112,7 @@
                 <tr *ngFor="let item of reserva.detalleReserva">
                     <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
                     <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                   <td>{{item.habitacion.precio + item.habitacion.precio | currency: 'USD'}}</td>
+                   
                 <tr>
                     <td colspan="1"><strong>Total de la reserva</strong></td>
                     <td><b>{{reserva.total | currency: 'USD'}}</b></td>
