@@ -50,6 +50,7 @@ import {OrderListModule} from 'primeng/orderlist';
 import { registerLocaleData } from '@angular/common';
 import localES from '@angular/common/locales/es-SV';
 import { RegistrosComponent } from './registros/registros.component';
+import { HabitacionService } from './habitaciones/habitacion.service';
 
 registerLocaleData (localES, 'es-SV')
 
@@ -104,7 +105,7 @@ registerLocaleData (localES, 'es-SV')
     RippleModule,
     OrderListModule
   ],
-  providers: [MessageService, ConfirmationService, {provide: LOCALE_ID, useValue: 'es-SV'}],
+  providers: [MessageService, ConfirmationService, HabitacionService, {provide: LOCALE_ID, useValue: 'es-SV'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -110,15 +110,15 @@ export class RegistrosComponent implements OnInit {
  this.reserva.total = this.calcTotal();
   }
 
-  saveReservation(): void{
+  saveReservation(){
     this.confirmationService.confirm({
-      message: '¿Está seguro/a de confirmar la reservación?',
-      header: 'Confirmar reserva',
+      message: '¿Está seguro de confirmar la reserva?',
+      header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
     this.submitted = true;
     this.reservaService.createReservationCustomers(this.reserva).subscribe({
-     next: (json)=>{
+     next:(json) =>{
        this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
        console.log(this.reserva);
      },
