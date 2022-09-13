@@ -10,23 +10,23 @@
                     </p-dropdown>
                 </div>
             -->
-                <label for="nombre" class="col-form-label" col-sm-2>Fecha de registro</label>
-                <div class="col-sm-3">
+                <label for="nombre" class="col-form-label" col-sm-12>Fecha de registro</label>
+                <div class="col-sm-12">
                     <input type="date" class="form-control" name="fecha_registro" [(ngModel)]="reserva.fecha_registro" #fecha_registro="ngModel">
                 </div>
 
-                <label for="nombre" class="col-form-label" col-sm-2>Fecha de ingreso</label>
-                <div class="col-sm-3">
+                <label for="nombre" class="col-form-label" col-sm-12>Fecha de ingreso</label>
+                <div class="col-sm-12">
                     <input type="date" class="form-control" name="fecha_ingreso" [(ngModel)]="reserva.fecha_ingreso" #fecha_ingreso="ngModel">
                 </div>
 
-                <label for="nombre" class="col-form-label" col-sm-2>Fecha de salida</label>
-                <div class="col-sm-3">
+                <label for="nombre" class="col-form-label" col-sm-12>Fecha de salida</label>
+                <div class="col-sm-12">
                     <input type="date" class="form-control" name="fecha_salida" [(ngModel)]="reserva.fecha_salida" #fecha_salida="ngModel">
                 </div>
 
                 <label for="nombre" class="col-form-label" col-sm-2>Días</label>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel">
                 </div>
                 
@@ -131,6 +131,7 @@
                     <tr *ngFor="let item of reserva.detalleReserva">
                         <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
                         <td>{{item.habitacion.precio | currency: 'USD'}}</td>
+                        <td><button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="quitarItem(item)"></button></td>
                     <tr>
                         <td colspan="1"><strong>Total de la reserva</strong></td>
                         <td><b>{{reserva.total | currency: 'USD'}}</b></td>
@@ -143,7 +144,7 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Confirmar la reserva" icon="pi pi-check" class="p-button-text" (click)="saveReservation()"></button>
+        <button pButton pRipple label="Confirmar la reserva" icon="pi pi-check" class="p-button-text" (click)="saveReservation()" *ngIf="detalle.length > 0"></button>
         <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     </ng-template>
 

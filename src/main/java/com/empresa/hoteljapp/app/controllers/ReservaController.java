@@ -73,7 +73,7 @@ public class ReservaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		response.put("message", "Reserva registrada con exito...");
-		response.put("reserva",reserva);
+		response.put("reserva", reserva);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	

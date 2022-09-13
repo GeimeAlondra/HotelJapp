@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+//import { Router } from '@angular/router';
+import { ConfirmationService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { Cliente } from '../clientes/cliente';
 import { Reserva } from './reserva';
 import { ReservaService } from './reserva.service';
@@ -24,7 +25,7 @@ export class ReservasComponent implements OnInit {
   selectedValue: string = 'val1';
   submitted: boolean;
 
-  constructor(private reservaService: ReservaService, private messageService: MessageService, private confirmationService: ConfirmationService, private router: Router,) { }
+  constructor(private reservaService: ReservaService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
 
   ngOnInit(): void {
