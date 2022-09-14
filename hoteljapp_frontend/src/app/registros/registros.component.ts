@@ -23,14 +23,14 @@ export class RegistrosComponent implements OnInit {
   habitaciones: Habitacion[];
 
   //clientes: Cliente[];
+
+  CurrentDate = new Date()
  
   sortOptions: SelectItem[];
+  sortOrder: number;
+  sortField: string;
   
   submitted: boolean;
-
-  sortOrder: number;
-
-  sortField: string;
 
   detalleReservaDialog: boolean = false;
 
@@ -111,29 +111,32 @@ export class RegistrosComponent implements OnInit {
  this.reserva.total = this.calcTotal();
   }
 
-  saveReservation(){
+  saveReservation(): void{
+
     this.confirmationService.confirm({
       message: '¿Está seguro de confirmar la reserva?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-    this.submitted = true;
-    this.reservaService.createReservationCustomers(this.reserva).subscribe({
-     next:(json) =>{
-       this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
-       console.log(this.reserva);
-     },
+        this.submitted = true;
+        this.reservaService.createReservationCustomers(this.reserva).subscribe({
+        next:(json) =>{
+          this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
+        },
      error: (err) => {
        this.messageService.add({severity:'error', summary: 'resultado', detail: `${err.message}`, life: 3000});
-       console.log('code status: ' + err.status)
-       console.log(err.message)
+       console.log('code status: ' + err.status);
+       console.log(err.message);
      }
    })
    this.detalleReservaDialog = false;
-   this.detalle = [];
    this.reserva.detalleReserva = [];
-  }
-});
+   }
+ });
+}
+
+
+
 
 
 
@@ -145,7 +148,5 @@ diasEntreFechas(fecha_ingreso, fecha_salida): void {
  return diferencia;
 }
 */
-
-}
 
 }
