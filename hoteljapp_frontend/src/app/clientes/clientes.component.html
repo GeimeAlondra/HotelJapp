@@ -61,12 +61,13 @@
             <small class="p-error" *ngIf="submitted && !cliente.nombre">Nombre es requerido.</small>
         </div>
 
-        <label for="fecha_nacimiento" class="col-form-label" col-sm-12>Fecha de nacimiento</label>
-                <div class="col-sm-12">
+        
+                <div class="col-sm-12"  *ngIf="cliente.id == null">
+                    <label for="fecha_nacimiento" class="col-form-label" col-sm-12>Fecha de nacimiento</label>
                     <input type="date" class="form-control" name="fecha_nacimiento" [(ngModel)]="cliente.fecha_nacimiento">
                 </div>
 
-        <div class="field">
+                <div class="field">
             <label for="nombre">Direccion</label>
             <input type="text" pInputText id="direccion" [(ngModel)]="cliente.direccion" required autofocus />
             <small class="p-error" *ngIf="submitted && !cliente.direccion">Direccion es requerida.</small>
