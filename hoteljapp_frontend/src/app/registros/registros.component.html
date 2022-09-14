@@ -46,26 +46,9 @@
                     <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter(getEventValue($event))">
                 </span>
                 <button pButton type="button" label="Ver Reserva" class="p-button-text" (click)="verDetalleReserva()" *ngIf="detalle.length > 0"></button>
-                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                
             </div>
         </ng-template>
-        <ng-template let-habitacion pTemplate="listItem" let-index="rowIndex">
-            <div class="col-12">
-                <div class="product-list-item">
-                    <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre"/>
-                    <div class="product-list-detail">
-                        <div class="product-name">{{habitacion.nombre}}, {{habitacion.servicio}}</div>
-                    </div>
-                    <div class="product-list-action">
-                        <span class="product-price">{{habitacion.precio | currency: 'USD'}}</span>
-
-                        <p-button icon="pi pi-check" label="Agregar a orden" (onClick)="addToReservation(habitacion, $event)"></p-button> 
-                     
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-
         <ng-template let-habitacion pTemplate="gridItem">
             <div class="col-12 md:col-4">
                 <div class="product-grid-item card">

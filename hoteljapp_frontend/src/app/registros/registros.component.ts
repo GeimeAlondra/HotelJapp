@@ -134,6 +134,8 @@ export class RegistrosComponent implements OnInit {
   }
 });
 
+
+
 /*
 diasEntreFechas(fecha_ingreso, fecha_salida): void {
  fecha_ingreso = new Date(fecha_ingreso);
