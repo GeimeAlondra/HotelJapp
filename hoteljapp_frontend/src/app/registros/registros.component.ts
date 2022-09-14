@@ -44,18 +44,19 @@ export class RegistrosComponent implements OnInit {
 
   cliente: Cliente = {id:1,nombre:"María Gutiérrez",telefono:"75154210", direccion:"Tejutla"}
 
-  constructor(private reservaService: ReservaService, private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig,
+  constructor(private reservaService: ReservaService, 
+    private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig,
      private messageService: MessageService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
 
-    this.habitacionService.getAllActivos().subscribe(
-      response=>{
+    this.habitacionService.getAllActivos().subscribe((
+      response) =>{
         this.habitaciones = response as Habitacion[];
       }
     );
     this.reserva.cliente = this.cliente;
-   // this.reserva.fecha_registro = new Date();
+   this.reserva.fecha_registro = new Date();
     console.log(this.reserva);
   }
   
