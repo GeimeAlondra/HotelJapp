@@ -4,20 +4,6 @@
     <div class="card-body">
         <form #reservaForm = "ngForm">
             <div class="form-group row">
-<!--
-                <div class="field col-sm-6">
-                    <label for="cliente" class="col-form-labelvcol-sm-6">Cliente</label>
-                    <p-dropdown [(ngModel)]="reserva.cliente" optionLabel="nombre" [options]="clientes" placeholder="Select">
-                    </p-dropdown>
-                </div>
-            -->
-                <label for="nombre" class="col-form-label" col-sm-12>Fecha de registro</label>
-                <div class="col-sm-12">
-                    <input type="date" class="form-control" name="fecha_registro" [(ngModel)]="reserva.fecha_registro" #fecha_registro="ngModel">
-                    <span>{{CurrentDate | date:'dd-MM-yyyy'}}</span>
-                </div
-              
-
 
                 <label for="nombre" class="col-form-label" col-sm-12>Fecha de ingreso</label>
                 <div class="col-sm-12">
