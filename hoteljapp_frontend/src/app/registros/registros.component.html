@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="card bg-ligth">
     <div class="card-header">Agregar reserva</div>
     <div class="card-body">
@@ -14,7 +15,9 @@
                 <div class="col-sm-12">
                     <input type="date" class="form-control" name="fecha_registro" [(ngModel)]="reserva.fecha_registro" #fecha_registro="ngModel">
                     <span>{{CurrentDate | date:'dd-MM-yyyy'}}</span>
-                </div>
+                </div
+              
+
 
                 <label for="nombre" class="col-form-label" col-sm-12>Fecha de ingreso</label>
                 <div class="col-sm-12">
