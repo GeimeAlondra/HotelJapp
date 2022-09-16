@@ -40,8 +40,6 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "fecha_salida", nullable = false)
 	private Date fecha_salida;
 	
-	@Column(name = "dia", nullable = false)
-	private Integer dia;
 	
 	@Column(name = "total", nullable = false, precision = 2)
 	private Double total;
@@ -92,12 +90,6 @@ private static final long serialVersionUID = 1L;
 		this.fecha_salida = fecha_salida;
 	}
 
-	public Integer getDia() {
-		return dia;
-	}
-	public void setDia(Integer dia) {
-		this.dia = dia;
-	}
 
 	public Double getTotal() {
 		return total;

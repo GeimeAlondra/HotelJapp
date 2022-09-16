@@ -32,7 +32,6 @@
                 <th pSortableColumn="fecha_registro">Fecha Registro<p-sortIcon field="fecha_registro"></p-sortIcon></th>
                 <th pSortableColumn="fecha_ingreso">Fecha Ingreso<p-sortIcon field="fecha_ingreso"></p-sortIcon></th>
                 <th pSortableColumn="fecha_salida">Fecha Salida<p-sortIcon field="fecha_salida"></p-sortIcon></th>
-                <th pSortableColumn="dia">Días<p-sortIcon field="dia"></p-sortIcon></th>
                 <th pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon></th>
                 <th pSortableColumn="cliente">Cliente<p-sortIcon field="cliente"></p-sortIcon></th>
                 <th></th>
@@ -44,7 +43,6 @@
                 <td>{{reserva.fecha_registro | date:"dd/MM/yyyy"}}</td>
                 <td>{{reserva.fecha_ingreso | date:"dd/MM/yyyy"}}</td>
                 <td>{{reserva.fecha_salida | date:"dd/MM/yyyy"}}</td>
-                <td>{{reserva.dia}}</td>
                 <td>{{reserva.total | currency:'USD'}}</td>
                 <td>{{reserva.cliente.nombre}}</td>
                 <td>
@@ -91,11 +89,6 @@
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="fecha"><b>Días: </b>{{reserva.dia}}</label>
-            </div>
-        </div>
-        <div class="formgrid grid row">
-            <div class="field col-6">
                 <label for="fecha"><b>Estado: </b>{{reserva.estado=='R' ? 'Recibida' :(reserva.estado=='A' ? 'Aceptada' :(reserva.estado=='C' ? 'Cancelada' : 'En proceso'))}}</label>
             </div>
         </div>
@@ -105,15 +98,16 @@
                 <thead class="border border-primary">
                     <th>Prestaciones</th>
                     <th>Precio</th>
+                    <th>Días</th>
                 </thead>
                 <tbody>
 
                 <tr *ngFor="let item of reserva.detalleReserva">
                     <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
                     <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                   
+                    <td>{{item.dia}}</td>
                 <tr>
-                    <td colspan="1"><strong>Total de la reserva</strong></td>
+                    <td colspan="2"><strong>Total de la reserva:</strong></td>
                     <td><b>{{reserva.total | currency: 'USD'}}</b></td>
                 </tr>
                 </tbody>

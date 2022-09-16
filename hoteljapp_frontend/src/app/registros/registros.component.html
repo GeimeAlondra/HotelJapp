@@ -15,12 +15,6 @@
                 <label for="nombre" class="col-form-label" col-sm-4>Fecha de salida</label>
                 <input type="date" class="form-control" name="fecha_salida" [(ngModel)]="reserva.fecha_salida" #fecha_salida="ngModel">
             </div>
-
-            <div class="field col">
-                <label for="nombre" class="col-form-label" col-sm-4>Días</label>
-                <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel" [min]="0" [max]="100" >
-            </div>
-
             </div>
         </form>
     </div>
@@ -41,7 +35,7 @@
             </div>
         </ng-template>
         <ng-template let-habitacion pTemplate="gridItem">
-            <div class="col-12 md:col-4">
+            <div class="col-12 md:col-6">
 
                 <div class="product-grid-item card">
                     <div>
@@ -54,8 +48,14 @@
                     <div class="product-grid-item-bottom">
                         <span class="product-price">Precio: {{habitacion.precio | currency: 'USD'}}</span>
                     </div>
-                    <br>
-                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, $event)"></p-button>
+                    <div class="field col-3 md:col-3">
+                        <label for="horizontal">Días</label>
+                        <p-inputNumber #dia [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal"
+                        decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                        </p-inputNumber>
+                    </div>
+                
+                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, dia.value, $event)"></p-button>
                     </div> 
                 </div>
             </div>
@@ -85,11 +85,6 @@
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
-                <label for="dia"><b>Días: </b>{{reserva.dia}}</label>
-            </div>
-        </div>
-        <div class="formgrid grid row">
-            <div class="field col-6">
                 <label for="estado"><b>Estado: </b>{{reserva.estado=='R' ? 'Recibida' :(reserva.estado=='A' ? 'Aceptada' :(reserva.estado=='C' ? 'Cancelada' : 'En proceso'))}}</label>
             </div>
         </div>
@@ -100,6 +95,7 @@
                 <thead class="border border-primary">
                     <th>Habitaciones</th>
                     <th>Precio por noche</th>
+                    <th>Días</th>
                     <th>Subtotal</th>
                     <th>Acciones</th>
                 </thead>
@@ -109,10 +105,11 @@
                     <tr *ngFor="let item of reserva.detalleReserva">
                         <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
                         <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                        <td>{{item.habitacion.precio * reserva.dia | currency: 'USD'}}</td>
+                        <td>{{item.dia}}</td>
+                        <td>{{item.habitacion.precio * item.dia | currency: 'USD'}}</td>
                         <td><button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="quitarItem(item)"></button></td>
                     <tr>
-                        <td colspan="2"><strong>Total de la reserva</strong></td>
+                        <td colspan="4"><strong>Total de la reserva</strong></td>
                         <td><b>{{reserva.total | currency: 'USD'}}</b></td>
                     </tr>
                     </tbody>

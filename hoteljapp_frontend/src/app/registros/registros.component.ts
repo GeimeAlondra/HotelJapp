@@ -41,7 +41,7 @@ export class RegistrosComponent implements OnInit {
 
   detalle: DetalleReserva[] = [];
 
-  cliente: Cliente = {id:1,nombre:"María Gutiérrez",telefono:"75154210", direccion:"Tejutla"}
+  cliente: Cliente = {id:1,nombre:"Miguel Ardon",telefono:"60697081", direccion:"La Palma"}
 
   constructor(private reservaService: ReservaService, 
     private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig,
@@ -50,7 +50,7 @@ export class RegistrosComponent implements OnInit {
   ngOnInit(): void {
 
     this.habitacionService.getAllActivos().subscribe((
-      response) =>{
+      response) => {
         this.habitaciones = response as Habitacion[];
       }
     );
@@ -64,8 +64,9 @@ export class RegistrosComponent implements OnInit {
     return $event.target.value;
   }
 
-  addToReservation(habitacion: Habitacion, $event: MouseEvent): void {
+  addToReservation(habitacion: Habitacion, dia: number, $event: MouseEvent): void {
     this.detalle.push({
+      dia: dia,
       habitacion: habitacion,
       reserva: {},
     } as DetalleReserva);
@@ -86,16 +87,14 @@ export class RegistrosComponent implements OnInit {
     this.title = "Detalle de la reserva";
   }
 
-  calcTotal():number{
-    let totalReserva:number = 0;
-    //let total:number = 0;
-    if(this.reserva.detalleReserva.length > 0){
-      this.detalle.forEach(element => {
-        totalReserva += (element.habitacion.precio * element.reserva.dia);
-        //total += (totalReserva + totalReserva);
-      });
-    }
-    return totalReserva;
+  calcTotal(): number {
+    let total = 0;
+    this.reserva.detalleReserva.forEach((r) => {
+      if (r.dia > 0) {
+        total += r.habitacion.precio * r.dia;
+      }
+    });
+    return total;
   }
 
  quitarItem(item):void{

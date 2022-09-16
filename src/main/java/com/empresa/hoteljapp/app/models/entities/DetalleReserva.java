@@ -33,6 +33,9 @@ private static final long serialVersionUID = 1L;
 	@ManyToOne
 	@JoinColumn(name = "habitacion_id", referencedColumnName = "id", nullable = false)
 	private Habitacion habitacion;
+	
+	@Column(name = "dia", nullable = false)
+	private Integer dia;
 
 	//Getters and setters
 	public Long getId() {
@@ -55,4 +58,12 @@ private static final long serialVersionUID = 1L;
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
+	public Integer getDia() {
+		return dia;
+	}
+	public void setDia(Integer dia) {
+		this.dia = dia;
+	}
+	
+	
 }

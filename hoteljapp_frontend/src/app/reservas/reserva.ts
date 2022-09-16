@@ -6,7 +6,6 @@ export class Reserva {
     fecha_registro?: Date;
     fecha_ingreso?: Date;
     fecha_salida?: Date;
-    dia?: number;
     total?: number;
     estado?: string;
     cliente?: Cliente;
