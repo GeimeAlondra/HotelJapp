@@ -5,4 +5,5 @@ export class DetalleReserva{
     id?: number;
     habitacion?: Habitacion;
     reserva?: Reserva;
+    dia?: number;
 }
