@@ -46,6 +46,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import {DataViewModule} from 'primeng/dataview';
 import { RippleModule } from 'primeng/ripple';
 import {OrderListModule} from 'primeng/orderlist';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { registerLocaleData } from '@angular/common';
 import localES from '@angular/common/locales/es-SV';
@@ -103,7 +104,8 @@ registerLocaleData (localES, 'es-SV')
     CheckboxModule,
     DataViewModule,
     RippleModule,
-    OrderListModule
+    OrderListModule,
+    FlexLayoutModule
   ],
   providers: [MessageService, ConfirmationService, HabitacionService, {provide: LOCALE_ID, useValue: 'es-SV'}],
   bootstrap: [AppComponent]
