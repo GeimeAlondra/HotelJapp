@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -72,10 +75,17 @@ public class HabitacionController {
 	}
 	
 	@PostMapping("/habitaciones")
-	public ResponseEntity<?> save(@RequestPart Habitacion habitacion, @RequestPart(name = "imagen", required = false) MultipartFile imagen) throws IOException{
+	public ResponseEntity<?> save(@Validated @RequestPart Habitacion habitacion, @RequestPart(name = "imagen", required = false) MultipartFile imagen, BindingResult result) throws IOException{
 		String imageNewName = "";
 		Map<String, Object> response = new HashMap<>();
-		
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() + "' "+err.getDefaultMessage())
+					.collect(Collectors.toList());
+				response.put("errors", errors);
+				return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
+		}
 		try {
 			if(habitacionService.isExist(habitacion).size() > 0 && habitacion.getId()== null) {
 				response.put("message", "Ya existe una habitacion conese nombre y precio en la base de datos");

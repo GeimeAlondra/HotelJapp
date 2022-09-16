@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="tipo_habitaciones", schema = "public", catalog = "db_hoteljapp")
@@ -21,6 +23,8 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
+	@Size(min=3, max=100)
 	@Column(name="nombre", nullable=false, length=50)
 	private String nombre;
 	

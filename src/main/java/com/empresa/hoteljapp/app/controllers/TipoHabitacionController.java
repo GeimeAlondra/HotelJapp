@@ -3,11 +3,14 @@ package com.empresa.hoteljapp.app.controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,8 +54,16 @@ public class TipoHabitacionController {
 	}
 	
 	@PostMapping("/tipoHabitaciones")
-	public ResponseEntity<?> save(@RequestBody TipoHabitacion tipoHabitacion){
+	public ResponseEntity<?> save(@Validated @RequestBody TipoHabitacion tipoHabitacion, BindingResult result){
 		Map<String, Object> response = new HashMap<>();
+		if(result.hasErrors()) {
+			List<String> errors = result.getFieldErrors()
+					.stream()
+					.map(err -> "El campo '" + err.getField() + "' "+err.getDefaultMessage())
+					.collect(Collectors.toList());
+				response.put("errors", errors);
+				return new ResponseEntity<Map<String,Object>>(response,HttpStatus.BAD_REQUEST);
+		}
 		try {
 			if(tipoHabitacionService.fyndByNombre(tipoHabitacion.getNombre()).size() > 0) {
 				response.put("message", "Ya existe un registro con este nombre en la base de datos");
