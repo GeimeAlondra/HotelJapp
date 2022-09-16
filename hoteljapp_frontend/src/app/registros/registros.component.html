@@ -18,7 +18,7 @@
 
             <div class="field col">
                 <label for="nombre" class="col-form-label" col-sm-4>Días</label>
-                <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel">
+                <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel" [min]="0" [max]="100" >
             </div>
 
             </div>
@@ -44,14 +44,18 @@
             <div class="col-12 md:col-4">
 
                 <div class="product-grid-item card">
+                    <div>
+                        <span class="product-category">{{habitacion.tipoHabitacion.nombre}}, Personas: {{habitacion.tipoHabitacion.capacidad}}</span>
+                    </div>
                     <div class="product-grid-item-content-center">
                         <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre"/>
-                        <div class="product-name">{{habitacion.nombre}}, {{habitacion.servicio}}</div>
+                        <div class="product-name">Nombre: {{habitacion.nombre}}</div>
+                        <div class="product-name">Servicios adicionales: {{habitacion.servicio}}</div>
                     <div class="product-grid-item-bottom">
-                        <span class="product-price">{{habitacion.precio | currency: 'USD'}}</span>
+                        <span class="product-price">Precio: {{habitacion.precio | currency: 'USD'}}</span>
                     </div>
                     <br>
-                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, $event)" *ngIf=""></p-button>
+                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, $event)"></p-button>
                     </div> 
                 </div>
             </div>
@@ -124,6 +128,8 @@
     </ng-template>
 
 </p-dialog>
+
+<script></script>
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
 
