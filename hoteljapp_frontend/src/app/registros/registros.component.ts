@@ -57,6 +57,7 @@ export class RegistrosComponent implements OnInit {
     this.reserva.cliente = this.cliente;
     this.reserva.fecha_registro = new Date();
     console.log(this.reserva);
+
   }
   
   getEventValue($event:any): string{
@@ -87,9 +88,11 @@ export class RegistrosComponent implements OnInit {
 
   calcTotal():number{
     let totalReserva:number = 0;
+    //let total:number = 0;
     if(this.reserva.detalleReserva.length > 0){
       this.detalle.forEach(element => {
-        totalReserva += element.habitacion.precio;
+        totalReserva += (element.habitacion.precio * element.reserva.dia);
+        //total += (totalReserva + totalReserva);
       });
     }
     return totalReserva;
@@ -100,7 +103,7 @@ export class RegistrosComponent implements OnInit {
  this.reserva.detalleReserva.splice(index,1);
  this.reserva.total = this.calcTotal();
   }
-
+  
   saveReservation(): void{
 
     this.confirmationService.confirm({
