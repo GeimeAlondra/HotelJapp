@@ -1,43 +1,30 @@
 <p-toast></p-toast>
 <div class="card bg-ligth">
     <div class="card-header">Agregar reserva</div>
+
     <div class="card-body">
         <form #reservaForm = "ngForm">
-            <div class="form-group row">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<!--
-                <div class="field col-sm-6">
-                    <label for="cliente" class="col-form-labelvcol-sm-6">Cliente</label>
-                    <p-dropdown [(ngModel)]="reserva.cliente" optionLabel="nombre" [options]="clientes" placeholder="Select">
-                    </p-dropdown>
-                </div>
-            -->
+            <div class="formgrid grid">
 
-=======
->>>>>>> af775bf70caa68bb3d9512efa5f9c42e14828695
-=======
-
->>>>>>> 5222af053986c93a49b0bd24f7ea0fd8ea0b6c64
-                <label for="nombre" class="col-form-label" col-sm-12>Fecha de ingreso</label>
-                <div class="col-sm-12">
-                    <input type="date" class="form-control" name="fecha_ingreso" [(ngModel)]="reserva.fecha_ingreso" #fecha_ingreso="ngModel">
-                </div>
-
-                <label for="nombre" class="col-form-label" col-sm-12>Fecha de salida</label>
-                <div class="col-sm-12">
-                    <input type="date" class="form-control" name="fecha_salida" [(ngModel)]="reserva.fecha_salida" #fecha_salida="ngModel">
-                </div>
-
-                <label for="nombre" class="col-form-label" col-sm-2>Días</label>
-                <div class="col-sm-2">
-                    <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel">
-                </div>
+            <div class="field col">
+                <label for="nombre" class="col-form-label" col-sm-4>Fecha de ingreso</label>
+                <input type="date" class="form-control" name="fecha_ingreso" [(ngModel)]="reserva.fecha_ingreso" #fecha_ingreso="ngModel">
+            </div>
                 
+            <div class="field col">
+                <label for="nombre" class="col-form-label" col-sm-4>Fecha de salida</label>
+                <input type="date" class="form-control" name="fecha_salida" [(ngModel)]="reserva.fecha_salida" #fecha_salida="ngModel">
+            </div>
+
+            <div class="field col">
+                <label for="nombre" class="col-form-label" col-sm-4>Días</label>
+                <input type="number" class="form-control" name="dia" [(ngModel)]="reserva.dia" #dia="ngModel">
+            </div>
 
             </div>
         </form>
     </div>
+
 </div>
 
 <div class="card">
@@ -47,7 +34,7 @@
             <div class="flex flex-column md:flex-row md:justify-content-between">
                 <span class="p-input-icon-left mb-2 md:mb-0">
                     <i class="pi pi-search"></i>
-                    <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter(getEventValue($event))">
+                    <input type="search" pInputText placeholder="Buscar" (input)="dv.filter(getEventValue($event))">
                 </span>
                 <button pButton type="button" label="Ver Reserva" class="p-button-text" (click)="verDetalleReserva()" *ngIf="detalle.length > 0"></button>
                 
@@ -55,18 +42,16 @@
         </ng-template>
         <ng-template let-habitacion pTemplate="gridItem">
             <div class="col-12 md:col-4">
-                <div class="product-grid-item card">
 
-                    <div class="product-grid-item-content">
+                <div class="product-grid-item card">
+                    <div class="product-grid-item-content-center">
                         <img [src]="'assets/images/habitaciones/' + habitacion.imagen" [alt]="habitacion.nombre"/>
                         <div class="product-name">{{habitacion.nombre}}, {{habitacion.servicio}}</div>
-
-                    
                     <div class="product-grid-item-bottom">
                         <span class="product-price">{{habitacion.precio | currency: 'USD'}}</span>
                     </div>
                     <br>
-                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, $event)"></p-button>
+                        <p-button icon="pi pi-check" (onClick)="addToReservation(habitacion, $event)" *ngIf=""></p-button>
                     </div> 
                 </div>
             </div>
