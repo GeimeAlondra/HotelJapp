@@ -9,6 +9,7 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { ReservaService } from '../reservas/reserva.service';
 import { HabitacionService } from '../habitaciones/habitacion.service';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
   selector: 'app-registros',
@@ -17,8 +18,6 @@ import { HabitacionService } from '../habitaciones/habitacion.service';
   providers: [MessageService,ConfirmationService]
 })
 export class RegistrosComponent implements OnInit {
-
-  //clienteSelected: Cliente;
 
   habitaciones: Habitacion[];
 
@@ -56,7 +55,7 @@ export class RegistrosComponent implements OnInit {
       }
     );
     this.reserva.cliente = this.cliente;
-   this.reserva.fecha_registro = new Date();
+    this.reserva.fecha_registro = new Date();
     console.log(this.reserva);
   }
   
@@ -70,16 +69,7 @@ export class RegistrosComponent implements OnInit {
       reserva: {},
     } as DetalleReserva);
     this.reserva.detalleReserva = this.detalle;
-    /*
-    let precio = 0;
-    this.reserva.detalleReserva.forEach((r) => {
-      if (r.habitacion > 0) {
-        precio += r.habitacion.precio;
-      }
-    }); */
-    //this.reserva.total = habitacion.precio;
     this.reserva.total = this.calcTotal();
-    //precio = 0;
     console.log(this.reserva);
     ($event.target as HTMLButtonElement).disabled = true;
     console.log(this.cliente);
@@ -136,17 +126,18 @@ export class RegistrosComponent implements OnInit {
 }
 
 
-
-
-
-
 /*
-diasEntreFechas(fecha_ingreso, fecha_salida): void {
+diasEntreFechas(fecha_ingreso, fecha_salida){
  fecha_ingreso = new Date(fecha_ingreso);
  fecha_salida = new Date(fecha_salida);
  let diferencia = Math.abs(fecha_salida.getTime() - fecha_ingreso.getTime());
  return diferencia;
 }
 */
+
+
+
+
+
 
 }
