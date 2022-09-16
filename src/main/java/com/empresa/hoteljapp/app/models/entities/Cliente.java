@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -31,6 +33,8 @@ private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
+	@Size(min=3, max=100)
 	@Column(name="nombre", nullable=false, length=100)
 	private String nombre;
 	
