@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,13 +29,17 @@ import com.empresa.hoteljapp.app.service.interfaces.ITipoHabitacionService;
 @RestController
 @RequestMapping("/api")
 public class TipoHabitacionController {
+	
 	@Autowired
 	private ITipoHabitacionService tipoHabitacionService;
+	
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/tipoHabitaciones")
 	public List<TipoHabitacion> getAll(){
 		return tipoHabitacionService.findAll();
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/tipoHabitaciones/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		TipoHabitacion tipoHabitacion = null;
@@ -53,6 +58,7 @@ public class TipoHabitacionController {
 		return new ResponseEntity<TipoHabitacion>(tipoHabitacion, HttpStatus.OK);
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/tipoHabitaciones")
 	public ResponseEntity<?> save(@Validated @RequestBody TipoHabitacion tipoHabitacion, BindingResult result){
 		Map<String, Object> response = new HashMap<>();
@@ -83,6 +89,8 @@ public class TipoHabitacionController {
 		response.put("tipoHabitacion",tipoHabitacion);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
+	
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/tipoHabitaciones/{id}")
 	public ResponseEntity<?> update(@RequestBody TipoHabitacion tipoHabitacion, @PathVariable Long id){
 		
@@ -106,6 +114,7 @@ public class TipoHabitacionController {
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/tipoHabitaciones/{id}")
 	public ResponseEntity<?>delete(@PathVariable Long id){
 		Map<String, Object> response = new HashMap<>();
