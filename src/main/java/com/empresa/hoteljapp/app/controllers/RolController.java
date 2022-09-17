@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.empresa.hoteljapp.app.models.entities.Rol;
+import com.empresa.hoteljapp.app.models.entities.Role;
 import com.empresa.hoteljapp.app.service.interfaces.IRolService;
 
 
@@ -29,13 +29,13 @@ public class RolController {
 	@Autowired
 	private IRolService rolService;
 	@GetMapping("/roles")
-	public List<Rol> getAll(){
+	public List<Role> getAll(){
 		return rolService.findAll();
 	}
 	
 	@GetMapping("/roles/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
-		Rol rol = null;
+		Role rol = null;
 		Map<String, Object> response = new HashMap<>();
 		try {
 			rol = rolService.findById(id);
@@ -48,11 +48,11 @@ public class RolController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<Rol>(rol, HttpStatus.OK);
+		return new ResponseEntity<Role>(rol, HttpStatus.OK);
 	}
 	
 	@PostMapping("/roles")
-	public ResponseEntity<?> save(@RequestBody Rol rol){
+	public ResponseEntity<?> save(@RequestBody Role rol){
 		Map<String, Object> response = new HashMap<>();
 		try {
 			if(rolService.fyndByNombre(rol.getNombre()).size() > 0) {
@@ -74,10 +74,10 @@ public class RolController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 		}
 	@PutMapping("/roles/{id}")
-	public ResponseEntity<?> update(@RequestBody Rol rol, @PathVariable Long id){
+	public ResponseEntity<?> update(@RequestBody Role rol, @PathVariable Long id){
 		
-		Rol rolActual = rolService.findById(id);
-		Rol rolUpdated = null;
+		Role rolActual = rolService.findById(id);
+		Role rolUpdated = null;
 		Map<String, Object> response = new HashMap<>();
 		if(rolActual == null) {
 			response.put("message", "Error: no se puede editar, el rol con ID: ".concat(id.toString().concat(" no existe en la base de datos")));

@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.empresa.hoteljapp.app.models.entities.Rol;
+import com.empresa.hoteljapp.app.models.entities.Role;
 
 
-public interface IRolDAO extends CrudRepository<Rol,Long>{
+public interface IRolDAO extends CrudRepository<Role,Long>{
 	
-	List<Rol> findByNombreIgnoreCase(String cadena);
+	List<Role> findByNombreIgnoreCase(String cadena);
 
 }

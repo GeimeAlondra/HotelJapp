@@ -109,7 +109,7 @@
                         <td>{{item.habitacion.precio * item.dia | currency: 'USD'}}</td>
                         <td><button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="quitarItem(item)"></button></td>
                     <tr>
-                        <td colspan="4"><strong>Total de la reserva</strong></td>
+                        <td colspan="3"><strong>Total de la reserva</strong></td>
                         <td><b>{{reserva.total | currency: 'USD'}}</b></td>
                     </tr>
                     </tbody>

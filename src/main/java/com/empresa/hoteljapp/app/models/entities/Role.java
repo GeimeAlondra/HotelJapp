@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="roles", schema = "public", catalog = "db_hoteljapp")
 
-public class Rol implements Serializable{
+public class Role implements Serializable{
 	
 private static final long serialVersionUID = 1L;
 	

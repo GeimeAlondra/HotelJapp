@@ -2,12 +2,12 @@ package com.empresa.hoteljapp.app.service.interfaces;
 
 import java.util.List;
 
-import com.empresa.hoteljapp.app.models.entities.Rol;
+import com.empresa.hoteljapp.app.models.entities.Role;
 
 public interface IRolService {
-	public List<Rol> findAll();
-	public Rol findById(Long id);
-	public Rol save(Rol rol);
+	public List<Role> findAll();
+	public Role findById(Long id);
+	public Role save(Role rol);
 	public void delete(Long id);
-	public List<Rol> fyndByNombre(String nombre);
+	public List<Role> fyndByNombre(String nombre);
 }

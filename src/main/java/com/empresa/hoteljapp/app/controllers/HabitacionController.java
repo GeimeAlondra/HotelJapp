@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,16 +48,19 @@ public class HabitacionController {
 	@Autowired
 	private IHabitacionService habitacionService;
 	
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/habitaciones/activos")
 	public List<Habitacion> getAllActivos(){
 		return habitacionService.findAllActivos();
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/habitaciones/inactivos")
 	public List<Habitacion> getAllInactivos(){
 		return habitacionService.findAllInactivos();
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/habitaciones/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Habitacion habitacion = null;
@@ -74,6 +78,7 @@ public class HabitacionController {
 		return new ResponseEntity<Habitacion>(habitacion,HttpStatus.OK);
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/habitaciones")
 	public ResponseEntity<?> save(@Validated @RequestPart Habitacion habitacion, @RequestPart(name = "imagen", required = false) MultipartFile imagen, BindingResult result) throws IOException{
 		String imageNewName = "";
@@ -108,6 +113,7 @@ public class HabitacionController {
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/habitaciones/{id}")
 	public ResponseEntity<?> update(@RequestPart Habitacion habitacion, @PathVariable Long id, @RequestPart(name = "imagen", required = false) MultipartFile imagen)throws IOException{
 		
@@ -149,6 +155,7 @@ public class HabitacionController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/habitaciones/change-state")
 	public ResponseEntity<?> changeState(@RequestBody Habitacion habitacion, @RequestParam(name = "estado") String estado){
 			
