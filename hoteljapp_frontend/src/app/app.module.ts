@@ -52,6 +52,7 @@ import { registerLocaleData } from '@angular/common';
 import localES from '@angular/common/locales/es-SV';
 import { RegistrosComponent } from './registros/registros.component';
 import { HabitacionService } from './habitaciones/habitacion.service';
+import { LoginComponent } from './usuarios/login.component';
 
 registerLocaleData (localES, 'es-SV')
 
@@ -72,7 +73,8 @@ registerLocaleData (localES, 'es-SV')
     HabitacionesComponent,
     ReservasComponent,
     RegistrosComponent,
-    ClientesComponent
+    ClientesComponent,
+    LoginComponent
     
   ],
   imports: [

@@ -15,15 +15,37 @@ export class TipoHabitacionService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  private isNoAuthorized(e): boolean{
+    if(e.status == 401 || e.status == 403){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    /*
+    if(e.status == 403){
+      Swal.fire('Prohibido', `${this.authService.usuario.username} no tiene los permisos necesarios para ingresar a este recurso`, 'warning')
+      this.router.navigate(['/home']);
+      return true;
+    }*/
+    return false;
+  }
+
   getAll(): Observable<TipoHabitacion[]>{
-      return this.http.get<TipoHabitacion[]>(this.urlEndPoint);
+      return this.http.get<TipoHabitacion[]>(this.urlEndPoint).pipe(
+        catchError(e => {
+          this.isNoAuthorized(e);
+          return throwError(()=> e);
+        })
+      );
   }
 
   //Crear tipo
-  create(servicio: TipoHabitacion): Observable<any>{
-    return this.http.post(this.urlEndPoint, servicio, {headers: this.httpHeaders}).pipe(
+  create(tipoHabitacion: TipoHabitacion): Observable<any>{
+    return this.http.post(this.urlEndPoint, tipoHabitacion, {headers: this.httpHeaders}).pipe(
       //map((response: any) => response.rol as Rol),
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(() => e)
         }
@@ -37,10 +59,13 @@ export class TipoHabitacionService {
   }
 
   //Obtener tipo
-  getServicio(id: any): Observable<TipoHabitacion>{
+  getTipoHabitacion(id: any): Observable<TipoHabitacion>{
     return this.http.get<TipoHabitacion>(`${this.urlEndPoint}/${id}`).pipe(
      catchError(e => {
-      this.router.navigate(['/servicios'])
+      if(this.isNoAuthorized(e)){
+        return throwError(() => e);
+      }
+      this.router.navigate(['/tipoHabitaciones'])
       console.log(e.message);
       return throwError(() => e)
      })
@@ -51,6 +76,9 @@ export class TipoHabitacionService {
   update(tipoHabitacion: TipoHabitacion): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${tipoHabitacion.id}`, tipoHabitacion, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(() => e)
         }
@@ -64,6 +92,9 @@ export class TipoHabitacionService {
   delete(id:number): Observable<TipoHabitacion>{
     return this.http.delete<TipoHabitacion>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e =>{
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         console.log(e.message);
         return throwError(() => e)
       })

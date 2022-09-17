@@ -13,6 +13,7 @@ import { HabitacionesComponent } from './habitaciones/habitaciones.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { RegistrosComponent } from './registros/registros.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { LoginComponent } from './usuarios/login.component';
 
 const routes: Routes = [
   {path: '',redirectTo: '/home', pathMatch: 'full'},
@@ -26,12 +27,6 @@ const routes: Routes = [
   {path: 'pisos/form-piso',component: FormPisoComponent}, 
   {path: 'pisos/form-piso/:id',component: FormPisoComponent},
 
-  /*
-  {path: 'servicios',component: ServiciosComponent},
-  {path: 'servicios/form-servicio',component: FormServicioComponent}, 
-  {path: 'servicios/form-servicio/:id',component: FormServicioComponent},
-  */
-
   {path: 'tipoHabitaciones',component: TipoHabitacionesComponent},
   {path: 'tipo-habitaciones/form-tipo-habitacion',component: FormTipoHabitacionComponent}, 
   {path: 'tipo-habitaciones/form-tipo-habitacion/:id',component: FormTipoHabitacionComponent},
@@ -42,7 +37,10 @@ const routes: Routes = [
 
   {path: 'registros',component: RegistrosComponent},
 
-  {path: 'clientes',component: ClientesComponent}
+  {path: 'clientes',component: ClientesComponent},
+
+  {path: 'login',component: LoginComponent}
+
 ];
 
 @NgModule({

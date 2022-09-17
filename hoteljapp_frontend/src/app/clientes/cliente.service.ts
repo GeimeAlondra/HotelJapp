@@ -15,14 +15,36 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  private isNoAuthorized(e): boolean{
+    if(e.status == 401 || e.status == 403){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    /*
+    if(e.status == 403){
+      Swal.fire('Prohibido', `${this.authService.usuario.username} no tiene los permisos necesarios para ingresar a este recurso`, 'warning')
+      this.router.navigate(['/home']);
+      return true;
+    }*/
+    return false;
+  }
+
   getAll():Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(this.urlEndPoint);
+    return this.http.get<Cliente[]>(this.urlEndPoint).pipe(
+      catchError(e => {
+        this.isNoAuthorized(e);
+        return throwError(()=> e);
+      })
+    );
   }
 
   create(cliente: Cliente): Observable<any>{
     return this.http.post(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
       //map((response: any) => response.rol as Rol),
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(() => e)
         }
@@ -37,6 +59,9 @@ export class ClienteService {
   getCliente(id: any): Observable<Cliente>{
     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
      catchError(e => {
+      if(this.isNoAuthorized(e)){
+        return throwError(() => e);
+      }
       this.router.navigate(['/clientes'])
       console.log(e.message);
       return throwError(() => e)
@@ -48,6 +73,9 @@ export class ClienteService {
   update(cliente: Cliente): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(() => e)
         }
@@ -60,6 +88,9 @@ export class ClienteService {
   delete(id:number): Observable<Cliente>{
     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e =>{
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         console.log(e.message);
         return throwError(() => e)
       })

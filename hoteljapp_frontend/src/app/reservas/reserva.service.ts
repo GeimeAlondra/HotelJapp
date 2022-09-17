@@ -15,21 +15,52 @@ export class ReservaService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  private isNoAuthorized(e): boolean{
+    if(e.status == 401 || e.status == 403){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    /*
+    if(e.status == 403){
+      Swal.fire('Prohibido', `${this.authService.usuario.username} no tiene los permisos necesarios para ingresar a este recurso`, 'warning')
+      this.router.navigate(['/home']);
+      return true;
+    }*/
+    return false;
+  }
+
   getAllRecibidas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint);
+    return this.http.get<Reserva[]>(this.urlEndPoint).pipe(
+      catchError(e => {
+        this.isNoAuthorized(e);
+        return throwError(()=> e);
+      })
+    );
   }
 
   getAllAceptadas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint + '/aceptadas');
+    return this.http.get<Reserva[]>(this.urlEndPoint + '/aceptadas').pipe(
+      catchError(e => {
+        this.isNoAuthorized(e);
+        return throwError(()=> e);
+      })
+    );
   }
 
   getAllCanceladas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint + '/canceladas');
+    return this.http.get<Reserva[]>(this.urlEndPoint + '/canceladas').pipe( 
+      catchError(e => {
+      this.isNoAuthorized(e);
+      return throwError(()=> e);
+    }));
   }
 
   changeState(estado:string, reserva:Reserva): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/change-state?estado=${estado}`,reserva,{headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         console.log(e.message);
         return throwError(() => e)
       })
@@ -39,6 +70,9 @@ export class ReservaService {
   createReservationCustomers(reserva: Reserva): Observable<any>{
     return this.http.post(`${this.urlEndPoint}`, reserva).pipe(
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(()=> e)
         }
