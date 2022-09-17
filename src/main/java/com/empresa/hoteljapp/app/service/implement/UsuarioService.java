@@ -17,9 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.empresa.hoteljapp.app.models.dao.IUsuarioDAO;
 import com.empresa.hoteljapp.app.models.entities.Usuario;
+import com.empresa.hoteljapp.app.service.interfaces.IUsuarioService;
 
 @Service
-public class UsuarioService implements UserDetailsService{
+public class UsuarioService implements IUsuarioService, UserDetailsService{
 
 private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 	
@@ -43,6 +44,12 @@ private Logger logger = LoggerFactory.getLogger(UsuarioService.class);
 		.collect(Collectors.toList());
 		
 		return new User(usuario.getUserName(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario findByuserName(String username) {
+		return usuarioDAO.findByuserName(username);
 	}
 
 }

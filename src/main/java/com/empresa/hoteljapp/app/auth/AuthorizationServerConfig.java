@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -44,12 +45,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.refreshTokenValiditySeconds(3600);
 	}
 	
+	
+	@Autowired
+	private InfoAdditionalToken infoAdditionalToken;
+	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		
-		//TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		//tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdditionalToken, accessTokenConverter()));
-		
+		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdditionalToken, accessTokenConverter()));
 		endpoints.authenticationManager(authenticationManager)
 		.tokenStore(tokenStore())
 		.accessTokenConverter(accessTokenConverter());
