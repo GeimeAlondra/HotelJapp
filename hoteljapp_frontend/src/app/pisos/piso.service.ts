@@ -16,8 +16,27 @@ export class PisoService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  private isNoAuthorized(e): boolean{
+    if(e.status == 401 || e.status == 403){
+      this.router.navigate(['/login']);
+      return true;
+    }
+    /*
+    if(e.status == 403){
+      Swal.fire('Prohibido', `${this.authService.usuario.username} no tiene los permisos necesarios para ingresar a este recurso`, 'warning')
+      this.router.navigate(['/home']);
+      return true;
+    }*/
+    return false;
+  }
+
   getAll():Observable<Piso[]>{
-    return this.http.get<Piso[]>(this.urlEndPoint);
+    return this.http.get<Piso[]>(this.urlEndPoint).pipe(
+      catchError(e => {
+        this.isNoAuthorized(e);
+        return throwError(()=> e);
+      })
+    );
   }
 
   //Crear piso
@@ -25,6 +44,9 @@ export class PisoService {
     return this.http.post(this.urlEndPoint, piso, {headers: this.httpHeaders}).pipe(
       //map((response: any) => response.rol as Rol),
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(() => e)
         }
@@ -41,6 +63,9 @@ export class PisoService {
   getPiso(id: any): Observable<Piso>{
     return this.http.get<Piso>(`${this.urlEndPoint}/${id}`).pipe(
      catchError(e => {
+      if(this.isNoAuthorized(e)){
+        return throwError(() => e);
+      }
       this.router.navigate(['/pisos'])
       console.log(e.message);
       return throwError(() => e)
@@ -52,6 +77,9 @@ export class PisoService {
   update(piso: Piso): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${piso.id}`, piso, {headers: this.httpHeaders}).pipe(
       catchError(e => {
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         if(e.status == 400){
           return throwError(() => e)
         }
@@ -65,6 +93,9 @@ export class PisoService {
   delete(id:number): Observable<Piso>{
     return this.http.delete<Piso>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e =>{
+        if(this.isNoAuthorized(e)){
+          return throwError(() => e);
+        }
         console.log(e.message);
         return throwError(() => e)
       })

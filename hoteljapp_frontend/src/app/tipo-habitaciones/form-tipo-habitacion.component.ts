@@ -27,7 +27,7 @@ export class FormTipoHabitacionComponent implements OnInit {
     this.activeRoute.params.subscribe(params => {
       let id = params['id'];
       if(id){
-        this.tipoHabitacionService.getServicio(id).subscribe((tipoHabitacion) => this.tipoHabitacion = tipoHabitacion);
+        this.tipoHabitacionService.getTipoHabitacion(id).subscribe((tipoHabitacion) => this.tipoHabitacion = tipoHabitacion);
       }
     });
   }

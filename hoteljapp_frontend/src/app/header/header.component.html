@@ -31,19 +31,23 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/registros">Registros</a>
           </li>
-         <!---
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle bg-gradient" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <strong class="text-dark">Dropdown link</strong>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        -->
         </ul>
+
+        <ul class="navbar-nav navbar-right">
+
+          <li class="nav-item">
+            <a [routerLink]="['/login']" class="btn btn-outline-primary">Login</a>
+          </li>
+            
+          <!--
+          <li>
+            <button (click)="logout()" *ngIf="authService.isAuthenticated()" class="btn btn-primary">
+              Logout
+            </button>
+          </li>
+-->
+        </ul>
+
       </div>
     </div>
   </nav>
