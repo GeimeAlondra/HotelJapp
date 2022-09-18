@@ -62,7 +62,7 @@ export class PisosComponent implements OnInit {
       if (result.isConfirmed) {
         this.pisoService.delete(piso.id).subscribe(
           response => {
-          this.pisos = this.pisos.filter(p => p !== piso);
+          this.pisos = this.pisos.filter(piso => piso !== piso);
           swalWithBootstrapButtons.fire(
             '¡Piso eliminado con exito!',
              response.message,

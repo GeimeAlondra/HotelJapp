@@ -128,18 +128,6 @@ export class RegistrosComponent implements OnInit {
 }
 
 
-/*
-diasEntreFechas(fecha_ingreso, fecha_salida){
- fecha_ingreso = new Date(fecha_ingreso);
- fecha_salida = new Date(fecha_salida);
- let diferencia = Math.abs(fecha_salida.getTime() - fecha_ingreso.getTime());
- return diferencia;
-}
-*/
-
-
-
-
 
 
 }

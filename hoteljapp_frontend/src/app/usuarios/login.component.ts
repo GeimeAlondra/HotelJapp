@@ -19,6 +19,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    if(this.authService.isAuthenticated()){
+      if(this.authService.hasRole('ROLE_ADMIN')){
+        this.router.navigate(['/home']);
+       }else{
+        this.router.navigate(['/registros']);
+       }
+    }
+
   }
 
   login(): void{
@@ -29,15 +38,23 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.usuario).subscribe(response => {
-     console.log(response);
-     let payLoad = JSON.parse(window.atob(response.access_token.split(".")[1]));
-     console.log(payLoad);
-     this.router.navigate(['/home']);
-     Swal.fire('Aviso', `Hola ${response.username} has iniciado sesión con éxito!!!`, 'success');
-    });
+    this.authService.guardarUsuario(response.access_token);
+    this.authService.guardarToken(response.access_token);
+    let usuario = this.authService.usuario;
 
+     Swal.fire('Aviso', `Hola ${usuario.username} has iniciado sesión con éxito!!!`, 'success');
+     
+     if(this.authService.hasRole('ROLE_ADMIN')){
+      this.router.navigate(['/home']);
+     }else{
+      this.router.navigate(['/registros']);
+     }
 
-
+      }, err => {
+      if(err.status == 400){
+      Swal.fire('Error', `Acceso denegado, Usuario o clave incorrectos`, 'error');
+    }
+  });
   }
   
 
