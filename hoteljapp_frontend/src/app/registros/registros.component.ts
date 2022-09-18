@@ -4,12 +4,14 @@ import { PrimeNGConfig } from 'primeng/api';
 import { DetalleReserva } from '../reservas/detalleReserva';
 import { Reserva } from '../reservas/reserva';
 import { Habitacion } from '../habitaciones/habitacion';
-import { Cliente } from '../clientes/cliente';
+//import { Cliente } from '../clientes/cliente';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { ReservaService } from '../reservas/reserva.service';
 import { HabitacionService } from '../habitaciones/habitacion.service';
-import { Dialog } from 'primeng/dialog';
+//import { Dialog } from 'primeng/dialog';
+import { Usuario } from '../usuarios/usuario';
+import { AuthService } from '../usuarios/auth.service';
 
 @Component({
   selector: 'app-registros',
@@ -41,20 +43,21 @@ export class RegistrosComponent implements OnInit {
 
   detalle: DetalleReserva[] = [];
 
-  cliente: Cliente = {id:1,nombre:"Miguel Ardon",telefono:"60697081", direccion:"La Palma"}
+  cliente: Usuario = this.authService.usuario;
+
+  //cliente: Cliente = {id:1,nombre:"Miguel Ardon",telefono:"60697081", direccion:"La Palma"}
 
   constructor(private reservaService: ReservaService, 
     private habitacionService: HabitacionService, private primeNGConfig: PrimeNGConfig,
-     private messageService: MessageService,private confirmationService: ConfirmationService) { }
+     private messageService: MessageService,private confirmationService: ConfirmationService, 
+     private authService: AuthService) { }
 
   ngOnInit(): void {
 
-    this.habitacionService.getAllActivos().subscribe((
-      response) => {
+    this.habitacionService.getAllActivos().subscribe((response) => {
         this.habitaciones = response as Habitacion[];
-      }
-    );
-    this.reserva.cliente = this.cliente;
+      });
+    this.reserva.usuario = {...this.cliente};
     this.reserva.fecha_registro = new Date();
     console.log(this.reserva);
 
@@ -72,7 +75,8 @@ export class RegistrosComponent implements OnInit {
     } as DetalleReserva);
     this.reserva.detalleReserva = this.detalle;
     this.reserva.total = this.calcTotal();
-    console.log(this.reserva);
+    this.reserva.usuario.roles = []
+    console.log(this.cliente);
     ($event.target as HTMLButtonElement).disabled = true;
     console.log(this.cliente);
   }
@@ -112,7 +116,8 @@ export class RegistrosComponent implements OnInit {
       accept: () => {
         this.submitted = true;
         this.reservaService.createReservationCustomers(this.reserva).subscribe({
-        next:(json) =>{
+        next:(json) => { 
+          this.habitaciones.unshift(json.habitacion);
           this.messageService.add({severity:'success', summary: 'Confirmado', detail: `${json.message}`, life: 3000});
         },
      error: (err) => {

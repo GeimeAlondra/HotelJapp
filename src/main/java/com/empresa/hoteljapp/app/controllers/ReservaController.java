@@ -38,6 +38,15 @@ public class ReservaController {
 		return reservaService.findAll(fecha_registro);
 	}
 	
+	@Secured({"ROLE_USER"})
+	@GetMapping("/reservas/{id}/detail")
+	public List<Reserva> getAllRecibidasByUser(@PathVariable Long id ){
+
+		return reservaService.findAllRecibidasByUser(id);
+		
+	}
+	
+	
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/reservas/aceptadas")
 	public List<Reserva> getAllAceptadas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){

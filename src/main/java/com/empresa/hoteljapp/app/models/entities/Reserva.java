@@ -49,8 +49,8 @@ private static final long serialVersionUID = 1L;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-	@JoinColumn(name = "cliente_id", referencedColumnName = "id", nullable = false)
-	private Cliente cliente;
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id", nullable = false)
+	private Usuario usuario;
 	
 	//Relacion 1:N con detalleReserva
 	@OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -105,11 +105,13 @@ private static final long serialVersionUID = 1L;
 		this.estado = estado;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<DetalleReserva> getDetalleReserva() {

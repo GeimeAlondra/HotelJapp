@@ -1,0 +1,188 @@
+<p></p>
+<p-toast></p-toast>
+
+<div class="card">
+  <p-table
+    #dt
+    [value]="reservas"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['fecha_registro','usuario', 'status']"
+    responsiveLayout="scroll"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <h5 class="m-0"><strong>Mis reservas</strong></h5>
+        <span class="p-input-icon-left">
+          <div class="table-responsive">
+            <div class="table">
+              <tr>
+                <td>
+                  
+                </td>
+              </tr>
+            </div>
+          </div>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              (input)="dt.filterGlobal(getEventValue($event), 'contains')"
+              placeholder="Buscar reserva..."
+            />
+          </span>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">
+          Número de reserva<p-sortIcon field="id"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fecha_registro">
+          Fecha Reserva <p-sortIcon field="fecha_registro"></p-sortIcon>
+        </th>
+        <th pSortableColumn="fecha_ingreso">
+          Fecha Ingreso <p-sortIcon field="fecha_ingreso"></p-sortIcon>
+        </th>
+    <th pSortableColumn="fecha_salida">
+      Fecha Salida <p-sortIcon field="fecha_salida"></p-sortIcon>
+    </th>
+    <th pSortableColumn="total">
+        Total <p-sortIcon field="total"></p-sortIcon>
+      </th>
+        <th pSortableColumn="usuario">
+          Cliente <p-sortIcon field="usuario"></p-sortIcon>
+        </th>
+        <th pSortableColumn="estado">
+            Estado <p-sortIcon field="estado"></p-sortIcon>
+          </th>
+        <th>Opciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reserva>
+      <tr>
+        <td>{{ reserva.id }}</td>
+        <td>{{ reserva.fecha_registro | date: "dd/MM/yyyy" }}</td>
+        <td>{{ reserva.fecha_ingreso | date: "dd/MM/yyyy" }}</td>
+        <td>{{ reserva.fecha_salida | date: "dd/MM/yyyy" }}</td>
+        <td>{{ reserva.total | currency: "USD" }}</td>
+        <td>{{ reserva.usuario.nombre }}</td>
+        <td><p-tag [severity]="reserva.estado == 'D' ? 'success' : reserva.estado == 'A' ? 'danger' : 'primary'" [value]="reserva.estado == 'D' ? 'Despachada' : reserva.estado == 'A' ? 'Anulada' : 'Recibida'"></p-tag></td>
+        <td>
+            <button
+            label="Ver detalle"
+            pButton
+            pRipple
+            icon="pi pi-eye"
+            class="p-button p-button-info"
+            (click)="verDetalleReserva(reserva)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="flex align-items-center justify-content-between">
+        El total de ordenes es : {{ reservas ? reservas.length : 0 }}
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog
+  [(visible)]="detalleReservaDialog"
+  [style]="{ width: '850px' }"
+  header="{{ title }}"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="nombre"><b>Cliente: </b>{{ reserva.usuario.nombre }}</label>
+    </div>
+    <div class="formgrid grid row">
+      <div class="field col-6">
+        <label for="fecha_registro"
+          ><b>Fecha: </b>{{ reserva.fecha_registro | date: "EEEE dd, MMM yyyy" }}</label
+        >
+      </div>
+    </div>
+    <div class="formgrid grid row">
+        <div class="field col-6">
+          <label for="fecha_ingreso"
+            ><b>Fecha Ingreso: </b
+            >{{ reserva.fecha_ingreso | date: "EEEE dd, MMM yyyy" }}</label
+          >
+        </div>
+    <div class="formgrid grid row">
+      <div class="field col-6">
+        <label for="fecha_salida">
+          ><b>Fecha Salida: </b
+          >{{ reserva.fecha_salida | date: "EEEE dd, MMM yyyy" }}</label
+        >
+      </div>
+    </div>
+    <div class="formgrid grid row">
+      <div class="field col-6">
+        <label for="estado"
+          ><b>Estado: </b
+          >{{
+            reserva.estado == "R"
+              ? "Recibida"
+              : reserva.estado == "D"
+              ? "Despachada"
+              : "Anulada"
+          }}</label
+        >
+      </div>
+    </div>
+    <div class="formgrid grid row">
+      <div class="field col-6">
+        <label for="id"><b>Número de reserva: </b>{{ reserva.id }}</label>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <table class="table table-bordered border-primary">
+        <thead class="border border-primary">
+          <th>Habitacion</th>
+          <th>Precio</th>
+          <th>Dias</th>
+          <th>Subtotal</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of reserva.detalleReserva">
+            <td>{{ item.habitacion.nombre }},{{ item.habitacion.servicio }}</td>
+            <td>{{ item.habitacion.precio | currency: "USD" }}</td>
+            <td class="text-center">{{ item.dia }}</td>
+            <td>
+              {{ item.dia * item.habitacion.precio | currency: "USD" }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-center">Total de la orden:</td>
+            <td>
+              <b>{{ reserva.total | currency: "USD" }}</b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cerrar"
+      icon="pi pi-times"
+      class="p-button-text text-dark"
+      (click)="hideDialog()"
+    ></button>
+  </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

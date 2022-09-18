@@ -74,7 +74,7 @@ export class HabitacionService {
   }
 
   create(habitacion: Habitacion): Observable<any>{
-    return this.http.post(`${this.urlEndPoint}`,habitacion).pipe(
+    return this.http.post(`${this.urlEndPoint}`,habitacion, {headers: this.addAuthorizationHeaders(true)}).pipe(
       catchError(e => {
         if(this.isNoAuthorized(e)){
           return throwError(() => e);
@@ -109,7 +109,7 @@ export class HabitacionService {
     }
     
     update(habitacion: Habitacion, id:number): Observable<any>{
-      return this.http.put(`${this.urlEndPoint}/${id}`,habitacion).pipe(
+      return this.http.put(`${this.urlEndPoint}/${id}`,habitacion, {headers: this.addAuthorizationHeaders(true)}).pipe(
         catchError(e => {
           if(this.isNoAuthorized(e)){
             return throwError(() => e);

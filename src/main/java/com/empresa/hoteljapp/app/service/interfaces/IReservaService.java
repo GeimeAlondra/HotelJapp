@@ -7,6 +7,8 @@ import com.empresa.hoteljapp.app.models.entities.Reserva;
 
 public interface IReservaService {
 	
+	public List<Reserva> findAllRecibidasByUser (Long id);
+	
 	public List<Reserva> findAll(Date fecha_registro);
 	
 	public List<Reserva> findAllAceptadas(Date fecha_registro);

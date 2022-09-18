@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TagModule } from 'primeng/tag';  
 
 import { FormComponent } from './roles/form.component';
 import { RolesComponent } from './roles/roles.component';
@@ -53,6 +54,7 @@ import localES from '@angular/common/locales/es-SV';
 import { RegistrosComponent } from './registros/registros.component';
 import { HabitacionService } from './habitaciones/habitacion.service';
 import { LoginComponent } from './usuarios/login.component';
+import { HistorialComponent } from './reservas/historial.component';
 
 registerLocaleData (localES, 'es-SV')
 
@@ -74,7 +76,8 @@ registerLocaleData (localES, 'es-SV')
     ReservasComponent,
     RegistrosComponent,
     ClientesComponent,
-    LoginComponent
+    LoginComponent,
+    HistorialComponent
     
   ],
   imports: [
@@ -107,7 +110,8 @@ registerLocaleData (localES, 'es-SV')
     DataViewModule,
     RippleModule,
     OrderListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    TagModule
   ],
   providers: [MessageService, ConfirmationService, HabitacionService, {provide: LOCALE_ID, useValue: 'es-SV'}],
   bootstrap: [AppComponent]

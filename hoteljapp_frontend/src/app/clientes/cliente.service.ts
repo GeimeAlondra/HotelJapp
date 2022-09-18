@@ -14,9 +14,7 @@ export class ClienteService {
   private httpHeaders: HttpHeaders = new HttpHeaders({'content-type': 'application/json'});
  
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
-
-  /*
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }  
   private addAuthorizationHeader(){
     let token = this.authService.token;
     if(token != null){
@@ -37,15 +35,15 @@ export class ClienteService {
     }
     return false;
   }
-  */
+  
 
   getAll():Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(this.urlEndPoint).pipe(
+    return this.http.get<Cliente[]>(this.urlEndPoint, {headers: this.addAuthorizationHeader()}).pipe(
     );
   }
 
   create(cliente: Cliente): Observable<any>{
-    return this.http.post(this.urlEndPoint, cliente).pipe(
+    return this.http.post(this.urlEndPoint, cliente, {headers: this.addAuthorizationHeader()}).pipe(
       //map((response: any) => response.rol as Rol),
       catchError(e => {
      
@@ -62,7 +60,7 @@ export class ClienteService {
   }
   
   getCliente(id: any): Observable<Cliente>{
-    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.addAuthorizationHeader()}).pipe(
      catchError(e => {
      
       this.router.navigate(['/clientes'])
@@ -74,7 +72,7 @@ export class ClienteService {
 
   //Actualizar piso
   update(cliente: Cliente): Observable<any>{
-    return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.addAuthorizationHeader()}).pipe(
       catchError(e => {
        
         if(e.status == 400){
@@ -87,7 +85,7 @@ export class ClienteService {
   }
 
   delete(id:number): Observable<Cliente>{
-    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
+    return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.addAuthorizationHeader()}).pipe(
       catchError(e =>{
         
         console.log(e.message);

@@ -66,7 +66,7 @@
 <p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '1000px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="field">
-            <label for="nombre"><b>Cliente: </b>{{reserva.cliente.nombre}}</label>
+            <label for="nombre"><b>Cliente: </b>{{reserva.usuario.username}}</label>
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
@@ -105,7 +105,7 @@
                     <tr *ngFor="let item of reserva.detalleReserva">
                         <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
                         <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                        <td>{{item.dia}}</td>
+                        <td class="text-center">{{ item.dia }}</td>
                         <td>{{item.habitacion.precio * item.dia | currency: 'USD'}}</td>
                         <td><button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="quitarItem(item)"></button></td>
                     <tr>
