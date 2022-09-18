@@ -87,4 +87,10 @@ public class IReservaServiceImpl implements IReservaService{
 		return reservaDAO.findById(id).orElse(null);
 	}
 
+	@Override
+	public List<Reserva> findAllRecibidasByUser(Long id) {
+		// TODO Auto-generated method stub
+		return reservaDAO.findAllRecibidasByUser(id);
+	}
+
 }

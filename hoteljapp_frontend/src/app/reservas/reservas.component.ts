@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 //import { Router } from '@angular/router';
 import { ConfirmationService} from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { Cliente } from '../clientes/cliente';
+//import { Cliente } from '../clientes/cliente';
+import { Usuario } from '../usuarios/usuario';
 import { Reserva } from './reserva';
 import { ReservaService } from './reserva.service';
 
@@ -15,7 +16,7 @@ export class ReservasComponent implements OnInit {
 
   title: string;
   reservas: Reserva[];
-  clientes: Cliente[];
+  clientes: Usuario[];
   reserva: Reserva;
   detalleReservaDialog: boolean = false;
   estado: string;

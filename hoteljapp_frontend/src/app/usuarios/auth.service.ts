@@ -10,7 +10,7 @@ export class AuthService {
 
   private _usuario: Usuario
   private _token: string
-
+  
   constructor(private http: HttpClient) { }
 
   public get usuario(): Usuario{
@@ -36,13 +36,14 @@ export class AuthService {
   }
 
   login(usuario: Usuario): Observable<any> {
-
     const urlEndpoint = 'http://localhost:8080/oauth/token'
 
     const credenciales = window.btoa('angularapp' + ':' + '12345')
 
-    const httpHeaders = new HttpHeaders({'Content-Type':'application/x-www-form-urlencoded',
-      'Authorization':'Basic ' + credenciales});
+    const httpHeaders = new HttpHeaders({
+      'Content-Type':'application/x-www-form-urlencoded',
+      'Authorization':'Basic ' + credenciales
+    })
 
     let params = new URLSearchParams()
     params.set('grant_type','password')
@@ -52,17 +53,12 @@ export class AuthService {
     return this.http.post<any>(urlEndpoint, params.toString(), { headers: httpHeaders })
   }
 
-  obtenerDatosToken(accessToken: string): any {
-    if (accessToken != null) return JSON.parse(window.atob(accessToken.split('.')[1]))
-    return null
-  }
-
   guardarUsuario(accessToken: string): void {
     let payload = this.obtenerDatosToken(accessToken)
     this._usuario = new Usuario()
     this._usuario.id = payload.user_id
     this._usuario.username = payload.user_name
-    this._usuario.nombre = payload.nombre
+    this._usuario.nombre = payload.complete_name
     this._usuario.email = payload.email
     this._usuario.roles = payload.authorities
     sessionStorage.setItem("usuario", JSON.stringify(this._usuario))
@@ -73,12 +69,17 @@ export class AuthService {
     sessionStorage.setItem("token", this._token)
   }
 
+  obtenerDatosToken(accessToken: string): any {
+    if (accessToken != null) return JSON.parse(window.atob(accessToken.split('.')[1]))
+    return null
+  } 
+
   isAuthenticated(): boolean {
     let payLoad = this.obtenerDatosToken(this.token)
     if (payLoad != null && payLoad.user_name.length > 0) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
   logout(): void {
@@ -93,7 +94,4 @@ export class AuthService {
     }
     return false
   }
-
-
-  
 }

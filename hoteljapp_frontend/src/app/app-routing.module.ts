@@ -14,6 +14,7 @@ import { ReservasComponent } from './reservas/reservas.component';
 import { RegistrosComponent } from './registros/registros.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { LoginComponent } from './usuarios/login.component';
+import { HistorialComponent } from './reservas/historial.component';
 
 const routes: Routes = [
   {path: '',redirectTo: '/home', pathMatch: 'full'},
@@ -39,7 +40,10 @@ const routes: Routes = [
 
   {path: 'clientes',component: ClientesComponent},
 
-  {path: 'login',component: LoginComponent}
+  {path: 'login',component: LoginComponent},
+
+  {path: 'historial',component: HistorialComponent},
+
 
 ];
 

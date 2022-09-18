@@ -1,0 +1,18 @@
+.card-header{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.card-body{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-left: 31%;
+}
+
+.container{
+    justify-content: center;
+    width: 750px;
+    height: 112px;
+    margin-bottom: auto;
+}

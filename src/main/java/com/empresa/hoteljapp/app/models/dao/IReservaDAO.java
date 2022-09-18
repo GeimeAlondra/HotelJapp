@@ -4,10 +4,15 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.empresa.hoteljapp.app.models.entities.Reserva;
 
 public interface IReservaDAO extends CrudRepository<Reserva, Long>{
+	
+	@Query("FROM Reserva r WHERE r.usuario.id = :usuarioId ORDER BY r.fecha_registro DESC")
+	List<Reserva> findAllRecibidasByUser(@Param("usuarioId") Long usuarioId);
+
 	
 	@Query("FROM Reserva r WHERE r.estado = 'R' ORDER BY r.fecha_registro DESC")
 	List<Reserva> findAllRecibidas();

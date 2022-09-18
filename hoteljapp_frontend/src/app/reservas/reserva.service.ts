@@ -5,7 +5,6 @@ import { catchError, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AuthService } from '../usuarios/auth.service';
 import { Reserva } from './reserva';
-//import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +16,12 @@ export class ReservaService {
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
-  private addAuthorizationHeader(){
-    let token = this.authService.token;
-    if(token != null){
-      return this.httpHeaders.append('Authorization', 'Bearer' + token);
+  addAuthorizationHeaders() {
+    let token = this.authService.token
+    if (token != null) {
+      return this.httpHeaders.append('Authorization', 'Bearer ' + token)
     }
-    return this.httpHeaders;
+    return this.httpHeaders
   }
 
   private isNoAuthorized(e): boolean{
@@ -33,13 +32,21 @@ export class ReservaService {
     if(e.status == 403){
       Swal.fire('Prohibido', `${this.authService.usuario.username} no tiene los permisos necesarios para ingresar a este recurso`, 'warning')
       this.router.navigate(['/home']);
-      return true;
     }
     return false;
   }
 
+  getReservs(id: number): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(`${this.urlEndPoint}/${id}/detail`, {headers: this.addAuthorizationHeaders()}).pipe(
+      catchError(e => {
+        this.isNoAuthorized(e)
+        return throwError(() => e)
+      })
+    );
+  }
+
   getAllRecibidas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.get<Reserva[]>(this.urlEndPoint, {headers: this.addAuthorizationHeaders()}).pipe(
       catchError(e => {
         this.isNoAuthorized(e);
         return throwError(()=> e);
@@ -48,7 +55,7 @@ export class ReservaService {
   }
 
   getAllAceptadas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint + '/aceptadas', {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.get<Reserva[]>(this.urlEndPoint + '/aceptadas', {headers: this.addAuthorizationHeaders()}).pipe(
       catchError(e => {
         this.isNoAuthorized(e);
         return throwError(()=> e);
@@ -57,7 +64,7 @@ export class ReservaService {
   }
 
   getAllCanceladas(): Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.urlEndPoint + '/canceladas', {headers: this.addAuthorizationHeader()}).pipe( 
+    return this.http.get<Reserva[]>(this.urlEndPoint + '/canceladas', {headers: this.addAuthorizationHeaders()}).pipe( 
       catchError(e => {
       this.isNoAuthorized(e);
       return throwError(()=> e);
@@ -65,7 +72,7 @@ export class ReservaService {
   }
 
   changeState(estado:string, reserva:Reserva): Observable<any>{
-    return this.http.put<any>(`${this.urlEndPoint}/change-state?estado=${estado}`,reserva, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/change-state?estado=${estado}`,reserva, {headers: this.addAuthorizationHeaders()}).pipe(
       catchError(e => {
         if(this.isNoAuthorized(e)){
           return throwError(() => e);
@@ -77,8 +84,8 @@ export class ReservaService {
   }
 
   createReservationCustomers(reserva: Reserva): Observable<any>{
-    return this.http.post(`${this.urlEndPoint}`, reserva, {headers: this.addAuthorizationHeader()}).pipe(
-      catchError(e => {
+    return this.http.post(`${this.urlEndPoint}`, reserva, {headers: this.addAuthorizationHeaders()}).pipe(
+      catchError((e) => {
         if(this.isNoAuthorized(e)){
           return throwError(() => e);
         }
@@ -91,7 +98,7 @@ export class ReservaService {
         return throwError(() => e)
       })
 
-    )
+    );
 
   }
 }

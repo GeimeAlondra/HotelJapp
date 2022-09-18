@@ -11,54 +11,42 @@ import { Usuario } from './usuario';
 })
 export class LoginComponent implements OnInit {
 
-  title: string = "Iniciar sesión";
-  usuario: Usuario;
-
+  title: string = 'Iniciar Sesión';
+  
+  usuario: Usuario 
+  
   constructor(private authService: AuthService, private router: Router) {
-    this.usuario = new Usuario();
+    this.usuario = new Usuario
   }
-
+  
   ngOnInit(): void {
-
-    if(this.authService.isAuthenticated()){
-      if(this.authService.hasRole('ROLE_ADMIN')){
-        this.router.navigate(['/home']);
-       }else{
-        this.router.navigate(['/registros']);
-       }
-    }
-
+    if (this.authService.isAuthenticated()) this.router.navigate(['/home'])
   }
-
-  login(): void{
-
-    if(this.usuario.username == null || this.usuario.password == null){
-      Swal.fire('Error', 'Debe ingresar un usuario y contraseña', 'error');
-      return;
+  
+  login(): void {
+  
+    if(this.usuario.username == null || this.usuario.password == null) {
+      Swal.fire('Error', 'Username o password vacíos', 'error')
+      return
     }
+    this.authService.login(this.usuario).subscribe(
+      response => {
 
-    this.authService.login(this.usuario).subscribe(response => {
-    this.authService.guardarUsuario(response.access_token);
-    this.authService.guardarToken(response.access_token);
-    let usuario = this.authService.usuario;
+        this.authService.guardarUsuario(response.access_token)
+        this.authService.guardarToken(response.access_token)
+        let usuario = this.authService.usuario
 
-     Swal.fire('Aviso', `Hola ${usuario.username} has iniciado sesión con éxito!!!`, 'success');
-     
-     if(this.authService.hasRole('ROLE_ADMIN')){
-      this.router.navigate(['/home']);
-     }else{
-      this.router.navigate(['/registros']);
-     }
+        Swal.fire('Listo',`Hola ${usuario.username} has iniciado sesión con exito!`,'success')
 
+        if (this.authService.hasRole('ROLE_ADMIN')) {
+          this.router.navigate(['/home'])
+        }
+        else {
+          this.router.navigate(['/registros'])
+        }
       }, err => {
-      if(err.status == 400){
-      Swal.fire('Error', `Acceso denegado, Usuario o clave incorrectos`, 'error');
-    }
-  });
+        if(err.status == 400) Swal.fire('Error','Usuario o contraseña incorrectos','error')
+      }
+    )
   }
-  
-
-
-  
-
-}
+ }

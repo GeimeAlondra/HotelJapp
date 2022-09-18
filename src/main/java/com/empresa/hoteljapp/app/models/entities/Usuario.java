@@ -1,6 +1,7 @@
 package com.empresa.hoteljapp.app.models.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "usuarios", schema = "public", catalog = "db_orders")
@@ -44,6 +48,12 @@ public class Usuario implements Serializable{
 	
 	@Column(name = "email", length = 80, unique = true)
 	private String email;
+	
+	//Relacion de 1:N con Reserva
+			@OneToMany(mappedBy = "usuario", cascade = CascadeType.REFRESH, orphanRemoval = true)
+			@JsonBackReference
+			private List<Reserva> reservas = new ArrayList<>();
+		
 
 	public Long getId() {
 		return id;
@@ -99,6 +109,14 @@ public class Usuario implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 
 	

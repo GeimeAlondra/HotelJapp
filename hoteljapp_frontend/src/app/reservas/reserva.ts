@@ -1,4 +1,5 @@
 import { Cliente } from "../clientes/cliente";
+import { Usuario } from "../usuarios/usuario";
 import { DetalleReserva } from "./detalleReserva";
 
 export class Reserva {
@@ -8,6 +9,6 @@ export class Reserva {
     fecha_salida?: Date;
     total?: number;
     estado?: string;
-    cliente?: Cliente;
+    usuario?: Usuario;
     detalleReserva?: DetalleReserva[];
 }
