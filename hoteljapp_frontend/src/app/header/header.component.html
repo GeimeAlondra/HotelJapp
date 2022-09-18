@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-white bg-danger">
+<nav class="navbar navbar-expand-lg navbar-white bg-black-alpha-10">
     <img src="https://cdn-icons-png.flaticon.com/512/1475/1475996.png" class="logo" height="50"/>
     <div class="container-fluid">
       <a class="navbar-brand text-warning" href="/home">HOTELJAPP</a>
@@ -29,18 +29,18 @@
             <a class="nav-link" routerLink="/reservas" *ngIf="authService.hasRole('ROLE_ADMIN')">Reservas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/registros" *ngIf="authService.hasRole('ROLE_ADMIN')">Registro de reservas</a>
+            <a class="nav-link" routerLink="/registros" *ngIf="authService.hasRole('ROLE_USER')">Registros</a>
           </li>
         </ul>
 
         <ul class="navbar-nav navbar-right">
 
           <li class="nav-item">
-            <a *ngIf="!authService.isAuthenticated()" [routerLink]="['/login']" class="btn btn-outline-primary">Login</a>
+            <a *ngIf="!authService.isAuthenticated()" [routerLink]="['/login']" class="btn btn-outline-primary">Acceder</a>
           </li>
             
           <li>
-            <button (click)="logout()" *ngIf="authService.isAuthenticated()" class="btn btn-primary">
+            <button (click)="logout()" *ngIf="authService.isAuthenticated()" class="btn btn-danger">
               Cerrar sesión
             </button>
           </li>
