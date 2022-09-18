@@ -62,7 +62,7 @@
 </div>
 
 
-<p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '1000px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="detalleReservaDialog" [style]="{width: '850px'}" header="{{title}}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
         <div class="formgrid grid row">
             <div class="field col-6">
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="field">
-            <label for="nombre"><b>Cliente: </b>{{reserva.usuario.nombre}}</label>
+            <label for="nombre"><b>Cliente: </b>{{ reserva.usuario.nombre }}</label>
         </div>
         <div class="formgrid grid row">
             <div class="field col-6">
@@ -95,29 +95,35 @@
 
         <div class="formgrid grid">
             <table class="table table-bordered border-primary">
-                <thead class="border border-primary">
-                    <th>Prestaciones</th>
-                    <th>Precio</th>
-                    <th>Días</th>
-                </thead>
-                <tbody>
-
+              <thead class="border border-primary">
+                <th>Habitacion</th>
+                <th>Precio</th>
+                <th>Dias</th>
+                <th>Subtotal</th>
+              </thead>
+              <tbody>
                 <tr *ngFor="let item of reserva.detalleReserva">
-                    <td>{{item.habitacion.nombre}}, {{item.habitacion.servicio}}</td>
-                    <td>{{item.habitacion.precio | currency: 'USD'}}</td>
-                    <td>{{item.dia}}</td>
-                <tr>
-                    <td colspan="2"><strong>Total de la reserva:</strong></td>
-                    <td><b>{{reserva.total | currency: 'USD'}}</b></td>
+                  <td>{{ item.habitacion.nombre }},{{ item.habitacion.servicio }}</td>
+                  <td>{{ item.habitacion.precio | currency: "USD" }}</td>
+                  <td class="text-center">{{ item.dia }}</td>
+                  <td>
+                    {{ item.dia * item.habitacion.precio | currency: "USD" }}
+                  </td>
                 </tr>
-                </tbody>
+                <tr>
+                  <td colspan="3" class="text-center">Total de la reserva:</td>
+                  <td>
+                    <b>{{ reserva.total | currency: "USD" }}</b>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-        </div>
+          </div>
 
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Cerrar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
     </ng-template>
 
 </p-dialog>
