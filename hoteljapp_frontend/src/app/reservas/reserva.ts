@@ -9,6 +9,6 @@ export class Reserva {
     fecha_salida?: Date;
     total?: number;
     estado?: string;
-    usuario?: Usuario;
+    usuario: Usuario;
     detalleReserva?: DetalleReserva[];
 }
