@@ -48,7 +48,6 @@ public class HabitacionController {
 	@Autowired
 	private IHabitacionService habitacionService;
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/habitaciones/activos")
 	public List<Habitacion> getAllActivos(){
 		return habitacionService.findAllActivos();
@@ -60,7 +59,7 @@ public class HabitacionController {
 		return habitacionService.findAllInactivos();
 	}
 	
-	@Secured({"ROLE_ADMIN"})
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/habitaciones/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Habitacion habitacion = null;

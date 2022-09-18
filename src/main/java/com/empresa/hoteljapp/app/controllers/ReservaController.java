@@ -32,25 +32,25 @@ public class ReservaController {
 	@Autowired
 	private IReservaService reservaService;
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/reservas")
 	public List<Reserva> getAllRecibidas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){
 		return reservaService.findAll(fecha_registro);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/reservas/aceptadas")
 	public List<Reserva> getAllAceptadas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){
 		return reservaService.findAllAceptadas(fecha_registro);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/reservas/canceladas")
 	public List<Reserva> getAllCanceladas(@RequestParam(name = "fecha_registro", required = false) Date fecha_registro){
 		return reservaService.findAllCanceladas(fecha_registro);
 	}
 	
-	@Secured({"ROLE_ADMIN"})
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@GetMapping("/reservas/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Reserva reserva = null;
@@ -68,7 +68,7 @@ public class ReservaController {
 		return new ResponseEntity<Reserva>(reserva,HttpStatus.OK);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ROLE_USER"})
 	@PostMapping("/reservas")
 	public ResponseEntity<?> saveOrUpdate(@RequestBody Reserva reserva){
 		Map<String, Object> response = new HashMap<>();
@@ -83,7 +83,7 @@ public class ReservaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/reservas/change-state")
 	public ResponseEntity<?> changeState(@RequestBody Reserva reserva, @RequestParam(name = "estado") String estado){
 			

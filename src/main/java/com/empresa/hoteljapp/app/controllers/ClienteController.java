@@ -34,13 +34,11 @@ public class ClienteController {
 	@Autowired
 	private IClienteService clienteService;
 	
-	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/clientes")
 	public List<Cliente> getAll(){
 		return clienteService.findAll();
 	}
 	
-	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity <?>getById(@PathVariable Long id) {
 		Cliente cliente = null;
@@ -58,7 +56,6 @@ public class ClienteController {
 		return new ResponseEntity<Cliente>(cliente,HttpStatus.OK);
 	}
 
-	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/clientes")
 	public ResponseEntity<?> save(@Validated @RequestBody Cliente cliente, BindingResult result){
 		//Cliente clienteNew = null;
@@ -87,7 +84,6 @@ public class ClienteController {
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 	
-	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<?> update(@RequestBody Cliente cliente, @PathVariable Long id){
 		Cliente clienteActual = clienteService.findById(id);
@@ -112,7 +108,6 @@ public class ClienteController {
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
 	}
 	
-	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/clientes/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		Map<String, Object> response = new HashMap<>();
