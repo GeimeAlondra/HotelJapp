@@ -11,12 +11,6 @@
             <a class="nav-link active" aria-current="page" routerLink="/home" routerLinkActive="active">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link route" routerLink="/historial" *ngIf="authService.hasRole('ROLE_USER')">Mis reservas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/clientes" *ngIf="authService.hasRole('ROLE_ADMIN')">Clientes</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" routerLink="/tipoHabitaciones" *ngIf="authService.hasRole('ROLE_ADMIN')">Tipos de habitaciones</a>
           </li>
           <li class="nav-item">
@@ -26,10 +20,16 @@
             <a class="nav-link" routerLink="/habitaciones" *ngIf="authService.hasRole('ROLE_ADMIN')">Habitaciones</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLink="/clientes" *ngIf="authService.hasRole('ROLE_ADMIN')">Clientes</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" routerLink="/reservas" *ngIf="authService.hasRole('ROLE_ADMIN')">Reservas</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/registros" *ngIf="authService.hasRole('ROLE_USER')">Registro de reservas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link route" routerLink="/historial" *ngIf="authService.hasRole('ROLE_USER')">Mis reservas</a>
           </li>
         </ul>
       </div>
