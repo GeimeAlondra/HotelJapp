@@ -4,14 +4,9 @@
 <div class="card">
     <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple icon="pi pi-plus-circle" class="p-button-success mr-2 rounded-circle" (click)="openNew()"></button>
+            <button pButton pRipple icon="pi pi-plus-circle" label="Agregar" class="p-button-rounded p button success" (click)="openNew()"></button>
         </ng-template>
-<!--
-        <ng-template pTemplate="right">
-            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload>
-            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
-        </ng-template>
-        !-->
+        
     </p-toolbar>
     <p-table #dt [value]="clientes" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre','telefono','status']" responsiveLayout="scroll"
         
@@ -38,7 +33,7 @@
                 <td>{{cliente.telefono}}</td>
                 <td>
                     
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2" (click)="editProduct(cliente)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(cliente)"></button>
                     &nbsp;&nbsp;
                     <button pButton pRipple icon="pi pi-times-circle" class="p-button-rounded p-button-secondary" (click)="delete(cliente)"></button>
                 
