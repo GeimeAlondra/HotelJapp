@@ -12,6 +12,7 @@ import { HabitacionService } from '../habitaciones/habitacion.service';
 //import { Dialog } from 'primeng/dialog';
 import { Usuario } from '../usuarios/usuario';
 import { AuthService } from '../usuarios/auth.service';
+import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-registros',
@@ -131,6 +132,8 @@ export class RegistrosComponent implements OnInit {
    }
  });
 }
+  reset() {
+  }
 
 
 
