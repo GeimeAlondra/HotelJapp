@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.empresa.hoteljapp.app.models.entities.Piso;
 import com.empresa.hoteljapp.app.service.interfaces.IPisoService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "https://hotel-df635.web.app/")
 @RestController
 @RequestMapping("/api")
 public class PisoController {

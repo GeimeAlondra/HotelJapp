@@ -34,7 +34,7 @@ import com.empresa.hoteljapp.app.models.entities.Habitacion;
 import com.empresa.hoteljapp.app.service.interfaces.IHabitacionService;
 import com.empresa.hoteljapp.app.service.interfaces.IUploadFileService;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "https://hotel-df635.web.app/")
 @RestController
 @RequestMapping("/api")
 
