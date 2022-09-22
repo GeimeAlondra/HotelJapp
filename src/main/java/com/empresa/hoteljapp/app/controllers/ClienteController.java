@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,7 +25,7 @@ import com.empresa.hoteljapp.app.models.entities.Cliente;
 import com.empresa.hoteljapp.app.service.interfaces.IClienteService;
 
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "https://hotel-df635.web.app/")
 @RestController
 @RequestMapping("/api")
 public class ClienteController {
